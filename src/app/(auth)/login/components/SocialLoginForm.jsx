@@ -1,0 +1,116 @@
+"use client";
+
+import { useCart } from "@/contextProviders/useCartContext";
+import { useUserContext } from "@/contextProviders/userContextProvider";
+import useNotification from "@/hooks/useNotification";
+import { Spin } from "antd";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState } from "react";
+import Icons from "../../../../../public/icons";
+
+const SocialLoginForm = () => {
+  const router = useRouter();
+
+  const [isSocialLoading, setIsSocialLoading] = useState({
+    google: false,
+    facebook: false,
+  });
+
+  const { handleUpdateCartInBackend, getCartListForAuthUser, cart } = useCart();
+
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+  const { openSuccessNotification, openErrorNotification } = useNotification();
+  const { googleSingIn, facebookSignIn } = useUserContext();
+
+  // handle Social login
+
+  const handleSocialSignIn = async (signInFunction, platform) => {
+    try {
+      setIsSocialLoading({ ...isSocialLoading, [platform]: true });
+      const res = await signInFunction();
+
+      setIsSocialLoading({ ...isSocialLoading, [platform]: false });
+      openSuccessNotification("success", "Login successfully");
+
+      if (res?.status === 200) {
+        if (cart?.length > 0) {
+          handleUpdateCartInBackend();
+        } else {
+          getCartListForAuthUser();
+        }
+
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/");
+        }
+      }
+    } catch (e) {
+      setIsSocialLoading({ ...isSocialLoading, [platform]: false });
+
+      if (
+        platform === "google" &&
+        e.message !== "Firebase: Error (auth/popup-closed-by-user)."
+      ) {
+        openErrorNotification("error", e?.message);
+      }
+    }
+  };
+
+  const handleGoogleSignIn = () => handleSocialSignIn(googleSingIn, "google");
+  const handleFaceBookSignIn = () =>
+    handleSocialSignIn(facebookSignIn, "facebook");
+
+  const loginWithSocialMedia = [
+    {
+      title: "google",
+      icon: Icons.googleIcon,
+      isLoading: isSocialLoading.google,
+    },
+    // { title: "apple", icon: Icons.apple },
+    {
+      title: "facebook",
+      icon: Icons.facebookIcon,
+      isLoading: isSocialLoading.facebook,
+    },
+  ];
+
+  return (
+    <div className="w-full">
+      <div className="flex flex-row gap-4 justify-between w-full">
+        {loginWithSocialMedia.map((ele, id) => {
+          const handleSocialMediaLogin = () => {
+            if (ele.title === "google") {
+              handleGoogleSignIn();
+            } else if (ele.title === "facebook") {
+              handleFaceBookSignIn();
+            }
+          };
+
+          return (
+            <button
+              key={id}
+              disabled={ele.isLoading}
+              className="rounded-sms w-full h-[48px] flex items-center justify-center gap-3 bg-[#EBEDF0] cursor-pointer"
+              onClick={handleSocialMediaLogin}
+            >
+              <Spin spinning={ele.isLoading} size="small" />
+              <Image
+                alt={ele.title}
+                src={ele.icon}
+                height={1000}
+                width={1000}
+                quality={100}
+                className="w-5 h-5"
+              />
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default SocialLoginForm;

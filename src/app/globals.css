@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
+
+/* Light mode variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ebedf0;
+  --foreground: #2a2a2a;
+
+  /* Colors from old Tailwind config */
+  --color-primary: #2a2a2a;
+  --color-secondary: #fafbfb;
+  --color-background: #ebedf0;
+  --color-border: #ebedf0;
+  --color-border-dark: #2b2e3a;
+  --color-light-font: #f5f5f5;
+  --color-light-font2: #505f79;
+  --color-dark-black: #1a1a1a;
+  --color-light-gray: #6e6e6e;
+  --color-font-color-one: #5a5a5a;
+  --color-font-color-two: #bababa;
+  --color-font-color-red: #ef4444;
+  --color-font-color-three: #4a4a4a;
+
+  /* Fonts */
+  --font-syne: "Syne", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Dark mode overrides */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+/* Map variables to Tailwind theme tokens */
+@theme inline {
+  /* Fonts */
+  --font-syne: var(--font-syne);
+
+  /* Colors */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-background: var(--color-background);
+  --color-border: var(--color-border);
+  --color-border-dark: var(--color-border-dark);
+  --color-light-font: var(--color-light-font);
+  --color-light-font2: var(--color-light-font2);
+  --color-dark-black: var(--color-dark-black);
+  --color-light-gray: var(--color-light-gray);
+  --color-font-color-one: var(--color-font-color-one);
+  --color-font-color-two: var(--color-font-color-two);
+  --color-font-color-red: var(--color-font-color-red);
+  --color-font-color-three: var(--color-font-color-three);
+
+  /* Default text color */
+  --color-text: #ff4455;
+
+  /* Container breakpoints */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1500px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-syne), Helvetica, sans-serif;
+}
+
+/* Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Ant Design Overrides */
+.ant-badge .ant-badge-count {
+  position: absolute !important;
+  top: -5px !important;
+  background-color: #f5f5f5 !important;
+  color: #2a2a2a !important;
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 5px 0 !important;
+}
+
+.ant-collapse.ant-collapse-icon-position-end
+  > .ant-collapse-item
+  > .ant-collapse-header
+  .ant-collapse-expand-icon {
+  padding: 0 10px 0 0 !important;
+}
+
+.ant-collapse-ghost
+  > .ant-collapse-item
+  > .ant-collapse-content
+  > .ant-collapse-content-box {
+  padding: 0 !important;
+}
+
+.ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  display: none !important;
+}
+
+.ant-form-item-explain-error {
+  margin: 5px 0 !important;
+}
+
+@-webkit-keyframes autofill {
+  0%, 100% {
+    color: #666;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-delay: 1s;
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+  -webkit-background-clip: text !important;
+}
+
+.ant-menu {
+  background-color: #fff !important;
+}
+
+.search-field {
+  width: 400px !important;
+}
+
+.ant-drawer-footer {
+  border: none !important;
+}
+
+.ant-divider-horizontal {
+  border-block-start: #e9e9e9 !important;
+}
+
+.ant-rate-star-full {
+  color: #f08200 !important;
+}
+
+.ant-rate-star:not(.ant-rate-star-full) .anticon {
+  color: #d3d3d3 !important;
+}
+
+.ant-rate {
+  font-size: 16px;
 }
