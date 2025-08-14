@@ -37,7 +37,7 @@ const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
           <h1 className="text-neutral-700 text-base md:text-xl font-semibold leading-[21px] md:leading-[31.25px]">
             Verify your Email Address
           </h1>
-          <p className="text-light_font2 text-sm font-normal leading-[21px] whitespace-normal md:whitespace-nowrap">
+          <p className="text-light-font2 text-sm font-normal leading-[21px] whitespace-normal md:whitespace-nowrap">
             We just sent a verification code to
             <span className="text-primary text-xs font-semibold">
               &nbsp;"{verifyShortForm}"

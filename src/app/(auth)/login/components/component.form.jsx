@@ -191,7 +191,7 @@ const SignIn = () => {
           <SocialLoginForm />
 
           <div className="flex flex-col gap-4 mt-9 w-full">
-            <p className="text-center text-sm text-light_font2">
+            <p className="text-center text-sm text-light-font2">
               Don’t have an account?{" "}
               <Link
                 href="/sign-up"
@@ -216,7 +216,7 @@ const SignIn = () => {
               className={"w-full border-none py-0 text-center cursor-pointer"}
               onClick={handleGoToCheckoutPage}
             >
-              <Typography.BodyText color="text-light_font2" className={"py-0"}>
+              <Typography.BodyText color="text-light-font2" className={"py-0"}>
                 Continue as a guest
               </Typography.BodyText>
             </p>

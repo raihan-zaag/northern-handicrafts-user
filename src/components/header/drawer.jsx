@@ -109,11 +109,11 @@ const HeaderDrawer = ({ open, setOpen }) => {
             ))
           ) : (
             <div className="flex flex-col">
-              <p className="text-base leading-5 text-dark_black font-medium p-0 m-0">
+              <p className="text-base leading-5 text-dark-black font-medium p-0 m-0">
                 OPTILUXE EYEWEAR
               </p>
 
-              <p className="text-dark_black text-sm font-light">
+              <p className="text-dark-black text-sm font-light">
                 Elevating your vision
               </p>
             </div>

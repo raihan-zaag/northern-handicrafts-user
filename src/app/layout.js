@@ -1,4 +1,4 @@
-import { Syne } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
@@ -9,13 +9,13 @@ import Footer from "@/components/footer";
 import { theme } from "@/configs/antd.theme";
 import ContextWrapper from "@/contextProviders/contextWrapper";
 
-const syne = Syne({
+const inter = Inter({
     subsets: ["latin"],
     weight: ["400", "700"],
 });
 
 export const metadata = {
-    title: "Optiluxe Eyewear",
+    title: "Northern-Handicrafts",
     description: "Elevating your vision",
     icons: {
         icon: ["/favicon.ico?v=4"],
@@ -27,11 +27,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={`${syne.className} antialiased`}>
+            <body className={`${inter.className} antialiased`}>
                 <AntdRegistry>
                     <ConfigProvider theme={theme}>
                         <ContextWrapper>
-                            <HeaderComponent />
+                            {/* <HeaderComponent /> */}
                             {children}
                             <Footer />
                         </ContextWrapper>

@@ -7,13 +7,13 @@ const TopHeading = () => {
   return (
     <Container classname={"flex flex-col items-center justify-center py-4"}>
       <Link href={"/"}>
-        <Typography.Title3 weight="font-medium" color="dark_black" leading="10">
+        <Typography.Title3 weight="font-medium" color="dark-black" leading="10">
           OPTILUXE EYEWEAR
         </Typography.Title3>
       </Link>
 
       <Link href={"/"}>
-        <Typography.BodyText weight="light" color="dark_black">
+        <Typography.BodyText weight="light" color="dark-black">
           Elevating your vision
         </Typography.BodyText>
       </Link>

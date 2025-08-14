@@ -204,7 +204,7 @@ const SignUpForm = () => {
         </Divider>
 
         {/* <Button type="outline" className={"w-full border-none"}>
-          <Typography.BodyText color="text-light_font2">
+          <Typography.BodyText color="text-light-font2">
             Continue as a guest
           </Typography.BodyText>
         </Button> */}
@@ -212,7 +212,7 @@ const SignUpForm = () => {
           className={"w-full border-none py-0 text-center cursor-pointer"}
           onClick={handleGoToCheckoutPage}
         >
-          <Typography.BodyText color="text-light_font2" className={"py-0"}>
+          <Typography.BodyText color="text-light-font2" className={"py-0"}>
             Continue as a guest
           </Typography.BodyText>
         </div>

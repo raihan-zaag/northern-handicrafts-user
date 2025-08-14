@@ -89,8 +89,8 @@ const HeaderComponent = () => {
     <div className="">
       <TopHeading />
 
-      <div className={"bg-primary text-light_font h-[75px]"}>
-        <Container classname="flex justify-between items-center  text-light_font py-[4px]">
+      <div className={"bg-primary text-light-font h-[75px]"}>
+        <Container classname="flex justify-between items-center  text-light-font py-[4px]">
           {/*Left Item*/}
           <div>
             <div className="hidden lg:flex flex-row justify-start items-center gap-9">

@@ -53,7 +53,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-dark_black text-light_font py-12 mt-[108px]">
+    <footer className="bg-dark-black text-light-font py-12 mt-[108px]">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap- w-full">
           {/* Left Section */}
@@ -190,14 +190,14 @@ const Footer = () => {
                   <input
                     type="email"
                     placeholder="Enter Email"
-                    className="px- py-2 bg-dark_black border-b-2 border-[#2B2E3A] text-light_font w-full sm:w-[350px] "
+                    className="px- py-2 bg-dark-black border-b-2 border-[#2B2E3A] text-light-font w-full sm:w-[350px] "
                     onChange={(e) => {
                       handleChangeEmail(e);
                     }}
                     value={email}
                   />
                   <button
-                    className="px-4 py-4 bg-primary text-light_font rounded-full transition-colors"
+                    className="px-4 py-4 bg-primary text-light-font rounded-full transition-colors"
                     onClick={handleSubscribeNewsletter}
                     disabled={!email}
                   >

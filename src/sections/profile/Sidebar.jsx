@@ -52,7 +52,7 @@ const Sidebar = () => {
               <div
                 className={`flex gap-2 px-5 items-center w-full py-3.5 duration-300 ${
                   pathname?.includes(menu.url)
-                    ? "bg-light_font"
+                    ? "bg-light-font"
                     : "bg-transparent"
                 }
                           }`}
@@ -94,7 +94,7 @@ const Sidebar = () => {
                 <div
                   className={`flex gap-2 px-5 items-center w-full py-3.5 duration-300 ${
                     pathname?.includes(menu.url)
-                      ? "bg-light_font"
+                      ? "bg-light-font"
                       : "bg-transparent"
                   }
                                     }`}
