@@ -49,7 +49,7 @@ const OrderFailed = ({ params }) => {
     };
 
     return (
-        <Container classname={"flex flex-col items-center justify-center"}>
+        <Container className="flex flex-col items-center justify-center">
             <Spin spinning={loading} fullscreen />
 
             <h1 className="text-[24px] text-[#E91C24] font-semibold mb-12">

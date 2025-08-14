@@ -35,15 +35,11 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white p-4 md:p-0">
+    <div className="flex items-center justify-center min-h-screen  p-4 md:p-0">
       <Spin fullscreen spinning={loading} />
 
       <div className="w-full max-w-[600px] bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border pt-7">
-        {/* Logo */}
-        <div className="flex justify-center mb-6 ">
-          <TopHeading />
-        </div>
-
+        
         <h2 className="text-2xl font-semibold text-left mb-2">Sign Up</h2>
         <p className="text-[#4A4A4A] text-left mb-6 font-light">
           Please fill up the form to sign up!

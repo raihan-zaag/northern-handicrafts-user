@@ -14,7 +14,7 @@ function OrderSuccess() {
   };
 
   return (
-    <Container classname={"flex items-center justify-center"}>
+    <Container className="flex items-center justify-center">
       <div className="flex flex-col items-center gap-3">
         <Image
           src={"/images/success_image.svg"}

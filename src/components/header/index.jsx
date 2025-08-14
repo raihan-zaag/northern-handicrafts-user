@@ -8,10 +8,8 @@ import { AiOutlineUser } from "react-icons/ai";
 import { Badge, Divider, Input } from "antd";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import TopHeading from "../common/topHeading";
 import Container from "@/components/common/container";
 import Button from "../common/button";
-import BreadcrumbComponent from "../breadcrumb";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
 import DrawerComponent from "@/sections/cart/drawer";
@@ -87,10 +85,8 @@ const HeaderComponent = () => {
 
   return (
     <div className="">
-      <TopHeading />
-
-      <div className={"bg-primary text-light-font h-[75px]"}>
-        <Container classname="flex justify-between items-center  text-light-font py-[4px]">
+      <div className="bg-primary text-light-font h-[75px]">
+        <Container className="flex justify-between items-center  text-light-font py-[4px]">
           {/*Left Item*/}
           <div>
             <div className="hidden lg:flex flex-row justify-start items-center gap-9">
@@ -124,13 +120,11 @@ const HeaderComponent = () => {
           <div className="flex items-center justify-center gap-[15px] md:gap-[26px] relative">
             {/* className="w-[260px] sm:w-[260px] md:w-[300px]"  */}
             <div
-              className={`absolute right-24 sm:right-32 md:right-[215px] ${
-                isAuthenticated ? "lg:right-[274px]" : "lg:right-56"
-              } top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out ${
-                showSearchInput
+              className={`absolute right-24 sm:right-32 md:right-[215px] ${isAuthenticated ? "lg:right-[274px]" : "lg:right-56"
+                } top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out ${showSearchInput
                   ? "translate-x-0 opacity-100 w-[270%] sm:w-[300px] md:w-[300px]"
                   : "translate-x-full opacity-0 w-0"
-              }`}
+                }`}
             >
               {showSearchInput && (
                 <Input
@@ -225,12 +219,6 @@ const HeaderComponent = () => {
           </div>
         </Container>
       </div>
-
-      {paths === "/" ? null : (
-        <Container classname={"mt-5 mb-2 sm:mb-6 md:mb-8 lg:mb-11"}>
-          <BreadcrumbComponent />
-        </Container>
-      )}
 
       {openCartDrawer && <DrawerComponent />}
 

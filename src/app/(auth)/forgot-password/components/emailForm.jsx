@@ -29,7 +29,7 @@ const ChangeEmailForm = () => {
   return (
     <Container>
       <Spin spinning={loading} fullscreen />
-      <div className="flex items-center justify-center min-h-screen bg-white">
+      <div className="flex items-center justify-center min-h-screen ">
         <div className="w-full max-w-[600px] bg-secondary p-8 rounded border border-border">
           <div className="flex flex-col items-center justify-center border-b border-b-[#8790ab]/[.1] pb-4">
             <Typography.Title2>Reset Password</Typography.Title2>

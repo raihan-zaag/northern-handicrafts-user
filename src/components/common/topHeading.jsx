@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const TopHeading = () => {
   return (
-    <Container classname={"flex flex-col items-center justify-center py-4"}>
+    <Container className="flex flex-col items-center justify-center py-4">
       <Link href={"/"}>
         <Typography.Title3 weight="font-medium" color="dark-black" leading="10">
           OPTILUXE EYEWEAR

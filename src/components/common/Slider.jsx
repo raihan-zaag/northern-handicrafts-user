@@ -92,7 +92,7 @@ const SliderComponent = () => {
     return (
         <div className="w-full my-9">
             {/* Slider Wrapper */}
-            <Container classname={"relative w-full"}>
+            <Container className="relative w-full">
                 {/* Slide */}
                 <div className="relative w-full h-[500px]">
                     <div className="absolute inset-0 z-0">

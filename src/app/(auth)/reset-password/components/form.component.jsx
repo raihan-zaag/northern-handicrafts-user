@@ -17,15 +17,11 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center  bg-white p-4 mb-16">
+    <div className="flex items-center justify-center p-4 mb-16">
       <Spin fullscreen spinning={loading} />
 
       <div className="w-full max-w-[600px] bg-secondary p-8 rounded border border-border">
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <TopHeading />
-        </div>
-
+       
         <h2 className="text-2xl font-semibold text-left mb-2">
           Reset password
         </h2>

@@ -89,15 +89,10 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-scr bg-white my-[30px] md:my-[80px] p-4 md:p-0">
+    <div className="flex items-center justify-center min-h-scr  my-[30px] md:my-[80px] p-4 md:p-0">
       <Spin fullscreen spinning={loading} />
 
       <div className="w-full max-w-[600px] bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border">
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <TopHeading />
-        </div>
-
         <div className="mb-5">
           <h2 className="text-2xl font-semibold text-left mb-2">Sign In</h2>
           <span className="text-[#4A4A4A] text-left mb-6 font-light">
