@@ -8,9 +8,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import Icons from "../../../public/icons";
-import Typography from "@/components/Typography/component.typography";
-import Button from "@/components/common/button";
-import CounterBtn from "@/components/common/counterButton";
+import Typography from "@/components/Typography";
+import Button from "@/components/common/Button";
+import CounterBtn from "@/components/common/CounterButton";
 import { useWishlist } from "@/contextProviders/useWishListProvider";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";

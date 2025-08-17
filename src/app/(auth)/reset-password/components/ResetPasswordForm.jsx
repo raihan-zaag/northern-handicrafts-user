@@ -5,7 +5,7 @@ import { Form, Input, Spin } from "antd";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 
-import TopHeading from "@/components/common/topHeading";
+import TopHeading from "@/components/common/TopHeading";
 import useResetPassword from "@/hooks/auth/useResetPassword";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 

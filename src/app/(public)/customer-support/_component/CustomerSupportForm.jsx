@@ -2,9 +2,9 @@
 
 import React from "react";
 import { Form, Input, InputNumber, Spin } from "antd";
-import Button from "@/components/common/button";
-import InputLabel from "@/components/common/inputLabel";
-import Typography from "@/components/Typography/component.typography";
+import Button from "@/components/common/Button";
+import InputLabel from "@/components/common/InputLabel";
+import Typography from "@/components/Typography";
 import useCreateContactInfo from "@/hooks/contactus/useContactUs";
 
 const CustomerSupportForm = () => {

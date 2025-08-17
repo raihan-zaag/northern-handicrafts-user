@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
-import PrescriptionForm from "@/sections/productDetails/prescriptionForm";
+import PrescriptionForm from "@/sections/productDetails/PrescriptionForm";
 import { Divider, Drawer, Popover } from "antd";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import PriceBreakdown from "@/sections/Checkout/PriceBreakdown";

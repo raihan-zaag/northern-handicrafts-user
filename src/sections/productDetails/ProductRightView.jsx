@@ -3,9 +3,9 @@
 import { Popover, Rate, Spin } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Typography from "@/components/Typography/component.typography";
-import CounterBtn from "@/components/common/counterButton";
-import Button from "@/components/common/button";
+import Typography from "@/components/Typography";
+import CounterBtn from "@/components/common/CounterButton";
+import Button from "@/components/common/Button";
 import PrescriptionModal from "./prescriptionModal";
 import { useCart } from "@/contextProviders/useCartContext";
 import useNotification from "@/hooks/useNotification";

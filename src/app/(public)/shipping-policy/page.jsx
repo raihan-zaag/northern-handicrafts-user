@@ -2,7 +2,7 @@
 
 import { Spin } from "antd";
 import React, { useEffect } from "react";
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import useFetchStaticContent from "@/hooks/staticPageContent/useStaticPageContent";
 
 const ShippingPolicy = () => {

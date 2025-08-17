@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import React from "react";
 import CustomerSupportForm from "./_component/CustomerSupportForm";
 import LeftSideContent from "./_component/LeftSide";

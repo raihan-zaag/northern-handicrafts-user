@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { IMAGE_BASE_URL } from "@/constants/apiUrls";
-import Button from "../common/button";
+import Button from "../common/Button";
 import RatingBtn from "../common/RatingBtn";
 import Icons from "../../../public/icons";
 

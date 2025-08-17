@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/common/button";
-import Container from "@/components/common/container";
+import Button from "@/components/common/Button";
+import Container from "@/components/common/Container";
 import Image from "next/image";
 import React from "react";
 import { redirect, useRouter } from "next/navigation";

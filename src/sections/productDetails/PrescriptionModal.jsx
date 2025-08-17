@@ -8,7 +8,7 @@ import { useUserContext } from "@/contextProviders/userContextProvider";
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
 import useGetPrescriptionList from "@/hooks/prescription/useGetPrescriptionsList";
 import { useRouter } from "next/navigation";
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import useNotification from "@/hooks/useNotification";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";

@@ -4,13 +4,13 @@ import React from "react";
 import { Form, Input, Spin } from "antd";
 import { useRouter } from "next/navigation";
 
-import Container from "@/components/common/container";
-import Button from "@/components/common/button";
-import Typography from "@/components/Typography/component.typography";
+import Container from "@/components/common/Container";
+import Button from "@/components/common/Button";
+import Typography from "@/components/Typography";
 import Image from "next/image";
 import useResendOTP from "@/hooks/auth/useResendOtp";
 import useSendOTP from "@/hooks/auth/useSendResetPasswordOTP";
-import InputLabel from "@/components/common/inputLabel";
+import InputLabel from "@/components/common/InputLabel";
 
 const ChangeEmailForm = () => {
   const router = useRouter();

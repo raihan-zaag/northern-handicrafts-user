@@ -5,7 +5,7 @@ import VerificationInput from "react-verification-input";
 import TimerDisplay from "./TimerDisplay";
 import { Spin } from "antd";
 import { useRouter } from "next/navigation";
-import Button from "../common/button";
+import Button from "../common/Button";
 import Image from "next/image";
 
 const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {

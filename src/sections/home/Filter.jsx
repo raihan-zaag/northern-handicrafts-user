@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Typography from "@/components/Typography/component.typography";
+import Typography from "@/components/Typography";
 import useGetCategories from "@/hooks/categories/useGetCategories";
 import { Checkbox, Collapse, Divider, Menu, Radio, Slider, Spin } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";

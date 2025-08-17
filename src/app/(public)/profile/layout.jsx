@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import Sidebar from "@/sections/profile/Sidebar";
 import React from "react";
 

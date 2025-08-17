@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import SignIn from "./components/component.form";
+import SignIn from "./components/LoginForm";
 
 const LoginPage = () => {
   return (

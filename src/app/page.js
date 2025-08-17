@@ -1,4 +1,4 @@
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import { getProductFilterList } from "@/services/productService";
 import HomePageComponent from "@/sections/home";
 import SliderComponent from "@/components/common/Slider";

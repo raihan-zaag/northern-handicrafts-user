@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import { productDetails } from "@/services/productService";
 import ProductDetailsPage from "@/sections/productDetails";
 import PeopleAlsoLikeProduct from "@/sections/productDetails/PeopleAlsoLikeProduct";

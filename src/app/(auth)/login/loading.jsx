@@ -4,7 +4,7 @@
 import React from "react";
 import { Skeleton, Divider } from "antd";
 
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 
 const SkeletonSignIn = () => {
   return (

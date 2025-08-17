@@ -4,11 +4,11 @@ import { Form, Input, Divider, Spin, InputNumber } from "antd";
 import Link from "next/link";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
-import TopHeading from "@/components/common/topHeading";
-import Typography from "@/components/Typography/component.typography";
-import Button from "@/components/common/button";
+import TopHeading from "@/components/common/TopHeading";
+import Typography from "@/components/Typography";
+import Button from "@/components/common/Button";
 import useSignUp from "@/hooks/auth/useSignup";
-import InputLabel from "@/components/common/inputLabel";
+import InputLabel from "@/components/common/InputLabel";
 import SocialLoginForm from "../../login/components/SocialLoginForm";
 import { useRouter } from "next/navigation";
 

@@ -2,7 +2,7 @@
 
 // import React, { useEffect } from "react";
 // import { Modal, Form, Input, Select, InputNumber } from "antd";
-// import Button from "@/components/common/button";
+// import Button from "@/components/common/Button";
 // import { useRouter } from "next/navigation";
 // import { IoClose } from "react-icons/io5";
 // import useCreateAddress from "@/hooks/address/useCreateAddress";
@@ -255,7 +255,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, Select, InputNumber } from "antd";
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import { IoClose } from "react-icons/io5";
 import statesData from "../../../libs/states.json";

@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import useFetchStaticContent from "@/hooks/staticPageContent/useStaticPageContent";
 import { Spin } from "antd";
 import React, { useEffect } from "react";

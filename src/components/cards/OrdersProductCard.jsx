@@ -7,7 +7,7 @@ import { TiStarFullOutline } from "react-icons/ti";
 import ProductReviewForm from "./ProductReviewForm";
 import { useMakeOrderReview } from "@/hooks/reviews/useMakeProductReview";
 import { _checkIsPrescriptionEmpty } from "@/utils";
-import PrescriptionForm from "@/sections/productDetails/prescriptionForm";
+import PrescriptionForm from "@/sections/productDetails/PrescriptionForm";
 import { IoCloseOutline } from "react-icons/io5";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 

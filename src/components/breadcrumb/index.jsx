@@ -10,7 +10,7 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from "@/components/ui/Breadcrumb";
 import { generateBreadcrumbPath } from "@/utils";
 
 const NextBreadcrumb = () => {

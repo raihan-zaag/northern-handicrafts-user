@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import useGetAddress from "@/hooks/address/useGetUserAddress";
 import { Select } from "antd";
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import AddressModal from "../address/AddressAddModal";
 import useCreateAddress from "@/hooks/address/useCreateAddress";
 

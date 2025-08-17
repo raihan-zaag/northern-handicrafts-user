@@ -1,6 +1,6 @@
 // "use client";
 
-// import TopHeading from "@/components/common/topHeading";
+// import TopHeading from "@/components/common/TopHeading";
 // import useGetGuestUserOrderInfo from "@/hooks/getGuestUserOrderInfo/useGetGuestUserOrderInfo";
 // import LeftSide from "@/sections/TrackOrder/LeftSide";
 // import RightSide from "@/sections/TrackOrder/RightSide";
@@ -88,7 +88,7 @@
 
 "use client";
 
-import TopHeading from "@/components/common/topHeading";
+import TopHeading from "@/components/common/TopHeading";
 import useGetGuestUserOrderInfo from "@/hooks/getGuestUserOrderInfo/useGetGuestUserOrderInfo";
 import LeftSide from "@/sections/TrackOrder/LeftSide";
 import RightSide from "@/sections/TrackOrder/RightSide";

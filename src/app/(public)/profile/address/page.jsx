@@ -1,5 +1,5 @@
 // "use client";
-// import Button from "@/components/common/button";
+// import Button from "@/components/common/Button";
 // import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
 // import RowSkeleton from "@/components/common/RowSkeleton";
 // import PaginationComponent from "@/components/pagination";
@@ -114,7 +114,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
 import RowSkeleton from "@/components/common/RowSkeleton";
 import PaginationComponent from "@/components/pagination";

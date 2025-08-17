@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Button from "@/components/common/button";
-import Container from "@/components/common/container";
+import Button from "@/components/common/Button";
+import Container from "@/components/common/Container";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

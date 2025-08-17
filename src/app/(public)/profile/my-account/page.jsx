@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import ImageUploader from "@/components/common/ImageUploader";
 import ProfileSkeleton from "@/components/common/ProfileSkeleton";
 import { useUserContext } from "@/contextProviders/userContextProvider";

@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
 import React, { useEffect, useState } from "react";
 import PrescriptionModal from "./_components/prescriptionModal";

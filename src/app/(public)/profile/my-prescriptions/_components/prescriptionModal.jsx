@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, Spin, Select, Checkbox } from "antd";
-import Button from "@/components/common/button";
+import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
-import InputLabel from "@/components/common/inputLabel";
+import InputLabel from "@/components/common/InputLabel";
 import useGetPrescription from "@/hooks/prescription/useGetPrescription";
-import Typography from "@/components/Typography/component.typography";
+import Typography from "@/components/Typography";
 
 import useCreatePrescription from "@/hooks/prescription/useCreatePrescription";
 import useGetPrescriptionList from "@/hooks/prescription/useGetPrescriptionsList";

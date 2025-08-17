@@ -11,14 +11,14 @@ import {
   USER_PERMISSION,
   USER_TOKEN,
 } from "@/constants/cookiesKeys";
-import TopHeading from "@/components/common/topHeading";
+import TopHeading from "@/components/common/TopHeading";
 import useNotification from "@/hooks/useNotification";
-import Button from "@/components/common/button";
-import { handleLogin } from "./_action";
+import Button from "@/components/common/Button";
+import { handleLogin } from "./actions";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import InputLabel from "@/components/common/inputLabel";
+import InputLabel from "@/components/common/InputLabel";
 import SocialLoginForm from "./SocialLoginForm";
 
 const SignIn = () => {

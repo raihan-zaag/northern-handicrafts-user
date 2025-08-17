@@ -1,11 +1,11 @@
 "use client";
 
-import Button from "@/components/common/button";
-import Container from "@/components/common/container";
+import Button from "@/components/common/Button";
+import Container from "@/components/common/Container";
 import OrderSummary from "@/components/orderSummary";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
-import SingleCartItemCard from "@/sections/cart/singleCartItemCard";
+import SingleCartItemCard from "@/sections/cart/SingleCartItemCard";
 import { Divider, Input } from "antd";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

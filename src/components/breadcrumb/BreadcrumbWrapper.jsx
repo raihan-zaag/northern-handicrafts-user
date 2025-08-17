@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import BreadcrumbComponent from "./index";
 import { cn } from "@/utils";
 

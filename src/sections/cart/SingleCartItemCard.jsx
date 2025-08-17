@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import CounterBtn from "@/components/common/counterButton";
+import CounterBtn from "@/components/common/CounterButton";
 import { useCart } from "@/contextProviders/useCartContext";
 import { IoAddOutline } from "react-icons/io5";
 import PrescriptionModal from "../productDetails/prescriptionModal";

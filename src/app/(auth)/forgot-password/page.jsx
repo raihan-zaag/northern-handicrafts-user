@@ -1,7 +1,7 @@
 "use client ";
 
 import React from "react";
-import ChangeEmailForm from "./components/emailForm";
+import ChangeEmailForm from "./components/EmailForm";
 
 const ForgetPassword = () => {
   return (

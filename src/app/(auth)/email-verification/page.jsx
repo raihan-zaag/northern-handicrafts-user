@@ -3,7 +3,7 @@
 import React from "react";
 import { getCookie } from "cookies-next";
 
-import Container from "@/components/common/container";
+import Container from "@/components/common/Container";
 import VerificationForm from "@/components/verificationForm";
 import { VERIFY_EMAIL } from "@/constants/cookiesKeys";
 import useVerifyEmail from "@/hooks/auth/useVerifyEmail";
