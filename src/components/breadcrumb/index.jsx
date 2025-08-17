@@ -1,20 +1,22 @@
-// export default NextBreadcrumb;
-
 "use client";
 
+import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Breadcrumb } from "antd";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { generateBreadcrumbPath } from "@/utils";
 
 const NextBreadcrumb = () => {
   const paths = usePathname();
   const pathNames = paths.split("/").filter((path) => path);
-
-  // To Uppercase the Breadcrumb item
   const toPascalCase = (string) => (string ? string : "");
-
-  // Breadcrumb item array
   const breadcrumbPath = () => {
     const removeQuestionMark = paths.replace(/\?/g, "/");
     const removeEquals = removeQuestionMark.replace(/\=/g, "/");
@@ -23,166 +25,73 @@ const NextBreadcrumb = () => {
     return pathToPascalCase.split("/").slice(1);
   };
 
-  const isHomePage = paths === "/"; // Check if the user is on the home page
+  const isHomePage = paths === "/";
 
   return (
-    <Breadcrumb separator={isHomePage ? "" : "/"}>
-      <Breadcrumb.Item separator={false}>
-        <Link
-          href={"/"}
-          className={
-            paths === "/"
-              ? "text-[#7A8699] font-bold"
-              : "text-[#7A8699] font-medium"
-          }
-          style={{
-            color: "#7A8699",
-            fontWeight: "500",
-          }}
-        >
-          Home
-        </Link>
-      </Breadcrumb.Item>
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link
+              href={"/"}
+              style={{
+                color: paths === "/" ? "#2A2A2A" : "#7A8699",
+                fontWeight: paths === "/" ? "600" : "500",
+              }}
+            >
+              Home
+            </Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
 
-      {breadcrumbPath().map((route, index) => {
-        const isLastItem = breadcrumbPath()?.length - 1 === index;
-        // console.log(breadcrumbPath()?.length - 1, index, route, isLastItem);
-        // console.log(
-        //   `${
-        //     route === "profile"
-        //       ? "/profile/my-account"
-        //       : breadcrumbPath().includes("profile")
-        //       ? route.includes("track-order")
-        //         ? "/profile/my-orders/track-order" // Ensure it always links to the track-order base URL
-        //         : `/profile/${route}`
-        //       : `${generateBreadcrumbPath(breadcrumbPath(), index)}`
-        //   }`
-        // );
+        {!isHomePage && breadcrumbPath().length > 0 && <BreadcrumbSeparator />}
 
-        const href = `${
-          route === "profile"
+        {breadcrumbPath().map((route, index) => {
+          const isLastItem = breadcrumbPath()?.length - 1 === index;
+
+          const href = `${route === "profile"
             ? "/profile/my-account"
             : breadcrumbPath().includes("profile")
-            ? route.includes("track-order")
-              ? "/profile/my-orders/track-order" // Ensure it always links to the track-order base URL
-              : `/profile/${route}`
-            : `${generateBreadcrumbPath(breadcrumbPath(), index)}`
-        }`;
+              ? route.includes("track-order")
+                ? "/profile/my-orders/track-order" // Ensure it always links to the track-order base URL
+                : `/profile/${route}`
+              : `${generateBreadcrumbPath(breadcrumbPath(), index)}`
+            }`;
 
-        return (
-          <Breadcrumb.Item
-            key={index}
-            className={`capitalize`}
-            separator={isHomePage && index === 0 ? "" : "/"}
-          >
-            {/* <Link
-              href={`${
-                route === "profile"
-                  ? "/profile/my-account"
-                  : breadcrumbPath().includes("profile")
-                  ? `/profile/${route}`
-                  : `${generateBreadcrumbPath(breadcrumbPath(), index)}`
-              }`}
-              style={{
-                color: isLastItem ? "#2A2A2A" : "#7A8699",
-                fontWeight: "600",
-              }}
-              // className={`${
-              //   isLastItem
-              //     ? "text-[#7A8699] font-bold"
-              //     : "text-[#7A8699] font-medium"
-              // }`}
-            >
-              {route}
-            </Link> */}
-
-            {/* for last item href is not working. */}
-            {isLastItem ? (
-              <span
-                style={{
-                  color: "#2A2A2A",
-                  fontWeight: "600",
-                  cursor: "default",
-                }}
-              >
-                {route}
-              </span>
-            ) : (
-              <Link
-                href={href}
-                style={{
-                  color: "#7A8699",
-                  fontWeight: "600",
-                }}
-              >
-                {route}
-              </Link>
-            )}
-          </Breadcrumb.Item>
-        );
-      })}
+          return (
+            <React.Fragment key={index}>
+              <BreadcrumbItem className="capitalize">
+                {isLastItem ? (
+                  <BreadcrumbPage
+                    style={{
+                      color: "#2A2A2A",
+                      fontWeight: "600",
+                      cursor: "default",
+                    }}
+                  >
+                    {route}
+                  </BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link
+                      href={href}
+                      style={{
+                        color: "#7A8699",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {route}
+                    </Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+              {!isLastItem && <BreadcrumbSeparator />}
+            </React.Fragment>
+          );
+        })}
+      </BreadcrumbList>
     </Breadcrumb>
   );
 };
 
 export default NextBreadcrumb;
-
-// previous one
-// "use client";
-
-// import { usePathname } from "next/navigation";
-// import Link from "next/link";
-// import { Breadcrumb } from "antd";
-// import { generateBreadcrumbPath } from "@/utils";
-
-// const NextBreadcrumb = () => {
-//   const paths = usePathname();
-//   const pathNames = paths.split("/").filter((path) => path);
-
-//   // To Uppercase the Breadcrumb item
-//   const toPascalCase = (string) => (string ? string : "");
-
-//   // Breadcrumb item array
-//   const breadcrumbPath = () => {
-//     const removeQuestionMark = paths.replace(/\?/g, "/");
-//     const removeEquals = removeQuestionMark.replace(/\=/g, "/");
-//     const pathToPascalCase = toPascalCase(removeEquals);
-
-//     return pathToPascalCase.split("/").slice(1);
-//   };
-
-//   return (
-//     <Breadcrumb>
-//       <Breadcrumb.Item separator={null}>
-//         <Link href={"/"} className={paths === "/" ? "text-black" : ""}>
-//           Home
-//         </Link>
-//       </Breadcrumb.Item>
-//       {breadcrumbPath().map((route, index) => (
-//         <Breadcrumb.Item
-//           key={index}
-//           className={`capitalize ${
-//             breadcrumbPath()?.length - 1 === index ? "text-primary" : ""
-//           }`}
-//           // separator={index === 0 ? "" : "/"}
-//           separator={null}
-//         >
-//           <Link
-//             href={`${
-//               route === "profile"
-//                 ? "/profile/my-account"
-//                 : breadcrumbPath().includes("profile")
-//                 ? `/profile/${route}`
-//                 : `${generateBreadcrumbPath(breadcrumbPath(), index)}`
-//             }`}
-//             className={
-//               breadcrumbPath()?.length - 1 === index ? "text-primary" : ""
-//             }
-//           >
-//             {route}
-//           </Link>
-//         </Breadcrumb.Item>
-//       ))}
-//     </Breadcrumb>
-//   );
-// };

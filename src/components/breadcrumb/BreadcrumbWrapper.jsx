@@ -22,7 +22,7 @@ const BreadcrumbWrapper = ({
     }
 
     return (
-        <div className={cn("bg-white mt-5 mb-2 sm:mb-6 md:mb-8 lg:mb-11", className)}>
+        <div className={cn("bg-white py-5", className)}>
             <Container className={className}>
                 <BreadcrumbComponent />
             </Container>

@@ -1,23 +1,21 @@
 import React from "react";
-import Container from "./container";
-import Typography from "../Typography/component.typography";
 import Link from "next/link";
+import Image from "next/image";
 
 const TopHeading = () => {
   return (
-    <Container className="flex flex-col items-center justify-center py-4">
-      <Link href={"/"}>
-        <Typography.Title3 weight="font-medium" color="dark-black" leading="10">
-          OPTILUXE EYEWEAR
-        </Typography.Title3>
+    <div className="container mx-auto h-full flex items-center justify-center py-4">
+      <Link href="/">
+        <Image
+          src="/logo/brand_logo.png"
+          alt="Brand Logo"
+          width={200}
+          height={80}
+          className="hover:opacity-80 transition-opacity"
+          priority
+        />
       </Link>
-
-      <Link href={"/"}>
-        <Typography.BodyText weight="light" color="dark-black">
-          Elevating your vision
-        </Typography.BodyText>
-      </Link>
-    </Container>
+    </div>
   );
 };
 

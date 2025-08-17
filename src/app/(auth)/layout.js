@@ -3,7 +3,7 @@ import TopHeading from "@/components/common/topHeading";
 export default function AuthLayout({ children }) {
     return (
         <>
-            {/* <TopHeading /> */}
+            <TopHeading />
             <BreadcrumbWrapper />
             {children}
         </>

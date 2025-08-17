@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import SignIn from "./components/component.form";
 
 const LoginPage = () => {
   return (
-    <div>
+    <Fragment>
       <SignIn />
-    </div>
+    </Fragment>
   );
 };
 

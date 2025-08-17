@@ -11,7 +11,6 @@ import {
   USER_PERMISSION,
   USER_TOKEN,
 } from "@/constants/cookiesKeys";
-import Typography from "@/components/Typography/component.typography";
 import TopHeading from "@/components/common/topHeading";
 import useNotification from "@/hooks/useNotification";
 import Button from "@/components/common/button";
@@ -171,18 +170,16 @@ const SignIn = () => {
         </Form>
 
         <div className="flex flex-col items-center justify-center gap-2">
-          <Divider
-            style={{
-              margin: "10px 0px",
-              padding: 0,
-              color: "#000",
-              // backgroundColor: "#fff",
-            }}
-          >
-            <Typography.SmallText>Or</Typography.SmallText>
-          </Divider>
-
-          {/* Social login  */}
+            <Divider
+              style={{
+                margin: "0px 0px",
+                padding: 0,
+                color: "#000",
+                // backgroundColor: "#fff",
+              }}
+            >
+              <p className="text-xs font-normal text-gray-600 leading-tight">Or</p>
+            </Divider>          {/* Social login  */}
           <SocialLoginForm />
 
           <div className="flex flex-col gap-4 mt-9 w-full">
@@ -196,24 +193,22 @@ const SignIn = () => {
               </Link>
             </p>
 
-            <Divider
-              style={{
-                margin: "0px 0px",
-                padding: 0,
-                color: "#000",
-                // backgroundColor: "#fff",
-              }}
-            >
-              <Typography.SmallText>Or</Typography.SmallText>
-            </Divider>
-
-            <p
+          <Divider
+            style={{
+              margin: "0px 0px",
+              padding: 0,
+              color: "#000",
+              // backgroundColor: "#fff",
+            }}
+          >
+            <p className="text-xs font-normal text-gray-600 leading-tight">Or</p>
+          </Divider>            <p
               className={"w-full border-none py-0 text-center cursor-pointer"}
               onClick={handleGoToCheckoutPage}
             >
-              <Typography.BodyText color="text-light-font2" className={"py-0"}>
+              <p className="text-xs sm:text-sm md:text-base font-normal text-light-font2 leading-none py-0">
                 Continue as a guest
-              </Typography.BodyText>
+              </p>
             </p>
           </div>
         </div>

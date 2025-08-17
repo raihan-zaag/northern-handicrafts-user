@@ -1,6 +1,10 @@
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}
+
 export function generateBreadcrumbPath(routes, index) {
     if (routes[index] === "product-details") return "/" + routes.join("/");
     return "/" + routes.slice(0, index + 1).join("/");
@@ -131,12 +135,4 @@ export function formatNumber(price) {
 
     // return parseInt(price * 100) / 100
     return Math.round(price * 100) / 100;
-}
-
-
-
-
-
-export function cn(...inputs) {
-  return twMerge(clsx(inputs))
 }
