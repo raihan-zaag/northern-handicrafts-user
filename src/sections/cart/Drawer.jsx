@@ -5,11 +5,11 @@ import Button from "@/components/common/Button";
 import { Divider, Drawer } from "antd";
 import { MdClose } from "react-icons/md";
 import { useCart } from "@/contextProviders/useCartContext";
-import SingleCartItemCard from "./singleCartItemCard";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useNotification from "@/hooks/useNotification";
 import { formatNumber } from "@/utils";
+import SingleCartItemCard from "./SingleCartItemCard";
 
 const DrawerComponent = () => {
   const router = useRouter();

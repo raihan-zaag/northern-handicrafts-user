@@ -9,8 +9,8 @@ const TopHeading = () => {
         <Image
           src="/logo/brand_logo.png"
           alt="Brand Logo"
-          width={200}
-          height={80}
+          width={100}
+          height={54}
           className="hover:opacity-80 transition-opacity"
           priority
         />

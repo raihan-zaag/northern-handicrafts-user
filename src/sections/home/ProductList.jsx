@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import SingleProduct from "./singleProduct";
+import SingleProduct from "./SingleProduct";
 import { useRouter } from "next/navigation";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import { Spin } from "antd";

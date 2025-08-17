@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Container from "../common/container";
 import { MdArrowOutward } from "react-icons/md";
 import Image from "next/image";
 import { useUserContext } from "@/contextProviders/userContextProvider";
@@ -9,6 +8,7 @@ import useNotification from "@/hooks/useNotification";
 import useCreateNewsletter from "@/hooks/newsletter/useCreateNewsletter";
 import Link from "next/link";
 import useGetCategories from "@/hooks/categories/useGetCategories";
+import Container from "../common/Container";
 
 const Footer = () => {
   const [email, setEamil] = useState("");

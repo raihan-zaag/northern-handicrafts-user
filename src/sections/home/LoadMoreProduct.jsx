@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import ProductList from "./productList";
+import ProductList from "./ProductList";
 import { getProductFilterList } from "@/services/productService";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductCardSkeleton from "@/skeleton/ProductCardSkeleton";
 import { MdFilterAlt } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { Drawer } from "antd";
-import Filter from "./filter";
+import Filter from "./Filter";
 import { CgClose } from "react-icons/cg";
 
 const LoadMoreProduct = ({

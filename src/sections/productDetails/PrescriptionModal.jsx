@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { Divider, Drawer, Select, Spin } from "antd";
-import PrescriptionForm from "./prescriptionForm";
 import { IoCloseOutline } from "react-icons/io5";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
@@ -12,6 +11,7 @@ import Button from "@/components/common/Button";
 import useNotification from "@/hooks/useNotification";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
+import PrescriptionForm from "./PrescriptionForm";
 
 const PrescriptionModal = ({
   open,

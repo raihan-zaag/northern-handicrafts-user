@@ -15,9 +15,9 @@ import { useCart } from "@/contextProviders/useCartContext";
 import DrawerComponent from "@/sections/cart/Drawer";
 import { debounce } from "@/utils";
 import useGetCategories from "@/hooks/categories/useGetCategories";
-import HeaderDrawer from "./drawer";
 import { IMAGE_BASE_URL } from "@/constants/apiUrls";
 import Icons from "../../../public/icons";
+import HeaderDrawer from "./Drawer";
 
 const HeaderComponent = () => {
   const router = useRouter();

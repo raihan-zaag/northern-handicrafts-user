@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Container from "./container";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import useGetBanner from "@/hooks/banner/useGerBanner";
 import Link from "next/link";
 import Image from "next/image";
+import Container from "./Container";
 
 const SliderComponent = () => {
     // State to track the current slide index

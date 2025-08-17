@@ -5,7 +5,6 @@ import Image from "next/image";
 import CounterBtn from "@/components/common/CounterButton";
 import { useCart } from "@/contextProviders/useCartContext";
 import { IoAddOutline } from "react-icons/io5";
-import PrescriptionModal from "../productDetails/prescriptionModal";
 import useNotification from "@/hooks/useNotification";
 import PriceBreakdown from "../Checkout/PriceBreakdown";
 import { Popover, Spin } from "antd";
@@ -16,6 +15,7 @@ import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductPro
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import Icons from "../../../public/icons";
+import PrescriptionModal from "../productDetails/PrescriptionModal";
 
 function SingleCartItemCard({
   cartInfo,

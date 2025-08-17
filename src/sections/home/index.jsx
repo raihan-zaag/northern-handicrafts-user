@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Filter from "./filter";
-import LoadMoreProduct from "./loadMoreProduct";
+import LoadMoreProduct from "./LoadMoreProduct";
 import { Spin } from "antd";
+import Filter from "./Filter";
 
 const HomePageComponent = ({ product, pageSize }) => {
     const [categories, setCategories] = useState([]);
