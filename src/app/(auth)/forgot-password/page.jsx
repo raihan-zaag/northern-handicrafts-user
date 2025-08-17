@@ -1,12 +1,10 @@
-"use client ";
-
 import React from "react";
-import ChangeEmailForm from "./components/EmailForm";
+import ForgotPasswordForm from "@/auth/components/ForgotPasswordForm";
 
 const ForgetPassword = () => {
   return (
     <div>
-      <ChangeEmailForm />
+      <ForgotPasswordForm />
     </div>
   );
 };

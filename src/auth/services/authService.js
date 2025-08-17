@@ -2,10 +2,10 @@ import { axiosPublic } from "@/configs/axios.publicInstance";
 import { 
   LOGIN_URL, 
   SIGNUP_URL, 
-  RESET_PASSWORD_OTP_URL, 
-  RESET_PASSWORD_URL,
-  VERIFY_EMAIL_URL,
-  RESEND_OTP_URL
+  RESET_PASSWORD_BY_EMAIL as RESET_PASSWORD_OTP_URL, 
+  RESET_PASSWORD,
+  VERIFY_OTP_FOR_SIGNUP_USER as VERIFY_EMAIL_URL,
+  RESEND_OTP_ as RESEND_OTP_URL
 } from "@/constants/apiUrls";
 
 /**
@@ -95,7 +95,7 @@ export const sendResetPasswordOTP = async (email) => {
  */
 export const resetPassword = async (resetData) => {
   try {
-    const response = await axiosPublic.post(RESET_PASSWORD_URL, resetData);
+    const response = await axiosPublic.post(RESET_PASSWORD, resetData);
     return {
       success: true,
       data: response.data,

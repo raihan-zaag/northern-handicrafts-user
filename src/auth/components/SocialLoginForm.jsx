@@ -3,11 +3,11 @@
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useNotification from "@/hooks/useNotification";
-import { Spin } from "antd";
+import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
-import Icons from "../../../../../public/icons";
+import Icons from "../../../public/icons/index.js";
 
 const SocialLoginForm = () => {
   const router = useRouter();
@@ -25,7 +25,6 @@ const SocialLoginForm = () => {
   const { googleSingIn, facebookSignIn } = useUserContext();
 
   // handle Social login
-
   const handleSocialSignIn = async (signInFunction, platform) => {
     try {
       setIsSocialLoading({ ...isSocialLoading, [platform]: true });
@@ -93,10 +92,10 @@ const SocialLoginForm = () => {
             <button
               key={id}
               disabled={ele.isLoading}
-              className="rounded-sms w-full h-[48px] flex items-center justify-center gap-3 bg-[#EBEDF0] cursor-pointer"
+              className="rounded-sms w-full h-[48px] flex items-center justify-center gap-3 bg-[#EBEDF0] cursor-pointer disabled:opacity-50"
               onClick={handleSocialMediaLogin}
             >
-              <Spin spinning={ele.isLoading} size="small" />
+              {ele.isLoading && <Spinner size="sm" />}
               <Image
                 alt={ele.title}
                 src={ele.icon}
