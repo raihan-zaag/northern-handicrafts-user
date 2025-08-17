@@ -3,7 +3,6 @@
 import { useState } from "react";
 import VerificationInput from "react-verification-input";
 import TimerDisplay from "./TimerDisplay";
-import { Spin } from "antd";
 import { useRouter } from "next/navigation";
 import Button from "../common/Button";
 import Image from "next/image";

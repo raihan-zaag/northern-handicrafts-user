@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Spin } from "antd";
 import { getCookie } from "cookies-next";
 
 import { CART_INFO, USER_INFO } from "@/constants/cookiesKeys";
@@ -340,10 +339,6 @@ export const CartProvider = ({ children }) => {
         getCartListForAuthUser,
       }}
     >
-      <Spin
-        spinning={loading || createGuestOrderLoading || prescriptionGetLoading}
-        fullscreen
-      />
       {children}
     </CartContext.Provider>
   );

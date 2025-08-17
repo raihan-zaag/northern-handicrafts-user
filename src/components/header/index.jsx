@@ -5,7 +5,6 @@ import Link from "next/link";
 import { PiShoppingCart } from "react-icons/pi";
 import { GoSearch } from "react-icons/go";
 import { AiOutlineUser } from "react-icons/ai";
-import { Badge, Divider, Input } from "antd";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Container from "@/components/common/Container";
@@ -18,6 +17,7 @@ import useGetCategories from "@/hooks/categories/useGetCategories";
 import { IMAGE_BASE_URL } from "@/constants/apiUrls";
 import Icons from "../../../public/icons";
 import HeaderDrawer from "./Drawer";
+import { Input } from "@/components/ui/input";
 
 const HeaderComponent = () => {
   const router = useRouter();
@@ -118,31 +118,21 @@ const HeaderComponent = () => {
 
           {/*Right Item */}
           <div className="flex items-center justify-center gap-[15px] md:gap-[26px] relative">
-            {/* className="w-[260px] sm:w-[260px] md:w-[300px]"  */}
+            {/* Search */}
             <div
-              className={`absolute right-24 sm:right-32 md:right-[215px] ${isAuthenticated ? "lg:right-[274px]" : "lg:right-56"
-                } top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out ${showSearchInput
+              className={`absolute right-24 sm:right-32 md:right-[215px] ${
+                isAuthenticated ? "lg:right-[274px]" : "lg:right-56"
+              } top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out ${
+                showSearchInput
                   ? "translate-x-0 opacity-100 w-[270%] sm:w-[300px] md:w-[300px]"
                   : "translate-x-full opacity-0 w-0"
-                }`}
+              }`}
             >
               {showSearchInput && (
                 <Input
                   onChange={handleInputChange}
                   placeholder="Search..."
-                  // className={`rounded h-[48px] p-4 bg-[#649695] text-sm border-none placeholder:text-white focus:outline-none w-full`}
-                  className="rounded h-[48px] p-4 bg-[#fff] text-sm text-black border-none focus:outline-none w-[100%] md:w-[300px]"
-                  style={{
-                    backgroundColor: "#fff",
-                    color: "#000",
-                    border: "none",
-                    "& ::placeholder": {
-                      color: "#000",
-                    },
-                    width: "100%",
-                    padding: "10px",
-                    fontSize: "16px",
-                  }}
+                  className="rounded h-[48px] p-4 bg-[#fff] text-sm text-black border border-[#DFE2E6] focus:outline-none w-[100%] md:w-[300px]"
                 />
               )}
             </div>
@@ -152,16 +142,7 @@ const HeaderComponent = () => {
                 setShowSearchInput(!showSearchInput);
               }}
             />
-            <Divider
-              orientation="center"
-              type="vertical"
-              style={{
-                margin: 0,
-                padding: 0,
-                color: "#515151",
-                backgroundColor: "#515151",
-              }}
-            />
+            <div className="h-5 w-px bg-[#515151]" />
 
             {isAuthenticated ? (
               <div
@@ -207,15 +188,16 @@ const HeaderComponent = () => {
               </Button>
             )}
 
-            <Badge
-              count={cart?.length || null}
-              size="small"
-              styles={{ marginBottom: "10px" }}
-            >
-              <button onClick={handleToggleCartDrawer}>
+            <div className="relative">
+              {cart?.length ? (
+                <span className="absolute -top-2 -right-2 inline-flex items-center justify-center rounded-full bg-white text-black text-[10px] h-4 min-w-4 px-1">
+                  {cart.length}
+                </span>
+              ) : null}
+              <button onClick={handleToggleCartDrawer} aria-label="Open cart">
                 <PiShoppingCart className="w-5 h-5 text-white" />
               </button>
-            </Badge>
+            </div>
           </div>
         </Container>
       </div>

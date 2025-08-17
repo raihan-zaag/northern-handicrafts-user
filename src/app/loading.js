@@ -1,12 +1,11 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { Flex, Spin } from "antd";
 import React from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 const HomePageLoding = () => {
     return (
-        <Flex align="center" gap="middle">
-            <Spin fullscreen />
-        </Flex>
+        <div className="fixed inset-0 grid place-items-center bg-background/60">
+            <Spinner size="xl" className="text-primary" />
+        </div>
     );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Spin } from "antd";
+import { Spinner } from "@/components/ui/spinner";
 
 import useGetColorList from "@/hooks/color/useGetColorList";
 import useGetPrescription from "@/hooks/prescription/useGetPrescription";
@@ -83,10 +83,10 @@ const PriceBreakdown = ({ cartInfo }) => {
 
   if (sizeLoading || prescriptionLoading || colorLoading) {
     return (
-      <Spin
-        spinning={sizeLoading || prescriptionLoading || colorLoading}
-        fullscreen
-      />
+      <div className="flex items-center gap-2 text-sm text-foreground">
+        <Spinner className="text-primary" />
+        <span>Loading price breakdown...</span>
+      </div>
     );
   }
 

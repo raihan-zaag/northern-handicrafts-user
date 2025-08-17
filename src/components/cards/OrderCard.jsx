@@ -4,7 +4,7 @@ import React from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import useUpdateOrderStatus from "@/hooks/order/useMakeChangeOrderStatus";
-import { Spin } from "antd";
+import { Spinner } from "@/components/ui/spinner";
 
 const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
   const router = useRouter();
@@ -30,8 +30,12 @@ const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
     order?.orderStatus === "ORDER_PLACED";
 
   return (
-    <div className="py-6 border-b border-[#EBEDF0] flex flex-col sm:flex-row items-start justify-between">
-      <Spin spinning={loading} fullscreen />
+    <div className="py-6 border-b border-[#EBEDF0] flex flex-col sm:flex-row items-start justify-between relative">
+      {loading && (
+        <div className="absolute inset-0 grid place-items-center bg-background/40 z-10">
+          <Spinner className="text-primary" />
+        </div>
+      )}
 
       <div className="flex flex-row justify-between sm:justify-start items-start sm:flex-col w-full sm:w-auto">
         <div className="flex flex-col">

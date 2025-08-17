@@ -2,38 +2,47 @@
 "use client";
 
 import React from "react";
-import { Skeleton, Divider } from "antd";
-
-import Container from "@/components/common/Container";
 
 const SkeletonSignIn = () => {
   return (
-    <Container>
-      <div className="flex items-center justify-center min-h-screen bg-white p-4 animate-pulse">
-        <div className="w-full max-w-[600px] bg-gray-200 p-8 rounded border border-gray-300">
-          <div className="h-10 mb-6 bg-gray-300 rounded"></div>
+    <div className="flex items-center justify-center min-h-screen my-[30px] md:my-[80px] p-4 md:p-0">
+      <div className="w-full max-w-[600px] bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border">
+        <div className="mb-5">
+          <div className="h-6 w-40 bg-gray-300 animate-pulse rounded mb-2"></div>
+          <div className="h-4 w-64 bg-gray-200 animate-pulse rounded"></div>
+        </div>
 
-          <div className="h-5 bg-gray-300 rounded w-1/2 mb-2"></div>
-          <div className="h-4 bg-gray-300 rounded w-full mb-6"></div>
+        <div className="space-y-4">
+          <div className="h-4 w-24 bg-gray-200 animate-pulse rounded"></div>
+          <div className="h-12 w-full bg-gray-200 animate-pulse rounded"></div>
+          <div className="h-4 w-24 bg-gray-200 animate-pulse rounded"></div>
+          <div className="h-12 w-full bg-gray-200 animate-pulse rounded"></div>
 
-          <div className="h-10 bg-gray-300 rounded w-full mb-4"></div>
-          <div className="h-10 bg-gray-300 rounded w-full mb-4"></div>
-          <div className="h-10 bg-gray-300 rounded w-full mb-4"></div>
-          <div className="h-10 bg-gray-300 rounded w-full mb-4"></div>
-          <div className="h-10 bg-gray-300 rounded w-full mb-4"></div>
+          <div className="flex items-center justify-between mb-4">
+            <div className="h-4 w-44 bg-gray-200 animate-pulse rounded"></div>
+            <div className="h-4 w-32 bg-gray-200 animate-pulse rounded"></div>
+          </div>
 
-          <div className="h-1 border border-gray-300 w-full mb-4"></div>
+          <div className="h-12 w-full bg-gray-300 animate-pulse rounded mt-5"></div>
 
-          <div className="h-4 w-full mb-6"></div>
+          <div className="flex items-center w-full my-4">
+            <div className="flex-1 h-px bg-gray-200"></div>
+            <span className="px-3 text-xs font-normal text-gray-600">Or</span>
+            <div className="flex-1 h-px bg-gray-200"></div>
+          </div>
 
-          <div className="h-3 border border-gray-300 w-full mb-4"></div>
+          <div className="h-10 w-full bg-gray-200 animate-pulse rounded"></div>
 
-          <Divider orientation="center" />
+          <div className="flex items-center w-full my-4">
+            <div className="flex-1 h-px bg-gray-200"></div>
+            <span className="px-3 text-xs font-normal text-gray-600">Or</span>
+            <div className="flex-1 h-px bg-gray-200"></div>
+          </div>
 
-          <div className="h-10 w-full border-none"></div>
+          <div className="h-4 w-64 bg-gray-200 animate-pulse rounded mx-auto"></div>
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import useResendOTP from "@/hooks/auth/useResendOtp";
 import { VERIFY_EMAIL } from "@/constants/cookiesKeys";
-import { Spin } from "antd";
+import { Spinner } from "@/components/ui/spinner";
 
 const TimerDisplay = () => {
   const [timeRemaining, setTimeRemaining] = useState(180);
@@ -14,7 +14,7 @@ const TimerDisplay = () => {
 
     setCookie("timeRemaining", 180);
     setTimeRemaining(60);
-  }, [setTimeRemaining]);
+  }, [setTimeRemaining, resendOTP, email]);
 
   const memoizedSetCookie = useCallback((name, value) => {
     setCookie(name, value);
@@ -53,7 +53,11 @@ const TimerDisplay = () => {
 
   return (
     <>
-      <Spin fullscreen spinning={loading} />
+      {loading && (
+        <div className="fixed inset-0 grid place-items-center bg-background/60 z-50">
+          <Spinner size="xl" className="text-primary" />
+        </div>
+      )}
 
       {timeRemaining === 0 ? (
         <p

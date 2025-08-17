@@ -1,47 +1,40 @@
 "use client";
 
-import { notification } from "antd";
+// Replaced Ant Design notification with Sonner
+import { toast } from "sonner";
 
 // Custom hook to handle notifications
 const useNotification = () => {
   // Success notification
   const openSuccessNotification = (message, description) => {
-    notification.success({
-      message: message || "Success",
+    toast.success(message || "Success", {
       description: description || "Operation was successful.",
-      placement: "topRight",
-      duration: 3, // Duration in seconds
+      duration: 3000,
     });
   };
 
   // Error notification
   const openErrorNotification = (message, description) => {
-    notification.error({
-      message: message || "Error",
+    toast.error(message || "Error", {
       description: description || "Something went wrong.",
-      placement: "topRight",
-      duration: 4,
+      duration: 4000,
     });
   };
 
   // Info notification
   const openInfoNotification = (message, description) => {
-    notification.info({
-      message: message || "Information",
+    toast.info(message || "Information", {
       description: description || "Here is some information.",
-      placement: "topRight",
-      duration: 4,
+      duration: 4000,
     });
   };
 
   // Warning notification
   const openWarningNotification = (message, description) => {
-    notification.warning({
-      message: message || "Warning",
+    toast.warning?.(message || "Warning", {
       description: description || "This is a warning.",
-      placement: "topRight",
-      duration: 4,
-    });
+      duration: 4000,
+    }) || toast(message || "Warning", { description, duration: 4000 });
   };
 
   return {

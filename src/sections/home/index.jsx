@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import LoadMoreProduct from "./LoadMoreProduct";
-import { Spin } from "antd";
 import Filter from "./Filter";
+import { Spinner } from "@/components/ui/spinner";
 
 const HomePageComponent = ({ product, pageSize }) => {
     const [categories, setCategories] = useState([]);
@@ -16,7 +16,15 @@ const HomePageComponent = ({ product, pageSize }) => {
     };
 
     return (
-        <Spin spinning={isFiltering} tip="Applying filter...">
+        <div className="relative">
+            {isFiltering && (
+                <div className="absolute inset-0 grid place-items-center bg-background/40 z-10">
+                    <div className="flex items-center gap-2 text-sm text-foreground">
+                        <Spinner className="text-primary" />
+                        <span>Applying filter...</span>
+                    </div>
+                </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 w-full">
                 {/* Sidebar - Hidden on smaller screens */}
 
@@ -46,7 +54,7 @@ const HomePageComponent = ({ product, pageSize }) => {
                     />
                 </div>
             </div>
-        </Spin>
+        </div>
     );
 };
 

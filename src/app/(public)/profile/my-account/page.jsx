@@ -4,12 +4,15 @@ import Button from "@/components/common/Button";
 import ImageUploader from "@/components/common/ImageUploader";
 import ProfileSkeleton from "@/components/common/ProfileSkeleton";
 import { useUserContext } from "@/contextProviders/userContextProvider";
-import { Form, Input } from "antd";
 import React, { useEffect } from "react";
 import useProfileUpdate from "@/hooks/auth/useProfileUpdate";
 import { USER_INFO } from "@/constants/cookiesKeys";
 import { setCookie } from "cookies-next";
 import useGetUserProfile from "@/hooks/user/useGetUserInfo";
+
+// import { Form, Input } from "antd";
+
+// TODO: Refactor this page to use shadcn/ui Form and Input components
 
 const AccountPage = () => {
   const [form] = Form.useForm();
@@ -135,7 +138,7 @@ const AccountPage = () => {
                 },
               ]}
             >
-              <Input readOnly={isReadOnly} placeholder="Enter full name" />
+              <Input readOnly={isReadOnly} />
             </Form.Item>
             <Form.Item
               label={
@@ -155,7 +158,7 @@ const AccountPage = () => {
                 },
               ]}
             >
-              <Input readOnly={isReadOnly} placeholder="Enter your email" />
+              <Input readOnly={isReadOnly} />
             </Form.Item>
             <Form.Item
               label={
@@ -167,7 +170,6 @@ const AccountPage = () => {
             >
               <Input
                 readOnly={isReadOnly}
-                placeholder="Enter your phone number"
               />
             </Form.Item>
           </Form>

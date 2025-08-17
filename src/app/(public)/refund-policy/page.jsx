@@ -2,10 +2,10 @@
 
 import Container from "@/components/common/Container";
 import useFetchStaticContent from "@/hooks/staticPageContent/useStaticPageContent";
-import { Spin } from "antd";
 import React, { useEffect } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
-const RefundPolicy = () => {
+const RefundPolicyPage = () => {
   const { fetchData, data, error, loading } = useFetchStaticContent();
 
   useEffect(() => {
@@ -14,9 +14,12 @@ const RefundPolicy = () => {
 
   if (loading) {
     return (
-      <Container>
-        <Spin spinning={loading} fullscreen />
-      </Container>
+      <div className="relative min-h-[200px]">
+        <div className="fixed inset-0 grid place-items-center bg-background/60 z-50">
+          <Spinner size="xl" className="text-primary" />
+        </div>
+        <Container />
+      </div>
     );
   }
 
@@ -36,4 +39,4 @@ const RefundPolicy = () => {
   );
 };
 
-export default RefundPolicy;
+export default RefundPolicyPage;
