@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 import { GET_ORDER_BY_ID_URL } from "@/common/config/constants/apiUrls";
-import useNotification from "../useNotification";
+import { useNotification } from "@/common/hooks";
 
 const useGetGuestUserOrderInfo = () => {
   const [data, setData] = useState(null);

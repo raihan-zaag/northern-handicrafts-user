@@ -1,7 +1,7 @@
 "use client";
 
 import Container from "@/common/components/common/Container";
-import Sidebar from "@/app/(public)/profile/sections/Sidebar";
+import Sidebar from "@/sections/profile/Sidebar";
 import React from "react";
 
 const ProfileLayout = ({ children }) => {

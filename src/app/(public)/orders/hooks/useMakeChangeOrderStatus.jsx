@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { CHANGE_ORDER_STATUS_CHANGE } from "@/common/config/constants/apiUrls";
-import useNotification from "../useNotification";
 import axiosPrivate, { axiosPublic } from "@/common/config/axios.publicInstance";
+import { useNotification } from "@/common/hooks";
 
 const useUpdateOrderStatus = (baseUrl) => {
   const [loading, setLoading] = useState(false);

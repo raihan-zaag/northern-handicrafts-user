@@ -5,7 +5,7 @@ import {
     GET_ONGOING_ORDER_URL,
     GET_ORDER_BY_ID_URL,
 } from "@/common/config/constants/apiUrls";
-import useNotification from "../useNotification";
+import { useNotification } from "@/common/hooks";
 
 const useOrderById = () => {
     const [loading, setLoading] = useState(false);

@@ -1,7 +1,8 @@
 import axiosPrivate from "@/common/config/axios.publicInstance";
 import { DELETE_USER_ADDRESS, DELETE_WISH_LIST_URL } from "@/common/config/constants/apiUrls";
+import { useNotification } from "@/common/hooks";
 import { useState } from "react";
-import useNotification from "../useNotification";
+
 
 const useDeleteAddress = () => {
     const [loading, setLoading] = useState();

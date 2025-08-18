@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { CREATE_WISH_LIST_URL } from "@/common/config/constants/apiUrls";
 import { axiosPrivate } from "@/common/config/axios.publicInstance";
-import useNotification from "../useNotification";
+import useNotification from "@/common/hooks/useNotification";
 
 const useCreateWishlist = () => {
   const [wishlist, setWishlist] = useState([]);

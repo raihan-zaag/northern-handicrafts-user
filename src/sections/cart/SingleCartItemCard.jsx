@@ -1,149 +1,361 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Popover, PopoverContent, PopoverTrigger } from "@/common/components/ui/popover";
+import CounterBtn from "@/components/common/CounterButton";
+import { useCart } from "@/contextProviders/useCartContext";
+import { IoAddOutline } from "react-icons/io5";
+import useNotification from "@/hooks/useNotification";
+import PriceBreakdown from "../Checkout/PriceBreakdown";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { MdOutlineEdit } from "react-icons/md";
+import { formatNumber } from "@/utils";
+import useGetSize from "@/hooks/singleProduct/useGetSizes";
+import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
+import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
+import { useUserContext } from "@/contextProviders/userContextProvider";
+import Icons from "../../../public/icons";
+import PrescriptionModal from "../productDetails/PrescriptionModal";
 
-const SingleCartItemCard = ({
+function SingleCartItemCard({
   cartInfo,
   pageCard = false,
   showButton = true,
-  getUpdateedCalculation = () => {},
-}) => {
+  getUpdateedCalculation,
+}) {
   const [quantity, setQuantity] = useState(cartInfo?.sellQty || 1);
+  const [isPrescriptionModalOpen, setIsPrescriptionModalOpen] = useState(false);
+  const [productPrice, setProductPrice] = useState(cartInfo?.productPrice);
 
-  const formatPrice = (price) => {
-    if (!price) return "0.00";
-    return typeof price === "number" ? price.toFixed(2) : price;
-  };
+  const { openSuccessNotification } = useNotification();
 
-  const handleQuantityChange = (newQuantity) => {
-    if (newQuantity < 1) return;
-    setQuantity(newQuantity);
-    // Here you would typically update the cart
-    if (getUpdateedCalculation) {
-      getUpdateedCalculation();
+  const { loading: sizeLoading, sizeList } = useGetSize();
+
+  const {
+    removeFromCart,
+    updateCartItem,
+    handleGetPriceForSelectedPrescriptions,
+    handleGetOrderCalculateData,
+  } = useCart();
+  const { setSelectedSize } = useSingleCartProduct();
+  const {
+    setIsCreatePrescriptionModal,
+    isCreatePrescriptionModal,
+    handleCreatePrescriptionForAuthUser,
+  } = usePrescription();
+  const { isAuthenticated } = useUserContext();
+
+  const handleCurrentCount = async (val) => {
+    setQuantity(val);
+
+    // lense index price
+    const lense_index_price = sizeList?.find(
+      (size) => size?.value === cartInfo?.prescription?.productSize
+    )?.price;
+
+    // total prescription item price
+    const prescriptionPrice = handleGetPriceForSelectedPrescriptions(
+      cartInfo?.prescription
+    );
+
+    const _price =
+      (cartInfo?.productBasePrice + lense_index_price + prescriptionPrice) *
+      val;
+
+    setProductPrice(_price);
+
+    const _updateData = { productPrice: _price, sellQty: val };
+    await updateCartItem(cartInfo?.uid, _updateData);
+
+    if (pageCard) {
+      await getUpdateedCalculation();
     }
   };
 
   const isPrescriptionEmpty = () => {
-    return !cartInfo?.prescription || Object.keys(cartInfo.prescription).length <= 1;
+    return Object.keys(cartInfo?.prescription).length === 1;
   };
 
-  const PriceBreakdown = ({ cartInfo }) => (
-    <div className="min-w-48 p-3">
-      <h4 className="font-semibold text-sm mb-2">Price Details</h4>
-      <div className="space-y-1 text-xs">
-        <div className="flex justify-between">
-          <span>Base Price:</span>
-          <span>${formatPrice(cartInfo?.productBasePrice)}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Quantity:</span>
-          <span>{cartInfo?.sellQty || 1}</span>
-        </div>
-        <div className="border-t pt-1 mt-1">
-          <div className="flex justify-between font-semibold">
-            <span>Total:</span>
-            <span>${formatPrice(cartInfo?.productPrice)}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const handleOpenClosePrescriptionModal = () => {
+    setSelectedSize(sizeList[0]?.value);
+    setIsPrescriptionModalOpen(!isPrescriptionModalOpen);
+  };
+
+  // Update local states when cartInfo changes
+  useEffect(() => {
+    if (cartInfo) {
+      setQuantity(cartInfo?.sellQty || 1);
+      setProductPrice(cartInfo?.productPrice || 0);
+    }
+  }, [cartInfo]);
+
+  const handleUpdatePrescription = async (prescriptionInfo) => {
+    const lense_index_price =
+      sizeList?.find((size) => size?.value === prescriptionInfo?.productSize)
+        ?.price || 0;
+
+    const prescriptionPrice =
+      handleGetPriceForSelectedPrescriptions(prescriptionInfo);
+
+    const _updateData = {
+      prescription: prescriptionInfo,
+      productPrice: formatNumber(
+        (cartInfo?.productBasePrice + prescriptionPrice + lense_index_price) *
+          quantity
+      ),
+    };
+
+    if (isAuthenticated && isCreatePrescriptionModal) {
+      const prescriptionData = {
+        ...prescriptionInfo,
+        productSize: prescriptionInfo?.productSize,
+      };
+
+      const res = await handleCreatePrescriptionForAuthUser(prescriptionData);
+      if (res?.status === 400) {
+        return;
+      }
+    }
+
+    await updateCartItem(cartInfo?.uid, _updateData);
+
+    if (pageCard) {
+      await handleGetOrderCalculateData("STANDARD");
+      // await handleGetOrderCalculateData("STANDARD");
+    }
+
+    handleOpenClosePrescriptionModal();
+    openSuccessNotification("success", "Product successfully updated.");
+    setIsCreatePrescriptionModal(false);
+    // setOpenCartDrawer(false);
+  };
+
+  // State reset function
+  const handleClosePrescriptionModal = async () => {
+    if (isPrescriptionEmpty()) {
+      handleUpdatePrescription({
+        productSize: cartInfo?.prescription?.productSize,
+      });
+    } else {
+      handleUpdatePrescription(cartInfo?.prescription);
+    }
+
+    setIsCreatePrescriptionModal(false);
+  };
+
+  const handleDeletePrescription = async () => {
+    handleUpdatePrescription({
+      // make 1st size for default lens index
+      // productSize: cartInfo?.prescription?.productSize,
+      productSize: sizeList[0]?.value,
+    });
+
+    if (pageCard) {
+      await handleGetOrderCalculateData("STANDARD");
+    }
+
+    setIsCreatePrescriptionModal(false);
+  };
 
   return (
-    <div className="flex gap-4 items-start border-b border-gray-100 pb-4 mb-4">
-      {/* Product Image */}
-      <Image
-        src={cartInfo?.thumbnailImage || "/images/image_placeholder.png"}
-        alt={cartInfo?.productName || "Product"}
-        height={100}
-        width={100}
-        className={`${
-          pageCard ? "w-[100px] h-[112px]" : "w-[120px] h-[153px]"
-        } object-cover bg-gray-100 rounded`}
-      />
+    <LoadingOverlay isLoading={sizeLoading}>
+      <div className="flex gap-4 items-start ">
+        {/* Image */}
+        <Image
+          src={`${cartInfo?.thumbnailImage}`}
+          alt="product image"
+          height={1000}
+          width={1000}
+          quality={100}
+          className={`${
+            pageCard ? "w-[100px] h-[112px]" : "w-[120px] h-[153px]"
+          }  object-fit bg-[#F6F6F6]`}
+        />
 
-      {/* Product Details */}
-      <div className="flex-1 space-y-2">
+      {/* cart details */}
+      <div className="flex flex-col bg-red flex-1 gap-2">
+        {/* Title and Price */}
         <div>
-          <h3 className="text-sm font-medium text-gray-900 mb-1">
+          <h3 className="text-sm font-medium text-gray-900 mb-0">
             {cartInfo?.productName}
           </h3>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-row items-center  gap-3">
             <p className="text-base font-semibold text-gray-800">
-              ${formatPrice(cartInfo?.productPrice)}
+              ${formatNumber(productPrice)}
             </p>
-            
             <Popover>
               <PopoverTrigger asChild>
-                <button className="text-xs text-blue-500 underline">
+                <p className="underline font-medium text-[10px] sm:text-xs cursor-pointer block md:block">
                   Price Breakdown
-                </button>
+                </p>
               </PopoverTrigger>
-              <PopoverContent>
+              <PopoverContent className="w-80">
                 <PriceBreakdown cartInfo={cartInfo} />
               </PopoverContent>
             </Popover>
           </div>
         </div>
 
-        {/* Product Attributes */}
-        <div className="flex items-center gap-2 flex-wrap">
-          {cartInfo?.productColor && (
-            <div className="bg-gray-100 px-2 py-1 text-xs rounded border">
-              Color: <span className="font-medium">{cartInfo.productColor}</span>
+        {/* Attributes */}
+        <div className="flex items-center gap-2">
+          {cartInfo?.productColorId && (
+            <div className="bg-[#F7F8FA] px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
+              Color :
+              <span className={`font-medium `}>{cartInfo?.productColor}</span>
             </div>
           )}
-          {cartInfo?.prescription?.productSize && (
-            <div className="bg-gray-100 px-2 py-1 text-xs rounded border">
-              Lens Index: <span className="font-medium">{cartInfo.prescription.productSize}</span>
-            </div>
-          )}
+          <div className="bg-[#F7F8FA] px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
+            Lens Index :{" "}
+            <span className="font-medium">
+              {cartInfo?.prescription?.productSize}
+            </span>
+          </div>
         </div>
 
-        {/* Prescription Info */}
-        <div>
-          {isPrescriptionEmpty() ? (
-            <button className="text-gray-500 text-sm">
-              No Prescription
+        {pageCard && showButton ? (
+          <div>
+            <div className="block md:hidden">
+              <CounterBtn
+                maxLimit={Number(cartInfo?.totalQuantity)}
+                handleCurrentCount={handleCurrentCount}
+                disabled={false}
+                current={quantity}
+                isCart={true}
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {/* Quantity Control */}
+        {!pageCard && showButton ? (
+          <CounterBtn
+            maxLimit={cartInfo?.totalQuantity}
+            handleCurrentCount={handleCurrentCount}
+            disabled={false}
+            current={quantity}
+            isCart={true}
+          />
+        ) : null}
+
+        {isPrescriptionEmpty() ? (
+          <div className="">
+            <button
+              className="text-blue-500 text-sm font-medium flex items-center gap-1 "
+              onClick={handleOpenClosePrescriptionModal}
+            >
+              <span>
+                <IoAddOutline className="h-5 w-5 text-blue-500" />
+              </span>
+              Add Prescription
             </button>
-          ) : (
-            <button className="text-blue-500 text-sm font-medium">
-              View Prescription
+
+            {pageCard && (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <p className="underline font-medium text-xs cursor-pointer block md:hidden">
+                    See price Breakdown
+                  </p>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <PriceBreakdown cartInfo={cartInfo} />
+                </PopoverContent>
+              </Popover>
+            )}
+          </div>
+        ) : (
+          <div className="">
+            <button
+              className="text-blue-500 text-sm font-medium flex items-center gap-1 "
+              onClick={handleOpenClosePrescriptionModal}
+            >
+              <span>
+                <MdOutlineEdit className="h-5 w-5 text-blue-500" />
+              </span>
+              Edit Prescription
             </button>
-          )}
-        </div>
+
+            {pageCard && (
+              <Popover
+                title={null}
+                content={<PriceBreakdown cartInfo={cartInfo} />}
+                arrow={false}
+                placement={"bottom"}
+              >
+                <p className="underline font-medium text-xs cursor-pointer block md:hidden">
+                  See price Breakdown
+                </p>
+              </Popover>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Quantity Controls and Actions */}
-      {showButton && (
-        <div className="flex flex-col items-end gap-2">
-          <div className="flex items-center border rounded">
+      {/* Product Details */}
+
+      {/* delete and  quantity button */}
+      {showButton ? (
+        pageCard ? (
+          <div className="flex gap-[50px]">
+            <div className="hidden md:block">
+              <CounterBtn
+                maxLimit={Number(cartInfo?.totalQuantity)}
+                handleCurrentCount={handleCurrentCount}
+                disabled={false}
+                current={quantity}
+                isCart={true}
+              />
+            </div>
+
             <button
-              onClick={() => handleQuantityChange(quantity - 1)}
-              className="px-2 py-1 text-gray-600 hover:bg-gray-100"
-              disabled={quantity <= 1}
+              className="flex-shrink-0 text-gray-500 hover:text-red-500"
+              onClick={() => {
+                removeFromCart(cartInfo?.uid);
+                getUpdateedCalculation();
+              }}
             >
-              -
-            </button>
-            <span className="px-3 py-1 text-sm">{quantity}</span>
-            <button
-              onClick={() => handleQuantityChange(quantity + 1)}
-              className="px-2 py-1 text-gray-600 hover:bg-gray-100"
-            >
-              +
+              <Image
+                src={Icons.deleteIcon}
+                height={1000}
+                width={1000}
+                alt="Delete icon"
+                className="h-4 w-[15px] text-[#4A4A4A]"
+              />
             </button>
           </div>
-          
-          <button className="text-red-500 text-sm hover:underline">
-            Remove
+        ) : (
+          <button
+            className="flex-shrink-0 text-gray-500 hover:text-red-500"
+            onClick={() => {
+              removeFromCart(cartInfo?.uid);
+            }}
+          >
+            <Image
+              src={Icons.deleteIcon}
+              height={1000}
+              width={1000}
+              alt="Delete icon"
+              className="h-4 w-[15px] text-[#4A4A4A]"
+            />
           </button>
-        </div>
+        )
+      ) : null}
+
+      {isPrescriptionModalOpen && (
+        <PrescriptionModal
+          open={isPrescriptionModalOpen}
+          mode={isPrescriptionEmpty() ? "create" : "update"}
+          prescriptionInfo={isPrescriptionEmpty() ? {} : cartInfo?.prescription}
+          handleModalOpenClose={handleOpenClosePrescriptionModal}
+          handleSetPrescriptionInfo={handleUpdatePrescription}
+          handleSkipAddPrescription={handleClosePrescriptionModal}
+          handleDeletePrescription={handleDeletePrescription}
+          cartInfo={cartInfo}
+        />
       )}
-    </div>
+      </div>
+    </LoadingOverlay>
   );
-};
+}
 
 export default SingleCartItemCard;

@@ -90,8 +90,8 @@
 
 import TopHeading from "@/common/components/common/TopHeading";
 import useGetGuestUserOrderInfo from "@/app/(public)/orders/hooks/useGetGuestUserOrderInfo";
-import LeftSide from "@/app/(public)/orders/sections/LeftSide";
-import RightSide from "@/app/(public)/orders/sections/RightSide";
+import LeftSide from "@/sections/TrackOrder/LeftSide";
+import RightSide from "@/sections/TrackOrder/RightSide";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 import React, { useState } from "react";
 

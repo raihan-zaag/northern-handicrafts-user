@@ -1,7 +1,7 @@
 import axiosPrivate from "@/common/config/axios.publicInstance";
 import { CREATE_USER_ADDRESS } from "@/common/config/constants/apiUrls";
 import { useState } from "react";
-import useNotification from "../useNotification";
+import useNotification from "@/common/hooks/useNotification";
 import useGetAddress from "./useGetUserAddress";
 import { useRouter } from "next/navigation";
 

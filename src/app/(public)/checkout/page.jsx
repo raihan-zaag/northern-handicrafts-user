@@ -27,12 +27,12 @@ import { useUserContext } from "@/contextProviders/userContextProvider";
 import useGetDefaultSettings from "@/app/(public)/checkout/hooks/useGetSettingsInfo";
 import useCreateOrder from "@/app/(public)/orders/hooks/useMakeOrder";
 import AuthUserAddress from "@/app/(public)/checkout/sections/AuthUserAddress";
-import GuestUserAddressForm from "@/app/(public)/checkout/sections/GuestUserAddressForm";
 import CheckoutProductCard from "./_component/CheckoutProductCart";
 import useNotification from "@/common/hooks/useNotification";
 import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
 import { formatNumber } from "@/utils";
-import useGetUserProfile from "@/app/(public)/profile/hooks/useGetUserInfo";
+import GuestUserAddressForm from "@/sections/checkout/GuestUserAddressForm";
+import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
 
 // Checkout form schema with dynamic validation
 const createCheckoutSchema = (isAuthenticated) => {

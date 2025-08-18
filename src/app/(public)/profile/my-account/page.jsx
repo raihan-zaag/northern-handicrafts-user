@@ -20,7 +20,7 @@ import { useUserContext } from "@/contextProviders/userContextProvider";
 import useProfileUpdate from "@/app/(auth)/hooks/useProfileUpdate";
 import { USER_INFO } from "@/common/config/constants/cookiesKeys";
 import { setCookie } from "cookies-next";
-import useGetUserProfile from "@/app/(public)/profile/hooks/useGetUserInfo";
+import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
 
 // Profile form schema
 const profileSchema = z.object({

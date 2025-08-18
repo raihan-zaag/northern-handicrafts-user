@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { axiosPublic } from "@/common/config/axios.publicInstance";
 import { GET_CALCULATE_URL } from "@/common/config/constants/apiUrls";
-import useNotification from "../useNotification";
+import { useNotification } from "@/common/hooks";
+
 
 const useGetOrderCalculatedData = () => {
   const [calculatedData, setData] = useState(null);

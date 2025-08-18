@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axiosPrivate, { axiosPublic } from "@/common/config/axios.publicInstance";
 import { GET_CALCULATE_URL, GET_ONGOING_ORDER_URL } from "@/common/config/constants/apiUrls";
-import useNotification from "../useNotification";
+import { useNotification } from "@/common/hooks";
 
 const useGetOnGoingOrder = () => {
   const [loading, setLoading] = useState(false);

@@ -120,11 +120,11 @@ import RowSkeleton from "@/common/components/common/RowSkeleton";
 import PaginationComponent from "@/common/components/pagination";
 import useDeleteAddress from "@/app/(public)/profile/hooks/useDeleteAddress";
 import useGetAddress from "@/app/(public)/profile/hooks/useGetUserAddress";
-import AddressModal from "@/app/(public)/profile/sections/AddressAddModal";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 import { MemoizedAddressCard } from "./MemorizedAddressCard";
 import useCreateAddress from "@/app/(public)/profile/hooks/useCreateAddress";
 import useUpdateAddress from "@/app/(public)/profile/hooks/useUpdateAddress";
+import AddressModal from "@/sections/address/AddressAddModal";
 
 const AddressPage = () => {
     const { address, loading, fetchAddress } = useGetAddress();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axiosPrivate from "@/common/config/axios.publicInstance";
 import { CREATE_ORDER_URL } from "@/common/config/constants/apiUrls";
-import useNotification from "../useNotification";
+import { useNotification } from "@/common/hooks";
 
 const useCreateOrder = () => {
     const [loading, setLoading] = useState(false);
