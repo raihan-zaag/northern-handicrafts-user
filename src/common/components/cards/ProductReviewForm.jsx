@@ -17,7 +17,7 @@ import {
 import { IMAGE_BASE_URL } from "@/common/config/constants/apiUrls";
 import Button from "../common/Button";
 import RatingBtn from "../common/RatingBtn";
-import Icons from "../../../public/icons";
+import Icons from "@/public/icons";
 
 // Review form schema
 const reviewSchema = z.object({

@@ -2,7 +2,7 @@
 
 // import Image from "next/image";
 // import React, { useCallback, useEffect, useState } from "react";
-// import Icons from "../../../public/icons";
+// import Icons from "@/public/icons";
 
 // const CounterBtn = ({
 //   className,
@@ -78,7 +78,7 @@
 
 import Image from "next/image";
 import React from "react";
-import Icons from "../../../public/icons";
+import Icons from "@/public/icons";
 
 const CounterBtn = ({
   className,

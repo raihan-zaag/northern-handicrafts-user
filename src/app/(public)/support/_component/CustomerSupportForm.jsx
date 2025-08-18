@@ -18,7 +18,7 @@ import {
 import Button from "@/common/components/common/Button";
 import InputLabel from "@/common/components/common/InputLabel";
 import Typography from "@/common/components/Typography";
-import useCreateContactInfo from "@/app/(public)/support/hooks/useContactUs";
+import useCreateContactInfo from "@/common/hooks/contactus/useContactUs";
 
 // Contact form schema
 const contactSchema = z.object({

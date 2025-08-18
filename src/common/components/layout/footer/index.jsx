@@ -8,7 +8,7 @@ import useNotification from "@/common/hooks/useNotification";
 import useCreateNewsletter from "@/common/hooks/newsletter/useCreateNewsletter";
 import Link from "next/link";
 import useGetCategories from "@/common/hooks/categories/useGetCategories";
-import Container from "../common/Container";
+import Container from "@/common/components/common/Container";
 
 const Footer = () => {
   const [email, setEamil] = useState("");

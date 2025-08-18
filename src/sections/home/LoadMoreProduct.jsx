@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import ProductList from "./ProductList";
-import { getProductFilterList } from "@/services/productService";
+import { getProductFilterList } from "@/common/services/productService";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductCardSkeleton from "@/skeleton/ProductCardSkeleton";
 import { MdFilterAlt } from "react-icons/md";

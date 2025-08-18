@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Spinner } from "./spinner";
-import { cn } from "@/common/lib/utils";
+import { cn } from "@/lib/utils";
 
 const LoadingOverlay = ({
   isLoading = false,

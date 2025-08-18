@@ -21,7 +21,7 @@ import Link from "next/link";
 
 import Button from "@/common/components/common/Button";
 import Container from "@/common/components/common/Container";
-import OrderSummary from "@/components/orderSummary";
+import OrderSummary from "../../../components/orderSummary";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useGetDefaultSettings from "@/app/(public)/checkout/hooks/useGetSettingsInfo";

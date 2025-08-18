@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/common/lib/utils";
+import { cn } from "@/lib/utils";
 
 const Spinner = ({ size = "md", className, ...props }) => {
   const sizeClasses = {

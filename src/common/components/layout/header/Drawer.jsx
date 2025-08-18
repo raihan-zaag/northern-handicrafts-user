@@ -16,7 +16,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
 import { CgClose } from "react-icons/cg";
 import { IMAGE_BASE_URL } from "@/common/config/constants/apiUrls";
-import Icons from "../../../public/icons";
+import Icons from "@/public/icons";
 
 const HeaderDrawer = ({ open, setOpen }) => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "@/common/lib/utils"
+import { cn } from "@/lib/utils"
 
 const Textarea = ({ className, ref, ...props }) => {
   return (

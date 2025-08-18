@@ -8,14 +8,14 @@ import { AiOutlineUser } from "react-icons/ai";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Container from "@/common/components/common/Container";
-import Button from "../common/Button";
+import Button from "@/common/components/common/Button";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
-import DrawerComponent from "@/app/(public)/cart/sections/Drawer";
+import CartDrawer from "@/sections/cart/Drawer";
 import { debounce } from "@/utils";
 import useGetCategories from "@/common/hooks/categories/useGetCategories";
 import { IMAGE_BASE_URL } from "@/common/config/constants/apiUrls";
-import Icons from "../../../public/icons";
+import Icons from "@/public/icons";
 import HeaderDrawer from "./Drawer";
 import { Input } from "@/common/components/ui/input";
 

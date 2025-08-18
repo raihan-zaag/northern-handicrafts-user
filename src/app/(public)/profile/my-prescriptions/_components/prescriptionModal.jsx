@@ -7,9 +7,9 @@ import * as z from "zod";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 import Button from "@/common/components/common/Button";
 import { useRouter } from "next/navigation";
-import useGetSize from "@/app/(public)/products/hooks/useGetSizes";
+import useGetSize from "@/common/hooks/singleProduct/useGetSizes";
 import InputLabel from "@/common/components/common/InputLabel";
-import useGetPrescription from "@/app/(public)/profile/hooks/useGetPrescription";
+import useGetPrescription from "@/common/hooks/prescription/useGetPrescription";
 import Typography from "@/common/components/Typography";
 import { Input } from "@/common/components/ui/input";
 import { Checkbox } from "@/common/components/ui/checkbox";
@@ -35,9 +35,9 @@ import {
   FormMessage,
 } from "@/common/components/ui/form";
 
-import useCreatePrescription from "@/app/(public)/profile/hooks/useCreatePrescription";
-import useGetPrescriptionList from "@/app/(public)/profile/hooks/useGetPrescriptionsList";
-import usePrescriptionUpdate from "@/app/(public)/profile/hooks/useUpdatePrescription";
+import useCreatePrescription from "@/common/hooks/prescription/useCreatePrescription";
+import useGetPrescriptionList from "@/common/hooks/prescription/useGetPrescriptionsList";
+import usePrescriptionUpdate from "@/common/hooks/prescription/useUpdatePrescription";
 import useNotification from "@/common/hooks/useNotification";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";

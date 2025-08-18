@@ -1,7 +1,7 @@
 import * as React from "react"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 
-import { cn } from "@/common/lib/utils"
+import { cn } from "@/lib/utils"
 
 const PasswordInput = ({ className, ref, ...props }) => {
   const [showPassword, setShowPassword] = React.useState(false)

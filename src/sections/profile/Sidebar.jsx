@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useUserContext } from "@/contextProviders/userContextProvider";
-import { profileMenu } from "@/constants/common";
+import { profileMenu } from "@/common/config/constants/common";
 import { useCart } from "@/contextProviders/useCartContext";
 
 const Sidebar = () => {

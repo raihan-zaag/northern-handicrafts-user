@@ -2,7 +2,7 @@ import * as React from "react"
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 import { Check } from "lucide-react"
 
-import { cn } from "@/common/lib/utils"
+import { cn } from "@/lib/utils"
 
 const Checkbox = ({ className, ref, ...props }) => (
   <CheckboxPrimitive.Root

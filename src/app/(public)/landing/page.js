@@ -1,8 +1,8 @@
 import Container from "@/common/components/common/Container";
 import { getProductFilterList } from "@/common/services/productService";
-import HomePageComponent from "@/app/(public)/products/sections";
+import HomePageComponent from "@/sections/home";
 import SliderComponent from "@/common/components/common/Slider";
-import { getProductData } from "@/common/data/dataUtils";
+import { getProductData } from "@/data/dataUtils";
 
 const Home = async ({ searchParams }) => {
     // Fetch the filtered product list on the server-side

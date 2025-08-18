@@ -2,7 +2,11 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@/common/*": ["./src/common/*"]
+      "@/common/*": ["./src/common/*"],
+      "@/public/*": ["./public/*"],
+      "@/components/*": ["./src/common/components/*"],
+      "@/hooks/*": ["./src/common/hooks/*"],
+      "@/sections/*": ["./src/sections/*"]
     }
   }
 }

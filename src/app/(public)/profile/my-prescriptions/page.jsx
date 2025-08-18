@@ -9,9 +9,9 @@ import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 
-import useGetPrescriptionList from "@/app/(public)/profile/hooks/useGetPrescriptionsList";
-import useCreatePrescription from "@/app/(public)/profile/hooks/useCreatePrescription";
-import useDeletePrescription from "@/app/(public)/profile/hooks/useDeletePrescription";
+import useGetPrescriptionList from "@/common/hooks/prescription/useGetPrescriptionsList";
+import useCreatePrescription from "@/common/hooks/prescription/useCreatePrescription";
+import useDeletePrescription from "@/common/hooks/prescription/useDeletePrescription";
 import PaginationComponent from "@/common/components/pagination";
 
 const MyPrescription = () => {
