@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import SingleProduct from "./SingleProduct";
 import { useRouter } from "next/navigation";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
-import { Spin } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 
 const ProductList = ({ productList, categories }) => {
     const router = useRouter();
@@ -32,27 +32,25 @@ const ProductList = ({ productList, categories }) => {
         // console.log({ filteredItems: filtered, categoryItem, categoryIds });
     }, [categories]);
 
-    if (sizeLoading) {
-        return <Spin spinning={sizeLoading} fullscreen />;
-    }
-
     // console.log("productList", productList);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 gap-y-4 sm:gap-y-6 md:gap-y-8 lg:gap-y-12">
-            {productList?.map((product, index) => {
-                return (
-                    <div key={index} className="relative overflow-hidden">
-                        <SingleProduct
-                            product={product}
-                            defaultSizePrice={
-                                sizeLoading ? 0 : sizeList[0]?.price
-                            }
-                        />
-                    </div>
-                );
-            })}
-        </div>
+        <LoadingOverlay isLoading={sizeLoading}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 gap-y-4 sm:gap-y-6 md:gap-y-8 lg:gap-y-12">
+                {productList?.map((product, index) => {
+                    return (
+                        <div key={index} className="relative overflow-hidden">
+                            <SingleProduct
+                                product={product}
+                                defaultSizePrice={
+                                    sizeLoading ? 0 : sizeList[0]?.price
+                                }
+                            />
+                        </div>
+                    );
+                })}
+            </div>
+        </LoadingOverlay>
     );
 };
 

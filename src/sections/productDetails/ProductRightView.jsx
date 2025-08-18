@@ -1,12 +1,13 @@
 "use client";
 
-import { Popover, Rate, Spin } from "antd";
+import { Popover, Rate } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Typography from "@/components/Typography";
 import CounterBtn from "@/components/common/CounterButton";
 import Button from "@/components/common/Button";
-import PrescriptionModal from "./prescriptionModal";
+import PrescriptionModal from "./PrescriptionModal";
 import { useCart } from "@/contextProviders/useCartContext";
 import useNotification from "@/hooks/useNotification";
 import { useUserContext } from "@/contextProviders/userContextProvider";
@@ -251,22 +252,15 @@ const ProductRightView = ({ forModal = false, data }) => {
     );
 
     return (
-        <div className={`${forModal ? "" : ""}  w-full `}>
-            {sizeLoading ||
-                (averageRatingLoading && (
-                    <Spin
-                        spinning={sizeLoading || averageRatingLoading}
-                        fullscreen
-                    />
-                ))}
-
-            <div className="flex flex-col gap-2">
-                <div className="flex gap-1">
-                    {data?.categoryList?.length > 0 &&
-                        data?.categoryList.map((category, index) => {
-                            return (
-                                <Typography.BodyText
-                                    color="text-font_color_one"
+        <LoadingOverlay isLoading={sizeLoading || averageRatingLoading}>
+            <div className={`${forModal ? "" : ""}  w-full `}>
+                <div className="flex flex-col gap-2">
+                    <div className="flex gap-1">
+                        {data?.categoryList?.length > 0 &&
+                            data?.categoryList.map((category, index) => {
+                                return (
+                                    <Typography.BodyText
+                                        color="text-font_color_one"
                                     key={index}
                                 >
                                     {category?.name}
@@ -489,7 +483,8 @@ const ProductRightView = ({ forModal = false, data }) => {
                     handleSkipAddPrescription={handleSkipAddPrescription}
                 />
             )}
-        </div>
+            </div>
+        </LoadingOverlay>
     );
 };
 

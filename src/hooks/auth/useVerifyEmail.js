@@ -22,7 +22,8 @@ const useVerifyEmail = () => {
   const [success, setSuccess] = useState(null);
 
   // Get cookies related to email verification
-  const isResetPassword = JSON.parse(getCookie(IS_RESET_PASSWORD));
+  const isResetPasswordCookie = getCookie(IS_RESET_PASSWORD);
+  const isResetPassword = isResetPasswordCookie ? JSON.parse(isResetPasswordCookie) : false;
   const email = getCookie(VERIFY_EMAIL);
 
   // Function to verify email

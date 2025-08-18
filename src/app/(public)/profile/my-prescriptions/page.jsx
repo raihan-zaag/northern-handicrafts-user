@@ -7,7 +7,7 @@ import PrescriptionModal from "./_components/prescriptionModal";
 import RowSkeleton from "@/components/common/RowSkeleton";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Spin } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 
 import useGetPrescriptionList from "@/hooks/prescription/useGetPrescriptionsList";
 import useCreatePrescription from "@/hooks/prescription/useCreatePrescription";
@@ -42,22 +42,17 @@ const MyPrescription = () => {
     getPrescriptionList({ page: page - 1, size: pageSize });
   };
 
-  if (loading || deleteLoading || createLoading) {
-    <Spin fullscreen spinning={deleteLoading || loading || createLoading} />;
-  }
-
   return (
-    <div>
-      <Spin fullscreen spinning={deleteLoading} />
-
-      <div className="flex items-center justify-between">
-        <h2 className="text-[#2A2A2A] font-semibold text-2xl hidden sm:block">
-          My Saved Prescriptions
-        </h2>
-        <h2 className="text-[#2A2A2A] font-semibold text-sm sm:text-base md:text-2xl block sm:hidden">
-          Prescriptions
-        </h2>
-        <Button
+    <LoadingOverlay isLoading={loading || deleteLoading || createLoading}>
+      <div>
+        <div className="flex items-center justify-between">
+          <h2 className="text-[#2A2A2A] font-semibold text-2xl hidden sm:block">
+            My Saved Prescriptions
+          </h2>
+          <h2 className="text-[#2A2A2A] font-semibold text-sm sm:text-base md:text-2xl block sm:hidden">
+            Prescriptions
+          </h2>
+          <Button
           className={"py-2 sm:py-[15px] px-3 sm:px-8"}
           onClick={() => setOpenPrescriptionModal(true)}
         >
@@ -107,7 +102,8 @@ const MyPrescription = () => {
         selectedPrescription={selectedPrescription}
         setSelectedPrescription={setSelectedPrescription}
       />
-    </div>
+      </div>
+    </LoadingOverlay>
   );
 };
 

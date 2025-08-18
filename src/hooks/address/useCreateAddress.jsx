@@ -4,11 +4,9 @@ import { useState } from "react";
 import useNotification from "../useNotification";
 import useGetAddress from "./useGetUserAddress";
 import { useRouter } from "next/navigation";
-import { Form } from "antd";
 
 const useCreateAddress = () => {
     const router = useRouter();
-    const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [response, setResponse] = useState(null);
@@ -32,7 +30,6 @@ const useCreateAddress = () => {
             // }
 
             openSuccessNotification("success", "Address successfully created.");
-            form.resetFields();
 
             return res.data;
         } catch (err) {

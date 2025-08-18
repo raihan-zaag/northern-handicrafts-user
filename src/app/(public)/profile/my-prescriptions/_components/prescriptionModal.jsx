@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Spin, Select, Checkbox } from "antd";
+import { Modal, Form, Input, Select, Checkbox } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
@@ -153,20 +154,19 @@ const PrescriptionModal = ({
       closable={false}
       closeIcon={<h1>sdf</h1>}
     >
-      <Form form={form} layout="vertical" onFinish={handleFinish}>
-        <Spin fullscreen spinning={createLoading} />
-
-        <div className="mt-4">
-          <Form.Item
-            name="name"
-            label={
-              <div className="flex items-center">
-                <InputLabel>Prescription Name</InputLabel>
-                <Typography.BodyText className="text-sm font-medium">
-                  <span className="text-red-500">*</span>
-                </Typography.BodyText>
-              </div>
-            }
+      <LoadingOverlay isLoading={createLoading}>
+        <Form form={form} layout="vertical" onFinish={handleFinish}>
+          <div className="mt-4">
+            <Form.Item
+              name="name"
+              label={
+                <div className="flex items-center">
+                  <InputLabel>Prescription Name</InputLabel>
+                  <Typography.BodyText className="text-sm font-medium">
+                    <span className="text-red-500">*</span>
+                  </Typography.BodyText>
+                </div>
+              }
             rules={[
               { required: true, message: "Please write a prescription name." },
             ]}
@@ -490,7 +490,8 @@ const PrescriptionModal = ({
             </Button>
           }
         </div>
-      </Form>
+        </Form>
+      </LoadingOverlay>
     </Modal>
   );
 };

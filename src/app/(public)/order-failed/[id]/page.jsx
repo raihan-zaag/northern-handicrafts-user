@@ -7,7 +7,7 @@ import { useUserContext } from "@/contextProviders/userContextProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import useOrderById from "@/hooks/order/useOrderById";
-import { Spin } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 
 const OrderFailed = ({ params }) => {
     const router = useRouter();
@@ -49,12 +49,11 @@ const OrderFailed = ({ params }) => {
     };
 
     return (
-        <Container className="flex flex-col items-center justify-center">
-            <Spin spinning={loading} fullscreen />
-
-            <h1 className="text-[24px] text-[#E91C24] font-semibold mb-12">
-                Order Failed
-            </h1>
+        <LoadingOverlay isLoading={loading}>
+            <Container className="flex flex-col items-center justify-center">
+                <h1 className="text-[24px] text-[#E91C24] font-semibold mb-12">
+                    Order Failed
+                </h1>
             <div className="lg:w-[600px] flex flex-col items-center gap-3">
                 <Image
                     src={"/images/order_failed_image.svg"}
@@ -111,7 +110,8 @@ const OrderFailed = ({ params }) => {
                 </div>
             </div>
             {/* <Image /> */}
-        </Container>
+            </Container>
+        </LoadingOverlay>
     );
 };
 

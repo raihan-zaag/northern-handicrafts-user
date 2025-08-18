@@ -7,7 +7,8 @@ import { useCart } from "@/contextProviders/useCartContext";
 import { IoAddOutline } from "react-icons/io5";
 import useNotification from "@/hooks/useNotification";
 import PriceBreakdown from "../Checkout/PriceBreakdown";
-import { Popover, Spin } from "antd";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { MdOutlineEdit } from "react-icons/md";
 import { formatNumber } from "@/utils";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
@@ -158,19 +159,19 @@ function SingleCartItemCard({
   };
 
   return (
-    <div className="flex gap-4 items-start ">
-      <Spin spinning={sizeLoading} fullscreen />
-      {/* Image */}
-      <Image
-        src={`${cartInfo?.thumbnailImage}`}
-        alt="product image"
-        height={1000}
-        width={1000}
-        quality={100}
-        className={`${
-          pageCard ? "w-[100px] h-[112px]" : "w-[120px] h-[153px]"
-        }  object-fit bg-[#F6F6F6]`}
-      />
+    <LoadingOverlay isLoading={sizeLoading}>
+      <div className="flex gap-4 items-start ">
+        {/* Image */}
+        <Image
+          src={`${cartInfo?.thumbnailImage}`}
+          alt="product image"
+          height={1000}
+          width={1000}
+          quality={100}
+          className={`${
+            pageCard ? "w-[100px] h-[112px]" : "w-[120px] h-[153px]"
+          }  object-fit bg-[#F6F6F6]`}
+        />
 
       {/* cart details */}
       <div className="flex flex-col bg-red flex-1 gap-2">
@@ -183,15 +184,15 @@ function SingleCartItemCard({
             <p className="text-base font-semibold text-gray-800">
               ${formatNumber(productPrice)}
             </p>
-            <Popover
-              title={null}
-              content={<PriceBreakdown cartInfo={cartInfo} />}
-              arrow={false}
-              placement={"bottom"}
-            >
-              <p className="underline font-medium text-[10px] sm:text-xs cursor-pointer block md:block">
-                Price Breakdown
-              </p>
+            <Popover>
+              <PopoverTrigger asChild>
+                <p className="underline font-medium text-[10px] sm:text-xs cursor-pointer block md:block">
+                  Price Breakdown
+                </p>
+              </PopoverTrigger>
+              <PopoverContent className="w-80">
+                <PriceBreakdown cartInfo={cartInfo} />
+              </PopoverContent>
             </Popover>
           </div>
         </div>
@@ -250,15 +251,15 @@ function SingleCartItemCard({
             </button>
 
             {pageCard && (
-              <Popover
-                title={null}
-                content={<PriceBreakdown cartInfo={cartInfo} />}
-                arrow={false}
-                placement={"bottom"}
-              >
-                <p className="underline font-medium text-xs cursor-pointer block md:hidden">
-                  See price Breakdown
-                </p>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <p className="underline font-medium text-xs cursor-pointer block md:hidden">
+                    See price Breakdown
+                  </p>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <PriceBreakdown cartInfo={cartInfo} />
+                </PopoverContent>
               </Popover>
             )}
           </div>
@@ -352,7 +353,8 @@ function SingleCartItemCard({
           cartInfo={cartInfo}
         />
       )}
-    </div>
+      </div>
+    </LoadingOverlay>
   );
 }
 

@@ -92,7 +92,7 @@ import TopHeading from "@/components/common/TopHeading";
 import useGetGuestUserOrderInfo from "@/hooks/getGuestUserOrderInfo/useGetGuestUserOrderInfo";
 import LeftSide from "@/sections/TrackOrder/LeftSide";
 import RightSide from "@/sections/TrackOrder/RightSide";
-import { Spin } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import React, { useState } from "react";
 
 const TreakOrders = () => {
@@ -117,15 +117,14 @@ const TreakOrders = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-scr bg-white my-[80px] ">
-      <Spin fullscreen spinning={loading} />
-
-      {data ? (
-        <div>
-          <h1 className="text-2xl font-semibold text-[#262626] text-center">
-            Track Order{" "}
-            <span className="text-[#0F62FE]">#{data?.invoiceNumber}</span>
-          </h1>
+    <LoadingOverlay isLoading={loading}>
+      <div className="flex items-center justify-center min-h-scr bg-white my-[80px] ">
+        {data ? (
+          <div>
+            <h1 className="text-2xl font-semibold text-[#262626] text-center">
+              Track Order{" "}
+              <span className="text-[#0F62FE]">#{data?.invoiceNumber}</span>
+            </h1>
           <div className="mt-12 grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-[60px]">
             <LeftSide data={data} />
             <RightSide data={data} />
@@ -179,7 +178,8 @@ const TreakOrders = () => {
           </form>
         </div>
       )}
-    </div>
+      </div>
+    </LoadingOverlay>
   );
 };
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@/components/Typography";
 import useGetCategories from "@/hooks/categories/useGetCategories";
-import { Checkbox, Collapse, Divider, Menu, Radio, Slider, Spin } from "antd";
+import { Checkbox, Collapse, Divider, Menu, Radio, Slider } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 import { HiPlus, HiMinus } from "react-icons/hi";
 

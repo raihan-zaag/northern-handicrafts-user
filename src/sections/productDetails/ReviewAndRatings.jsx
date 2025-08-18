@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import useGetProductReviews from "@/hooks/singleProduct/useGetProductReviews";
 import { ratingData } from "@/utils/dummyData";
-import { Divider, Rate, Spin } from "antd";
+import { Divider, Rate } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import NoCommentDataFound from "./NoCommentDataFound";
 import Image from "next/image";
 import useGetTotalRatingAverage from "@/hooks/singleProduct/useGetTotalRatingAverage";
@@ -13,10 +14,6 @@ const ReviewAndRatings = ({ productId }) => {
   const { reviews, loading } = useGetProductReviews(productId);
   const { loading: ratingCountLoading, averageRatingValue } =
     useGetTotalRatingAverage(productId);
-
-  if (loading || ratingCountLoading) {
-    return <Spin spinning={loading || ratingCountLoading} fullscreen />;
-  }
 
   const rating = reviews;
 
@@ -62,19 +59,21 @@ const ReviewAndRatings = ({ productId }) => {
   }));
 
   return (
-    <div className="flex flex-col lg:flex-row w-full justify-between gap-x-6">
-      <div className="order-2 lg:order-1">
-        <LeftSideContent ratings={mergedRatings} data={rating} />
+    <LoadingOverlay isLoading={loading || ratingCountLoading}>
+      <div className="flex flex-col lg:flex-row w-full justify-between gap-x-6">
+        <div className="order-2 lg:order-1">
+          <LeftSideContent ratings={mergedRatings} data={rating} />
+        </div>
+        <div className="order-1 lg:order-2">
+          <RightSidecontent
+            ratingsWithDivWidth={ratingsWithDivWidth}
+            rating={mergedRatings}
+            averageRating={averageRating || 0}
+            totalReviewers={totalReviewers}
+          />
+        </div>
       </div>
-      <div className="order-1 lg:order-2">
-        <RightSidecontent
-          ratingsWithDivWidth={ratingsWithDivWidth}
-          rating={mergedRatings}
-          averageRating={averageRating || 0}
-          totalReviewers={totalReviewers}
-        />
-      </div>
-    </div>
+    </LoadingOverlay>
   );
 };
 

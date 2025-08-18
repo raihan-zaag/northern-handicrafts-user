@@ -2,7 +2,7 @@
 
 import React from "react";
 import useGetRecomendedProduct from "@/hooks/singleProduct/useGetRecomendedProduct";
-import SingleProduct from "../home/singleProduct";
+import SingleProduct from "../home/SingleProduct";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 
 const SkeletonProduct = () => {

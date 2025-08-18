@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Divider, Drawer, Select, Spin } from "antd";
+import { Divider, Drawer, Select } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { IoCloseOutline } from "react-icons/io5";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
@@ -130,23 +131,20 @@ const PrescriptionModal = ({
     </div>
   ) : null;
 
-  if (loading) {
-    return <Spin spinning={loading} fullscreen />;
-  }
-
   return (
-    <Drawer
-      open={open}
-      centered
-      footer={null}
-      width={600}
-      onCancel={() => {
-        handleModalOpenClose();
-      }}
-      closeIcon={null}
-      title={
-        <div>
-          <div className="flex items-center justify-between border-b pb-2">
+    <LoadingOverlay isLoading={loading}>
+      <Drawer
+        open={open}
+        centered
+        footer={null}
+        width={600}
+        onCancel={() => {
+          handleModalOpenClose();
+        }}
+        closeIcon={null}
+        title={
+          <div>
+            <div className="flex items-center justify-between border-b pb-2">
             <p>My Prescription</p>
             <button
               onClick={() => {
@@ -312,7 +310,8 @@ const PrescriptionModal = ({
           cartInfo={cartInfo}
         />
       )}
-    </Drawer>
+      </Drawer>
+    </LoadingOverlay>
   );
 };
 

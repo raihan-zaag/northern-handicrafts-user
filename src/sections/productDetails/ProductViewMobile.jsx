@@ -1,6 +1,7 @@
 "use client";
 
-import { Carousel, Modal, Popover, Rate, Select, Spin } from "antd";
+import { Carousel, Modal, Popover, Rate, Select } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { getCookie, hasCookie } from "cookies-next";
 
 import Image from "next/image";
@@ -16,7 +17,7 @@ import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
-import PrescriptionModal from "./prescriptionModal";
+import PrescriptionModal from "./PrescriptionModal";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import useNotification from "@/hooks/useNotification";
 import { formatNumber } from "@/utils";
@@ -245,26 +246,22 @@ const ProductViewMobile = ({ data }) => {
   );
 
   return (
-    <div className="w-full py-1">
-      {sizeLoading ||
-        (averageRatingLoading && (
-          <Spin spinning={sizeLoading || averageRatingLoading} fullscreen />
-        ))}
-
-      <div className="relative w-full">
-        <Carousel dots={true} ref={carouselRef}>
-          {[data.thumbnailImage, ...images].map((item, index) => (
-            <div key={index} className="flex justify-center items-center">
-              <Image
-                src={`${item}`}
-                alt="value"
-                width={1000}
-                height={1000}
-                className="xs:w-full h-[408px] sm:h-[500px] md:h-[600px] rounded-sm object-fit"
-              />
-            </div>
-          ))}
-        </Carousel>
+    <LoadingOverlay isLoading={sizeLoading || averageRatingLoading}>
+      <div className="w-full py-1">
+        <div className="relative w-full">
+          <Carousel dots={true} ref={carouselRef}>
+            {[data.thumbnailImage, ...images].map((item, index) => (
+              <div key={index} className="flex justify-center items-center">
+                <Image
+                  src={`${item}`}
+                  alt="value"
+                  width={1000}
+                  height={1000}
+                  className="xs:w-full h-[408px] sm:h-[500px] md:h-[600px] rounded-sm object-fit"
+                />
+              </div>
+            ))}
+          </Carousel>
 
         <button
           onClick={() => handleNextClick("prev")}
@@ -510,7 +507,8 @@ const ProductViewMobile = ({ data }) => {
           handleSkipAddPrescription={handleSkipAddPrescription}
         />
       )}
-    </div>
+      </div>
+    </LoadingOverlay>
   );
 };
 

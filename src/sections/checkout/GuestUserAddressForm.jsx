@@ -1,204 +1,180 @@
 "use client";
 
-import { Form, Input, InputNumber, Select } from "antd";
 import React from "react";
+import { useFormContext } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const GuestUserAddressForm = () => {
-    const { Option } = Select;
+    const form = useFormContext();
 
     return (
-        <div>
-            <div>
-                <Form.Item
-                    name="fullName"
-                    label="Full Name*"
-                    rules={[
-                        {
-                            required: true,
-                            message: "User fullname is required.",
-                        },
-                    ]}
-                >
-                    <Input
-                        placeholder="Enter your fullname."
-                        className="h-14"
-                        style={{ fontSize: "16px" }}
-                    />
-                </Form.Item>
-            </div>
+        <div className="space-y-6">
+            {/* Full Name */}
+            <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Full Name*</FormLabel>
+                        <FormControl>
+                            <Input
+                                placeholder="Enter your fullname."
+                                className="h-14 text-base"
+                                {...field}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
-            <div>
-                <Form.Item
-                    name="email"
-                    label="Email address*"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Email address is required.",
-                        },
-                        {
-                            type: "email",
-                            message: "Please enter a valid email address.",
-                        },
-                    ]}
-                >
-                    <Input
-                        placeholder="Enter your email address."
-                        className="h-14"
-                        style={{ fontSize: "16px" }}
-                    />
-                </Form.Item>
-            </div>
+            {/* Email */}
+            <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Email address*</FormLabel>
+                        <FormControl>
+                            <Input
+                                type="email"
+                                placeholder="Enter your email address."
+                                className="h-14 text-base"
+                                {...field}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
-            <div>
-                <Form.Item
-                    name="mobileNumber"
-                    label="Phone number"
-                    rules={[
-                        // { required: true, message: "Phone number is required" },
-                        {
-                            // pattern: /^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/, // Only for USA
-                            pattern: /^[+\d]?[0-9\s()-]*$/, // for all country
-                            message: "Please enter a valid US phone number",
-                        },
-                        {
-                            validator: (_, value) =>
-                                value && value.length > 15
-                                    ? Promise.reject(
-                                          new Error(
-                                              "Phone number cannot exceed 15 characters"
-                                          )
-                                      )
-                                    : Promise.resolve(),
-                        },
-                    ]}
-                >
-                    <Input
-                        placeholder="Enter your phone number."
-                        className="h-14"
-                        style={{ fontSize: "16px" }}
-                        maxLength={15}
-                    />
-                </Form.Item>
-            </div>
-            <div className="flex flex-col md:flex-row gap-1 md:gap-4">
-                <Form.Item
+            {/* Phone Number */}
+            <FormField
+                control={form.control}
+                name="mobileNumber"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Phone number</FormLabel>
+                        <FormControl>
+                            <Input
+                                placeholder="Enter your phone number."
+                                className="h-14 text-base"
+                                maxLength={15}
+                                {...field}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            {/* Country and State Row */}
+            <div className="flex flex-col md:flex-row gap-4">
+                <FormField
+                    control={form.control}
                     name="country"
-                    label="Country*"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please select your country",
-                        },
-                    ]}
-                    className="w-full"
-                >
-                    {/* <Select
-            placeholder="Please Select your country"
-            style={{ height: "48px", width: "100%" }}
-          >
-            <Option value="usa">USA</Option>
-            <Option value="uk">UK</Option>
-            <Option value="india">India</Option>
-          </Select> */}
-                    <Input
-                        placeholder="Enter your country name"
-                        style={{ height: "48px" }}
-                    />
-                </Form.Item>
+                    render={({ field }) => (
+                        <FormItem className="w-full">
+                            <FormLabel>Country*</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="Enter your country name"
+                                    className="h-12 text-base"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-                <Form.Item
+                <FormField
+                    control={form.control}
                     name="state"
-                    label="District/State*"
-                    rules={[
-                        { required: true, message: "Please select your state" },
-                    ]}
-                    className="w-full"
-                >
-                    {/* <Select
-            placeholder="Please Select your District/State."
-            style={{ height: "48px" }}
-          >
-            <Option value="state1">State 1</Option>
-            <Option value="state2">State 2</Option>
-          </Select> */}
-                    <Input
-                        placeholder="Enter your district/state name"
-                        style={{ height: "48px" }}
-                    />
-                </Form.Item>
+                    render={({ field }) => (
+                        <FormItem className="w-full">
+                            <FormLabel>District/State*</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="Enter your district/state name"
+                                    className="h-12 text-base"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
             </div>
 
-            <div className="flex flex-col md:flex-row gap-1 md:gap-4">
-                {/* City/Area */}
-                <Form.Item
+            {/* City and ZIP Row */}
+            <div className="flex flex-col md:flex-row gap-4">
+                <FormField
+                    control={form.control}
                     name="city"
-                    label="City/Area*"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please select your city/area",
-                        },
-                    ]}
-                    className="w-full"
-                >
-                    {/* <Select
-            placeholder="Please select your city/area."
-            style={{ height: "48px" }}
-          >
-            <Option value="Texas">Texas</Option>
-            <Option value="Alaska">Alaska</Option>
-            <Option value="California">California</Option>
-            <Option value="Alabama">Alabama</Option>
-          </Select> */}
-                    <Input
-                        placeholder="Enter your city/area name"
-                        style={{ height: "48px" }}
-                    />
-                </Form.Item>
+                    render={({ field }) => (
+                        <FormItem className="w-full">
+                            <FormLabel>City/Area*</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="Enter your city/area name"
+                                    className="h-12 text-base"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-                {/* ZIP/Postal Code */}
-                <Form.Item
+                <FormField
+                    control={form.control}
                     name="zipCode"
-                    label="ZIP/Postal Code*"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please enter your zip code",
-                        },
-                    ]}
-                    className="w-full"
-                >
-                    {/* <Input
-            placeholder="Please enter your zip code"
-            style={{ height: "48px" }}
-          /> */}
-                    <InputNumber
-                        min={0}
-                        placeholder="Enter zip/postal code here"
-                        // className="py-6 w-full"
-                        style={{ padding: "8px 0", width: "100%" }}
-                    />
-                </Form.Item>
+                    render={({ field }) => (
+                        <FormItem className="w-full">
+                            <FormLabel>ZIP/Postal Code*</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="number"
+                                    placeholder="Enter zip/postal code here"
+                                    className="h-12 text-base"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
             </div>
 
             {/* Street Address */}
-            <Form.Item
+            <FormField
+                control={form.control}
                 name="street"
-                label="Street Address*"
-                rules={[
-                    {
-                        required: true,
-                        message: "Please enter your street address",
-                    },
-                ]}
-            >
-                <Input.TextArea
-                    placeholder="e.g. Road no., Area, City, Zip code etc."
-                    className="h-20"
-                    style={{ height: "120px" }}
-                />
-            </Form.Item>
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Street Address*</FormLabel>
+                        <FormControl>
+                            <Textarea
+                                placeholder="e.g. Road no., Area, City, Zip code etc."
+                                className="min-h-[120px] text-base"
+                                {...field}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
         </div>
     );
 };

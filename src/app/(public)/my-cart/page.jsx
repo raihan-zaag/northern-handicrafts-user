@@ -6,7 +6,7 @@ import OrderSummary from "@/components/orderSummary";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import SingleCartItemCard from "@/sections/cart/SingleCartItemCard";
-import { Divider, Input } from "antd";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -85,8 +85,7 @@ const MyCart = () => {
       <p>Discount code</p>
       <div className="flex flex-col md:flex-row items-center w-full gap-4 md:gap-2">
         <Input
-          className="h-14 w-full flex-1 text-[20px]"
-          style={{ fontSize: "15px" }}
+          className="h-14 w-full flex-1"
           placeholder="Enter a promo code"
           onChange={handleChangePromoCode}
           value={cart?.length > 0 && promoCode ? promoCode : ""}

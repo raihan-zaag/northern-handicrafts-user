@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Divider, Drawer, Modal, Spin } from "antd";
+import { Divider, Drawer, Modal } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import Image from "next/image";
 import { TiStarFullOutline } from "react-icons/ti";
 import ProductReviewForm from "./ProductReviewForm";
@@ -47,16 +48,15 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
     isAuthenticated && !isProductReview && isOrderDelivered;
 
   return (
-    <div className="flex items-start gap-4">
-      <Spin spinning={loading} fullscreen />
-
-      <Image
-        src={data?.thumbnailImage}
-        alt="product image"
-        width={1000}
-        height={1000}
-        className="w-[90px] h-[110px]"
-      />
+    <LoadingOverlay isLoading={loading}>
+      <div className="flex items-start gap-4">
+        <Image
+          src={data?.thumbnailImage}
+          alt="product image"
+          width={1000}
+          height={1000}
+          className="w-[90px] h-[110px]"
+        />
 
       <div>
         <h3 className="text-sm font-medium text-[#2A2A2A]">
@@ -183,7 +183,8 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
           </div>
         </Drawer>
       )}
-    </div>
+      </div>
+    </LoadingOverlay>
   );
 };
 

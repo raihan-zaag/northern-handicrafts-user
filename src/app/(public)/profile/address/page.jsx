@@ -121,7 +121,7 @@ import PaginationComponent from "@/components/pagination";
 import useDeleteAddress from "@/hooks/address/useDeleteAddress";
 import useGetAddress from "@/hooks/address/useGetUserAddress";
 import AddressModal from "@/sections/address/AddressAddModal";
-import { Spin } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { MemoizedAddressCard } from "./MemorizedAddressCard";
 import useCreateAddress from "@/hooks/address/useCreateAddress";
 import useUpdateAddress from "@/hooks/address/useUpdateAddress";
@@ -156,11 +156,6 @@ const AddressPage = () => {
         [deleteAddress, fetchAddress]
     );
 
-    // Render spinner if loading
-    if (loading) {
-        return <Spin spinning={loading} fullscreen />;
-    }
-
     const onClose = () => {
         setOpenAddressModal(false);
         setSelectedAddress(null);
@@ -190,14 +185,15 @@ const AddressPage = () => {
     };
 
     return (
-        <div>
-            <div className="flex items-center justify-between">
-                <h2 className="text-[#2A2A2A] font-semibold text-2xl hidden sm:block">
-                    My Saved Address
-                </h2>
-                <h2 className="text-[#2A2A2A] font-semibold text-2xl block sm:hidden">
-                    Address
-                </h2>
+        <LoadingOverlay isLoading={loading}>
+            <div>
+                <div className="flex items-center justify-between">
+                    <h2 className="text-[#2A2A2A] font-semibold text-2xl hidden sm:block">
+                        My Saved Address
+                    </h2>
+                    <h2 className="text-[#2A2A2A] font-semibold text-2xl block sm:hidden">
+                        Address
+                    </h2>
                 <Button
                     className={"py-2 sm:py-[15px] px-3 sm:px-8"}
                     onClick={() => setOpenAddressModal(true)}
@@ -246,7 +242,8 @@ const AddressPage = () => {
                 setSelectedAddress={setSelectedAddress}
                 onSubmit={handleFinish}
             />
-        </div>
+            </div>
+        </LoadingOverlay>
     );
 };
 

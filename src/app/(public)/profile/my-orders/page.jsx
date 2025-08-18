@@ -8,7 +8,7 @@ import PaginationComponent from "@/components/pagination";
 import useGetOnGoingOrder from "@/hooks/order/useGetOnGoingOrder";
 import useGetOrderHistory from "@/hooks/order/useGetOrderHistory ";
 import { debounce } from "@/utils";
-import { Input } from "antd";
+import { Input } from "@/components/ui/input";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 
@@ -113,13 +113,15 @@ const MyOrders = () => {
 
       {/* Search */}
       <div className="flex justify-end">
-        <Input
-          placeholder="Search by Order ID"
-          className="mt-6 search-field"
-          suffix={<IoIosSearch className="text-2xl" />}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-        />
+        <div className="relative mt-6">
+          <Input
+            placeholder="Search by Order ID"
+            className="search-field pr-10"
+            value={searchInput}
+            onChange={handleSearchInputChange}
+          />
+          <IoIosSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-400" />
+        </div>
       </div>
 
       <div className="mt-6">

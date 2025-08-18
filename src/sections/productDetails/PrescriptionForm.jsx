@@ -4,7 +4,8 @@ import Typography from "@/components/Typography";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import useGetPrescription from "@/hooks/prescription/useGetPrescription";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
-import { Select, Form, Spin, Checkbox, Input, Popover } from "antd";
+import { Select, Form, Checkbox, Input, Popover } from "antd";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import React, { useCallback, useEffect, useState } from "react";
 import PrescriptionBreakdown from "./PrescriptionBreakdown";
 import { useUserContext } from "@/contextProviders/userContextProvider";
@@ -192,21 +193,13 @@ const PrescriptionForm = ({
 
     // Log all prices for debugging
 
-    if (loading || sizeLoading || getColorLoading) {
-        return (
-            <Spin
-                spinning={loading || sizeLoading || getColorLoading}
-                fullscreen
-            />
-        );
-    }
-
     return (
-        <div className="prescription-form">
-            {showPriceBreakDown && (
-                <PrescriptionBreakdown
-                    priceForValue={prices}
-                    cartInfo={cartInfo}
+        <LoadingOverlay isLoading={loading || sizeLoading || getColorLoading}>
+            <div className="prescription-form">
+                {showPriceBreakDown && (
+                    <PrescriptionBreakdown
+                        priceForValue={prices}
+                        cartInfo={cartInfo}
                     mode={mode}
                 />
             )}
@@ -217,8 +210,6 @@ const PrescriptionForm = ({
                 onFinish={handleFormSubmit}
                 initialValues={mode === "create" ? {} : prescriptionInfo}
             >
-                <Spin spinning={loading} fullscreen />
-
                 {isAuthenticated && mode !== "view" ? (
                     <div className="mt-6">
                         <Form.Item
@@ -713,7 +704,8 @@ const PrescriptionForm = ({
                     ) : null}
                 </div>
             </Form>
-        </div>
+            </div>
+        </LoadingOverlay>
     );
 };
 

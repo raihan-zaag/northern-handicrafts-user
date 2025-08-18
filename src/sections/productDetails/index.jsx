@@ -1,6 +1,6 @@
 import React from "react";
-import ProductLeftView from "./productLeftView";
-import ProductRightView from "./productRightView";
+import ProductLeftView from "./ProductLeftView";
+import ProductRightView from "./ProductRightView";
 import ProductViewMobile from "./ProductViewMobile";
 
 

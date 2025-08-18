@@ -2,7 +2,14 @@
 
 import React from "react";
 import Button from "@/components/common/Button";
-import { Divider, Drawer } from "antd";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+} from "@/components/ui/sheet";
 import { MdClose } from "react-icons/md";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useRouter } from "next/navigation";
@@ -23,34 +30,6 @@ const DrawerComponent = () => {
   } = useCart();
   const { isAuthenticated } = useUserContext();
   const { openInfoNotification } = useNotification();
-
-  const drawerStyles = {
-    mask: {
-      backdropFilter: "blur(2px)",
-    },
-    content: {
-      boxShadow: "-10px 0 10px #666",
-    },
-    header: {
-      // borderBottom: `1px solid #515151`,
-      padding: "10px 10px 15px 16px",
-    },
-    body: {
-      fontSize: "10px",
-      padding: "0px 24px 0px 24px",
-    },
-    footer: {
-      // borderTop: `1px solid #515151`,
-    },
-  };
-
-  const classNames = {
-    body: { backgroundColor: "#000" },
-    // mask: styles["my-drawer-mask"],
-    // header: styles["my-drawer-header"],
-    // footer: styles["my-drawer-footer"],
-    // content: styles["my-drawer-content"],
-  };
 
   // fire user request for goto my-cart page
   // For this action user need to authenticate
@@ -91,18 +70,32 @@ const DrawerComponent = () => {
   };
 
   return (
-    <Drawer
-      title={
-        <div className="flex flex-row items-center justify-between">
-          <h2>My Cart ({cart?.length})</h2>
-          <button className="p-1" onClick={handleToggleCartDrawer}>
-            <MdClose className="h-6 w-6" />
-          </button>
+    <Sheet open={openCartDrawer} onOpenChange={setOpenCartDrawer}>
+      <SheetContent side="right" className="w-[500px] flex flex-col">
+        <SheetHeader>
+          <SheetTitle className="flex flex-row items-center justify-between">
+            <h2>My Cart ({cart?.length})</h2>
+          </SheetTitle>
+        </SheetHeader>
+
+        <div className="flex-1 overflow-y-auto">
+          <div className="w-full flex flex-col">
+            {/* PageCard props means this card component use in cart page or not. */}
+            {cart?.map((singleCartItem, index) => {
+              return (
+                <div key={index} className="py-5 border-b">
+                  <SingleCartItemCard
+                    cartInfo={singleCartItem}
+                    pageCard={false}
+                    showButton={true}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      }
-      placement="right"
-      footer={
-        <div className="flex flex-col gap-6">
+
+        <SheetFooter className="flex flex-col gap-6 mt-4">
           <div className="flex flex-row items-center justify-between p-4 bg-[#F7F8FA]">
             <p className="font-semibold">Subtotal</p>
             <p className="font-semibold">
@@ -129,31 +122,9 @@ const DrawerComponent = () => {
               Checkout
             </Button>
           </div>
-        </div>
-      }
-      onClose={handleToggleCartDrawer}
-      open={openCartDrawer}
-      classNames={classNames}
-      styles={drawerStyles}
-      closeIcon={null}
-      width={500}
-    >
-      <div className="w-full flex flex-col">
-        {/* PageCard props means this card component use in cart page or not. */}
-
-        {cart?.map((singleCartItem, index) => {
-          return (
-            <div key={index} className="py-5  border-b">
-              <SingleCartItemCard
-                cartInfo={singleCartItem}
-                pageCard={false}
-                showButton={true}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </Drawer>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 
