@@ -4,18 +4,18 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
 import PrescriptionForm from "@/sections/productDetails/PrescriptionForm";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/common/components/ui/separator";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "@/common/components/ui/sheet";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/common/components/ui/popover";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import PriceBreakdown from "@/sections/Checkout/PriceBreakdown";
 import { formatNumber } from "@/utils";

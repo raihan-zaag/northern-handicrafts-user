@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-import useGetWishlist from "@/hooks/wishlist/useGetWishlist";
-import useCreateWishlist from "@/hooks/wishlist/useCreateWishlist";
-import useRemoveWishlist from "@/hooks/wishlist/useDeleteWishlist";
+import useGetWishlist from "@/app/(public)/profile/hooks/useGetWishlist";
+import useCreateWishlist from "@/app/(public)/profile/hooks/useCreateWishlist";
+import useRemoveWishlist from "@/app/(public)/profile/hooks/useDeleteWishlist";
 
 import { useUserContext } from "../userContextProvider";
 

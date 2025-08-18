@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import useCreatePrescription from "@/hooks/prescription/useCreatePrescription";
+import useCreatePrescription from "@/app/(public)/profile/hooks/useCreatePrescription";
 
 const PrescriptionContext = createContext();
 

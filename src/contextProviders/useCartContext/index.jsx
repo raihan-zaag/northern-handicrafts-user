@@ -3,13 +3,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getCookie } from "cookies-next";
 
-import { CART_INFO, USER_INFO } from "@/constants/cookiesKeys";
-import useUpdateCart from "@/hooks/cart/useCartUpdate";
-import useGetOrderCalculatedData from "@/hooks/order/useGetCalculation";
-import useCreateGuestUserOrder from "@/hooks/order/useMakeGuestUserOrder";
-import useGetPrescription from "@/hooks/prescription/useGetPrescription";
-import { GET_CART_ITEM_URL } from "@/constants/apiUrls";
-import axiosPrivate from "@/configs/axios.publicInstance";
+import { CART_INFO, USER_INFO } from "@/common/config/constants/cookiesKeys";
+import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
+import useGetOrderCalculatedData from "@/app/(public)/orders/hooks/useGetCalculation";
+import useCreateGuestUserOrder from "@/app/(public)/orders/hooks/useMakeGuestUserOrder";
+import useGetPrescription from "@/app/(public)/profile/hooks/useGetPrescription";
+import { GET_CART_ITEM_URL } from "@/common/config/constants/apiUrls";
+import axiosPrivate from "@/common/config/axios.publicInstance";
 import { useUserContext } from "../userContextProvider";
 import { formatNumber } from "@/utils";
 

@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { LoadingOverlay } from "@/components/ui/loading-overlay";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
+import { Input } from "@/common/components/ui/input";
+import { Textarea } from "@/common/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/common/components/ui/radio-group";
+import { Label } from "@/common/components/ui/label";
 import {
   Form,
   FormControl,
@@ -16,23 +16,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/common/components/ui/form";
 import Link from "next/link";
 
-import Button from "@/components/common/Button";
-import Container from "@/components/common/Container";
+import Button from "@/common/components/common/Button";
+import Container from "@/common/components/common/Container";
 import OrderSummary from "@/components/orderSummary";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
-import useGetDefaultSettings from "@/hooks/checkout/useGetSettingsInfo";
-import useCreateOrder from "@/hooks/order/useMakeOrder";
-import AuthUserAddress from "@/sections/checkout/AuthUserAddress";
-import GuestUserAddressForm from "@/sections/checkout/GuestUserAddressForm";
+import useGetDefaultSettings from "@/app/(public)/checkout/hooks/useGetSettingsInfo";
+import useCreateOrder from "@/app/(public)/orders/hooks/useMakeOrder";
+import AuthUserAddress from "@/app/(public)/checkout/sections/AuthUserAddress";
+import GuestUserAddressForm from "@/app/(public)/checkout/sections/GuestUserAddressForm";
 import CheckoutProductCard from "./_component/CheckoutProductCart";
-import useNotification from "@/hooks/useNotification";
-import useUpdateCart from "@/hooks/cart/useCartUpdate";
+import useNotification from "@/common/hooks/useNotification";
+import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
 import { formatNumber } from "@/utils";
-import useGetUserProfile from "@/hooks/user/useGetUserInfo";
+import useGetUserProfile from "@/app/(public)/profile/hooks/useGetUserInfo";
 
 // Checkout form schema with dynamic validation
 const createCheckoutSchema = (isAuthenticated) => {

@@ -2,19 +2,19 @@ import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
 
-import { CHANGE_PASSWORD, SOCIAL_LOGIN_URL } from "@/constants/apiUrls";
+import { CHANGE_PASSWORD, SOCIAL_LOGIN_URL } from "@/common/config/constants/apiUrls";
 import {
   USER_INFO,
   USER_PERMISSION,
   USER_TOKEN,
-} from "@/constants/cookiesKeys";
+} from "@/common/config/constants/cookiesKeys";
 import {
   FacebookAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { axiosPublic } from "@/configs/axios.publicInstance";
-import { socialAuth } from "@/configs/firebase.config";
+import { axiosPublic } from "@/common/config/axios.publicInstance";
+import { socialAuth } from "@/common/config/firebase.config";
 
 // Create the UserContext
 const UserContext = createContext(null);

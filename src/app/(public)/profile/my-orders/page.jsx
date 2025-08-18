@@ -1,14 +1,14 @@
 "use client";
 
-import OrderCard from "@/components/cards/OrderCard";
-import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
-import RowSkeleton from "@/components/common/RowSkeleton";
-import TabButton from "@/components/common/TabButton";
-import PaginationComponent from "@/components/pagination";
-import useGetOnGoingOrder from "@/hooks/order/useGetOnGoingOrder";
-import useGetOrderHistory from "@/hooks/order/useGetOrderHistory ";
+import OrderCard from "@/common/components/cards/OrderCard";
+import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
+import RowSkeleton from "@/common/components/common/RowSkeleton";
+import TabButton from "@/common/components/common/TabButton";
+import PaginationComponent from "@/common/components/pagination";
+import useGetOnGoingOrder from "@/app/(public)/orders/hooks/useGetOnGoingOrder";
+import useGetOrderHistory from "@/app/(public)/orders/hooks/useGetOrderHistory ";
 import { debounce } from "@/utils";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/common/components/ui/input";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 

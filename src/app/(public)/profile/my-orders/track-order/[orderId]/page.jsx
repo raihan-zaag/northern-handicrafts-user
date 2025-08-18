@@ -1,4 +1,4 @@
-import TrackOrderContainer from "@/sections/TrackOrder/TrackOrderContainer";
+import TrackOrderContainer from "@/app/(public)/orders/sections/TrackOrderContainer";
 import React from "react";
 
 const TrackOrder = ({ params }) => {

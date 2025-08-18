@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Footer from "@/components/footer";
 import ContextWrapper from "@/contextProviders/contextWrapper";
 import { Toaster } from "sonner";
 
@@ -26,7 +25,6 @@ export default function RootLayout({ children }) {
             <body className={`${inter.className} antialiased`}>
                 <ContextWrapper>
                     {children}
-                    <Footer />
                 </ContextWrapper>
                 <Toaster richColors closeButton position="top-right" />
             </body>

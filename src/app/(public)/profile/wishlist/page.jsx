@@ -1,10 +1,10 @@
 "use client";
 
-import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
-import RowSkeleton from "@/components/common/RowSkeleton";
+import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
+import RowSkeleton from "@/common/components/common/RowSkeleton";
 import { useWishlist } from "@/contextProviders/useWishListProvider";
-import useRemoveWishlist from "@/hooks/wishlist/useDeleteWishlist";
-import useGetWishlist from "@/hooks/wishlist/useGetWishlist";
+import useRemoveWishlist from "@/app/(public)/profile/hooks/useDeleteWishlist";
+import useGetWishlist from "@/app/(public)/profile/hooks/useGetWishlist";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";

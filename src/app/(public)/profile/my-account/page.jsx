@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Button from "@/components/common/Button";
-import ImageUploader from "@/components/common/ImageUploader";
-import ProfileSkeleton from "@/components/common/ProfileSkeleton";
-import { Input } from "@/components/ui/input";
+import Button from "@/common/components/common/Button";
+import ImageUploader from "@/common/components/common/ImageUploader";
+import ProfileSkeleton from "@/common/components/common/ProfileSkeleton";
+import { Input } from "@/common/components/ui/input";
 import {
   Form,
   FormControl,
@@ -15,12 +15,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/common/components/ui/form";
 import { useUserContext } from "@/contextProviders/userContextProvider";
-import useProfileUpdate from "@/hooks/auth/useProfileUpdate";
-import { USER_INFO } from "@/constants/cookiesKeys";
+import useProfileUpdate from "@/app/(auth)/hooks/useProfileUpdate";
+import { USER_INFO } from "@/common/config/constants/cookiesKeys";
 import { setCookie } from "cookies-next";
-import useGetUserProfile from "@/hooks/user/useGetUserInfo";
+import useGetUserProfile from "@/app/(public)/profile/hooks/useGetUserInfo";
 
 // Profile form schema
 const profileSchema = z.object({

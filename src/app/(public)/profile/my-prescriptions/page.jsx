@@ -1,18 +1,18 @@
 "use client";
 
-import Button from "@/components/common/Button";
-import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
+import Button from "@/common/components/common/Button";
+import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
 import React, { useEffect, useState } from "react";
 import PrescriptionModal from "./_components/prescriptionModal";
-import RowSkeleton from "@/components/common/RowSkeleton";
+import RowSkeleton from "@/common/components/common/RowSkeleton";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 
-import useGetPrescriptionList from "@/hooks/prescription/useGetPrescriptionsList";
-import useCreatePrescription from "@/hooks/prescription/useCreatePrescription";
-import useDeletePrescription from "@/hooks/prescription/useDeletePrescription";
-import PaginationComponent from "@/components/pagination";
+import useGetPrescriptionList from "@/app/(public)/profile/hooks/useGetPrescriptionsList";
+import useCreatePrescription from "@/app/(public)/profile/hooks/useCreatePrescription";
+import useDeletePrescription from "@/app/(public)/profile/hooks/useDeletePrescription";
+import PaginationComponent from "@/common/components/pagination";
 
 const MyPrescription = () => {
   const [openPrescriptionModal, setOpenPrescriptionModal] = useState(false);

@@ -4,28 +4,28 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { LoadingOverlay } from "@/components/ui/loading-overlay";
-import Button from "@/components/common/Button";
+import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
+import Button from "@/common/components/common/Button";
 import { useRouter } from "next/navigation";
-import useGetSize from "@/hooks/singleProduct/useGetSizes";
-import InputLabel from "@/components/common/InputLabel";
-import useGetPrescription from "@/hooks/prescription/useGetPrescription";
-import Typography from "@/components/Typography";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import useGetSize from "@/app/(public)/products/hooks/useGetSizes";
+import InputLabel from "@/common/components/common/InputLabel";
+import useGetPrescription from "@/app/(public)/profile/hooks/useGetPrescription";
+import Typography from "@/common/components/Typography";
+import { Input } from "@/common/components/ui/input";
+import { Checkbox } from "@/common/components/ui/checkbox";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/common/components/ui/select";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/common/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -33,12 +33,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/common/components/ui/form";
 
-import useCreatePrescription from "@/hooks/prescription/useCreatePrescription";
-import useGetPrescriptionList from "@/hooks/prescription/useGetPrescriptionsList";
-import usePrescriptionUpdate from "@/hooks/prescription/useUpdatePrescription";
-import useNotification from "@/hooks/useNotification";
+import useCreatePrescription from "@/app/(public)/profile/hooks/useCreatePrescription";
+import useGetPrescriptionList from "@/app/(public)/profile/hooks/useGetPrescriptionsList";
+import usePrescriptionUpdate from "@/app/(public)/profile/hooks/useUpdatePrescription";
+import useNotification from "@/common/hooks/useNotification";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 

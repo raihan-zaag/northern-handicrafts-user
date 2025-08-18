@@ -1,28 +1,5 @@
-import Container from "@/components/common/Container";
-import { getProductFilterList } from "@/services/productService";
-import HomePageComponent from "@/sections/home";
-import SliderComponent from "@/components/common/Slider";
-import { getProductData } from "@/data/dataUtils";
+import { redirect } from 'next/navigation';
 
-const Home = async ({ searchParams }) => {
-    // Fetch the filtered product list on the server-side
-    // For development, we'll use sample data. In production, uncomment the line below:
-    // const productList = await getProductFilterList(searchParams);
-    
-    // Using sample data for development
-    const productList = getProductData(1, searchParams);
-
-    return (
-        <div className="">
-            <SliderComponent />
-            <Container classname={""}>
-                <HomePageComponent
-                    product={productList?.data?.content}
-                    pageSize={productList?.data?.totalPages}
-                />
-            </Container>
-        </div>
-    );
-};
-
-export default Home;
+export default function HomePage() {
+    redirect('/landing');
+}

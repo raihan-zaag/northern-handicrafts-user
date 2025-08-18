@@ -1,11 +1,11 @@
 // "use client";
-// import Button from "@/components/common/Button";
-// import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
-// import RowSkeleton from "@/components/common/RowSkeleton";
-// import PaginationComponent from "@/components/pagination";
-// import useDeleteAddress from "@/hooks/address/useDeleteAddress";
-// import useGetAddress from "@/hooks/address/useGetUserAddress";
-// import AddressModal from "@/sections/address/AddressAddModal";
+// import Button from "@/common/components/common/Button";
+// import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
+// import RowSkeleton from "@/common/components/common/RowSkeleton";
+// import PaginationComponent from "@/common/components/pagination";
+// import useDeleteAddress from "@/app/(public)/profile/hooks/useDeleteAddress";
+// import useGetAddress from "@/app/(public)/profile/hooks/useGetUserAddress";
+// import AddressModal from "@/app/(public)/profile/sections/AddressAddModal";
 // import { Spin } from "antd";
 // import { useRouter } from "next/navigation";
 // import React, { useEffect } from "react";
@@ -114,17 +114,17 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import Button from "@/components/common/Button";
-import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
-import RowSkeleton from "@/components/common/RowSkeleton";
-import PaginationComponent from "@/components/pagination";
-import useDeleteAddress from "@/hooks/address/useDeleteAddress";
-import useGetAddress from "@/hooks/address/useGetUserAddress";
-import AddressModal from "@/sections/address/AddressAddModal";
-import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import Button from "@/common/components/common/Button";
+import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
+import RowSkeleton from "@/common/components/common/RowSkeleton";
+import PaginationComponent from "@/common/components/pagination";
+import useDeleteAddress from "@/app/(public)/profile/hooks/useDeleteAddress";
+import useGetAddress from "@/app/(public)/profile/hooks/useGetUserAddress";
+import AddressModal from "@/app/(public)/profile/sections/AddressAddModal";
+import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 import { MemoizedAddressCard } from "./MemorizedAddressCard";
-import useCreateAddress from "@/hooks/address/useCreateAddress";
-import useUpdateAddress from "@/hooks/address/useUpdateAddress";
+import useCreateAddress from "@/app/(public)/profile/hooks/useCreateAddress";
+import useUpdateAddress from "@/app/(public)/profile/hooks/useUpdateAddress";
 
 const AddressPage = () => {
     const { address, loading, fetchAddress } = useGetAddress();

@@ -3,12 +3,12 @@
 import React from "react";
 import { getCookie } from "cookies-next";
 
-import Container from "@/components/common/Container";
-import VerificationForm from "@/components/verificationForm";
-import { VERIFY_EMAIL } from "@/constants/cookiesKeys";
-import useVerifyEmail from "@/hooks/auth/useVerifyEmail";
-import useResendOTP from "@/hooks/auth/useResendOtp";
-import { Spinner } from "@/components/ui/spinner";
+import Container from "@/common/components/common/Container";
+import VerificationForm from "../components/verificationForm";
+import { VERIFY_EMAIL } from "@/common/config/constants/cookiesKeys";
+import useVerifyEmail from "@/app/(auth)/hooks/useVerifyEmail";
+import useResendOTP from "@/app/(auth)/hooks/useResendOtp";
+import { Spinner } from "@/common/components/ui/spinner";
 
 const EmailVerification = () => {
   const varify_email = getCookie(VERIFY_EMAIL);

@@ -1,4 +1,4 @@
-import useGetSize from "@/hooks/singleProduct/useGetSizes";
+import useGetSize from "@/app/(public)/products/hooks/useGetSizes";
 import React, { createContext, useContext } from "react";
 import { useEffect, useState } from "react";
 
