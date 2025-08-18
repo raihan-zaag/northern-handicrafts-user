@@ -254,12 +254,50 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Select, InputNumber } from "antd";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import { IoClose } from "react-icons/io5";
 import statesData from "../../../libs/states.json";
 import { IoIosArrowDown } from "react-icons/io";
+
+// Address form schema
+const addressSchema = z.object({
+  title: z.string().min(1, "Please enter your address title"),
+  zipCode: z
+    .string()
+    .min(1, "Please enter a valid ZIP code")
+    .regex(/^\d+$/, "ZIP code must contain only numbers"),
+  state: z.string().min(1, "Please select your state"),
+  city: z.string().min(1, "Please select your city"),
+  apartment: z.string().optional(),
+  street: z.string().min(1, "Please enter your street address"),
+});
 
 const AddressModal = ({
     open,
@@ -270,28 +308,44 @@ const AddressModal = ({
     onSubmit,
     totalAddressCount,
 }) => {
-    const [form] = Form.useForm();
     const router = useRouter();
-
+    
     // Local state for city dropdown options
     const [availableCities, setAvailableCities] = useState([]);
+
+    const form = useForm({
+        resolver: zodResolver(addressSchema),
+        defaultValues: {
+            title: "",
+            zipCode: "",
+            state: "",
+            city: "",
+            apartment: "",
+            street: "",
+        },
+    });
 
     useEffect(() => {
         if (isCreate) {
             // When creating a new address, default title to "Address X"
-            form.setFieldsValue({
+            form.reset({
                 title: `Address ${totalAddressCount + 1}`,
+                zipCode: "",
+                state: "",
+                city: "",
+                apartment: "",
+                street: "",
             });
+            setAvailableCities([]);
         } else if (selectedAddress) {
             // If editing an existing address, fill the fields
-            form.setFieldsValue({
-                title: selectedAddress?.title,
-                // country: selectedAddress?.country,
-                state: selectedAddress?.state,
-                city: selectedAddress?.city,
-                zipCode: selectedAddress?.zipCode,
-                street: selectedAddress?.street,
-                apartment: selectedAddress?.apartment,
+            form.reset({
+                title: selectedAddress?.title || "",
+                zipCode: selectedAddress?.zipCode || "",
+                state: selectedAddress?.state || "",
+                city: selectedAddress?.city || "",
+                apartment: selectedAddress?.apartment || "",
+                street: selectedAddress?.street || "",
             });
 
             // Also set the available cities if a state was provided
@@ -317,7 +371,7 @@ const AddressModal = ({
             setAvailableCities([]);
         }
         // Reset city field
-        form.setFieldsValue({ city: null });
+        form.setValue("city", "");
     };
 
     /**
@@ -326,7 +380,8 @@ const AddressModal = ({
     const handleZipChange = (value) => {
         if (!value) {
             // Clear out fields if empty
-            form.setFieldsValue({ state: null, city: null });
+            form.setValue("state", "");
+            form.setValue("city", "");
             setAvailableCities([]);
             return;
         }
@@ -348,14 +403,13 @@ const AddressModal = ({
 
         if (foundState && foundCity) {
             // Update the state and city fields
-            form.setFieldsValue({
-                state: foundState.name,
-                city: foundCity.name,
-            });
+            form.setValue("state", foundState.name);
+            form.setValue("city", foundCity.name);
             // Update availableCities to the matched state's entire city list
             setAvailableCities(foundState.cities);
         } else {
-            form.setFieldsValue({ state: null, city: null });
+            form.setValue("state", "");
+            form.setValue("city", "");
             setAvailableCities([]);
         }
     };
@@ -363,10 +417,10 @@ const AddressModal = ({
     /**
      * Submit form
      */
-    const handleFinish = async (values) => {
+    const handleSubmit = async (values) => {
         onSubmit(values, isCreate, form);
         onClose();
-        form.resetFields();
+        form.reset();
         router.refresh(); // if needed
     };
 
@@ -374,194 +428,185 @@ const AddressModal = ({
      * Close modal
      */
     const handleCloseModal = () => {
-        form.resetFields();
+        form.reset();
         onClose();
         setSelectedAddress(null);
         setAvailableCities([]);
     };
 
     return (
-        <Modal
-            title={
-                <div className="flex items-center justify-between">
-                    <p>Enter Address Details</p>
-                    <IoClose
-                        className="h-7 w-7 cursor-pointer"
-                        onClick={handleCloseModal}
-                    />
-                </div>
-            }
-            open={open}
-            onCancel={handleCloseModal}
-            footer={null}
-            centered
-            closable={false}
-        >
-            <Form
-                form={form}
-                layout="vertical"
-                onFinish={handleFinish}
-                className="space-y-2"
-            >
-                {/* Address Name */}
-                <Form.Item
-                    name="title"
-                    label="Address Name"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please enter your address title",
-                        },
-                    ]}
-                >
-                    <Input
-                        placeholder="e.g., Home, Work"
-                        style={{ height: "48px" }}
-                    />
-                </Form.Item>
+        <Dialog open={open} onOpenChange={handleCloseModal}>
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                    <DialogTitle className="flex items-center justify-between">
+                        <span>Enter Address Details</span>
+                        <IoClose
+                            className="h-7 w-7 cursor-pointer"
+                            onClick={handleCloseModal}
+                        />
+                    </DialogTitle>
+                </DialogHeader>
 
-                {/* ZIP Code */}
-                <Form.Item
-                    name="zipCode"
-                    label="ZIP Code"
-                    rules={[
-                        {
-                            type: "number",
-                            required: true,
-                            message: "Please enter a valid ZIP code",
-                        },
-                    ]}
-                >
-                    <InputNumber
-                        min={0}
-                        placeholder="Enter zip code"
-                        style={{
-                            padding: "8px 0",
-                            width: "100%",
-                        }}
-                        controls={false}
-                        onChange={handleZipChange}
-                    />
-                </Form.Item>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+                        {/* Address Name */}
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Address Name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="e.g., Home, Work"
+                                            className="h-12"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                {/* State */}
-                <Form.Item
-                    name="state"
-                    label="State"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please select your state",
-                        },
-                    ]}
-                >
-                    <Select
-                        showSearch
-                        placeholder="Select a state"
-                        onChange={handleStateChange}
-                        filterOption={(input, option) =>
-                            (option?.label ?? "")
-                                .toLowerCase()
-                                .includes(input.toLowerCase())
-                        }
-                        options={statesData.states.map((st) => ({
-                            label: st.name,
-                            value: st.name,
-                        }))}
-                        style={{
-                            width: "100%",
-                            height: "48px",
-                        }}
-                        suffixIcon={
-                            <IoIosArrowDown className="text-primary h-5 w-5" />
-                        }
-                    />
-                </Form.Item>
+                        {/* ZIP Code */}
+                        <FormField
+                            control={form.control}
+                            name="zipCode"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>ZIP Code</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="number"
+                                            placeholder="Enter zip code"
+                                            className="h-12"
+                                            {...field}
+                                            onChange={(e) => {
+                                                field.onChange(e);
+                                                handleZipChange(e.target.value);
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                {/* City */}
-                <Form.Item
-                    name="city"
-                    label="City"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please select your city",
-                        },
-                    ]}
-                >
-                    <Select
-                        showSearch
-                        placeholder="Select a city"
-                        disabled={!availableCities.length}
-                        filterOption={(input, option) =>
-                            (option?.label ?? "")
-                                .toLowerCase()
-                                .includes(input.toLowerCase())
-                        }
-                        options={availableCities.map((city) => ({
-                            label: city.name,
-                            value: city.name,
-                        }))}
-                        style={{
-                            width: "100%",
-                            height: "48px",
-                        }}
-                        suffixIcon={
-                            <IoIosArrowDown className="text-primary h-5 w-5" />
-                        }
-                    />
-                </Form.Item>
+                        {/* State */}
+                        <FormField
+                            control={form.control}
+                            name="state"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>State</FormLabel>
+                                    <Select onValueChange={(value) => {
+                                        field.onChange(value);
+                                        handleStateChange(value);
+                                    }} value={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="Select a state" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {statesData.states.map((state) => (
+                                                <SelectItem key={state.name} value={state.name}>
+                                                    {state.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                {/* Apartment/Suite Info (optional) */}
-                <Form.Item
-                    name="apartment"
-                    label="Apartment/Suite/Unit Info (Optional)"
-                >
-                    <Input
-                        placeholder="Apartment/Suite/Unit Info"
-                        style={{ height: "48px", marginBottom: "20px" }}
-                    />
-                </Form.Item>
+                        {/* City */}
+                        <FormField
+                            control={form.control}
+                            name="city"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>City</FormLabel>
+                                    <Select onValueChange={field.onChange} value={field.value} disabled={!availableCities.length}>
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="Select a city" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {availableCities.map((city) => (
+                                                <SelectItem key={city.name} value={city.name}>
+                                                    {city.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                {/* Street Address */}
-                <Form.Item
-                    name="street"
-                    label="Street Address"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please enter your street address",
-                        },
-                    ]}
-                >
-                    <Input.TextArea
-                        placeholder="e.g. Road no., Area etc."
-                        className="h-12"
-                    />
-                </Form.Item>
+                        {/* Apartment/Suite Info (optional) */}
+                        <FormField
+                            control={form.control}
+                            name="apartment"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Apartment/Suite/Unit Info (Optional)</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Apartment/Suite/Unit Info"
+                                            className="h-12"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                {/* Buttons */}
-                <div className="flex items-start gap-3 pt-6">
-                    <Button
-                        type="outline"
-                        buttonType="button"
-                        className="flex-grow"
-                        onClick={handleCloseModal}
-                    >
-                        Cancel
-                    </Button>
-                    <Form.Item className="flex-grow">
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            className="w-full"
-                        >
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </div>
-            </Form>
-        </Modal>
+                        {/* Street Address */}
+                        <FormField
+                            control={form.control}
+                            name="street"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Street Address</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="e.g. Road no., Area etc."
+                                            className="min-h-[80px]"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Buttons */}
+                        <div className="flex items-center gap-3 pt-6">
+                            <Button
+                                type="outline"
+                                buttonType="button"
+                                className="flex-1"
+                                onClick={handleCloseModal}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="flex-1"
+                            >
+                                Submit
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            </DialogContent>
+        </Dialog>
     );
 };
 

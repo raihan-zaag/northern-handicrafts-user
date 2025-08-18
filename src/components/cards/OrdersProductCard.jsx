@@ -1,7 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Divider, Drawer, Modal } from "antd";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import Image from "next/image";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -124,38 +136,28 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
       </div>
 
       {isWriteReview && (
-        <Modal
-          title={
-            <h4 className="w-full flex justify-center pt-4">Write Review</h4>
-          }
-          open={isWriteReview}
-          onCancel={handleWriteReviewToggleModal}
-          footer={null}
-          closeIcon={null}
-          centered
-        >
-          <ProductReviewForm
-            submit={handleMakeReview}
-            productName={data?.productName}
-            image={data?.thumbnailImage}
-            data={data}
-            closeModal={handleWriteReviewToggleModal}
-          />
-        </Modal>
+        <Dialog open={isWriteReview} onOpenChange={(open) => !open && handleWriteReviewToggleModal()}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="w-full flex justify-center pt-4">Write Review</DialogTitle>
+            </DialogHeader>
+            <ProductReviewForm
+              submit={handleMakeReview}
+              productName={data?.productName}
+              image={data?.thumbnailImage}
+              data={data}
+              closeModal={handleWriteReviewToggleModal}
+            />
+          </DialogContent>
+        </Dialog>
       )}
 
       {showPrescriptionInfo && (
-        <Drawer
-          open={showPrescriptionInfo}
-          centered
-          footer={null}
-          width={600}
-          onCancel={() => {}}
-          closeIcon={null}
-          title={
-            <div>
+        <Sheet open={showPrescriptionInfo} onOpenChange={(open) => !open && handleTogglePrescriptionDrawer()}>
+          <SheetContent className="w-[600px] sm:max-w-[600px]">
+            <SheetHeader>
               <div className="flex items-center justify-between">
-                <p>My Prescription</p>
+                <SheetTitle>My Prescription</SheetTitle>
                 <button
                   onClick={() => {
                     handleTogglePrescriptionDrawer();
@@ -164,24 +166,22 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
                   <IoCloseOutline className="h-8 w-8" />
                 </button>
               </div>
-              <Divider style={{ padding: 0, margin: "5px 0 0px 0" }} />
+              <Separator />
+            </SheetHeader>
+            <div className="mt-4">
+              <PrescriptionForm
+                mode={"view"}
+                onSubmit={() => {}}
+                handleSkipAddPrescription={handleTogglePrescriptionDrawer}
+                prescriptionInfo={data?.prescription || {}}
+                onDelete={() => {}}
+                showPriceBreakDown={false}
+                showButtons={false}
+                readOnly={true}
+              />
             </div>
-          }
-          styles={{ body: { padding: "0 24px" } }}
-        >
-          <div>
-            <PrescriptionForm
-              mode={"view"}
-              onSubmit={() => {}}
-              handleSkipAddPrescription={handleTogglePrescriptionDrawer}
-              prescriptionInfo={data?.prescription || {}}
-              onDelete={() => {}}
-              showPriceBreakDown={false}
-              showButtons={false}
-              readOnly={true}
-            />
-          </div>
-        </Drawer>
+          </SheetContent>
+        </Sheet>
       )}
       </div>
     </LoadingOverlay>

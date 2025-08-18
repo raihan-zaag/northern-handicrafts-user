@@ -1,6 +1,19 @@
 "use client";
 
-import { Carousel, Modal, Popover, Rate, Select } from "antd";
+import { Carousel } from "antd";
+import { StarRating } from "@/components/ui/star-rating";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { getCookie, hasCookie } from "cookies-next";
 
@@ -331,11 +344,11 @@ const ProductViewMobile = ({ data }) => {
 
         <div className="flex w-full justify-between">
           <div className="flex gap-x-2.5 items-center">
-            <Rate
-              disabled
+            <StarRating
               value={averageRatingValue?.averageRating}
+              disabled
               allowHalf
-              style={{ color: "#F08200", fontSize: 12 }}
+              size="w-3 h-3"
             />
 
             <Typography.BodyText color="text-font_color_one">

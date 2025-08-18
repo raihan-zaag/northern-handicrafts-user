@@ -1,6 +1,11 @@
 "use client";
 
-import { Popover, Rate } from "antd";
+import { StarRating } from "@/components/ui/star-rating";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -281,11 +286,11 @@ const ProductRightView = ({ forModal = false, data }) => {
             {/* Rating  info */}
             <div className="flex w-full justify-between">
                 <div className="flex gap-x-2.5 items-center">
-                    <Rate
+                    <StarRating
+                        value={averageRatingValue?.averageRating}
                         disabled
                         allowHalf
-                        value={averageRatingValue?.averageRating}
-                        style={{ color: "#F08200", fontSize: 12 }}
+                        size="w-3 h-3"
                     />
 
                     <Typography.BodyText
@@ -376,39 +381,33 @@ const ProductRightView = ({ forModal = false, data }) => {
                         <div className="flex gap-x-3">
                             {data?.colorList?.map((color, colorIndex) => {
                                 return color?.color?.active ? (
-                                    <Popover
-                                        title={null}
-                                        content={
+                                    <Popover key={`${color}-${colorIndex}`}>
+                                        <PopoverTrigger asChild>
+                                            <div
+                                                className={`${
+                                                    selectedColor?.id === color?.id
+                                                        ? "border-[#3A3A3A] border-opacity-40"
+                                                        : "border-transparent"
+                                                } border-[3px] rounded-full cursor-pointer`}
+                                            >
+                                                <div
+                                                    onClick={() => {
+                                                        handleSelectColor(color);
+                                                    }}
+                                                    className={`w-9 h-9 rounded-full duration-300 bg-red-100`}
+                                                    style={{
+                                                        backgroundColor: `${color?.color?.value}`,
+                                                    }}
+                                                />
+                                            </div>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-3">
                                             <div className="flex flex-col items-start justify-start gap-1">
                                                 <p className="text-[#2A2A2A] text-base">
                                                     Color : {color?.color?.name}
                                                 </p>
-                                                {/* <p className="text-red-500">
-                                                    $ ({color?.price})
-                                                </p> */}
                                             </div>
-                                        }
-                                        arrow={false}
-                                        placement={"bottom"}
-                                    >
-                                        <div
-                                            key={`${color}-${colorIndex}`}
-                                            className={`${
-                                                selectedColor?.id === color?.id
-                                                    ? "border-[#3A3A3A] border-opacity-40"
-                                                    : "border-transparent"
-                                            } border-[3px] rounded-full cursor-pointer`}
-                                        >
-                                            <div
-                                                onClick={() => {
-                                                    handleSelectColor(color);
-                                                }}
-                                                className={`w-9 h-9 rounded-full duration-300 bg-red-100`}
-                                                style={{
-                                                    backgroundColor: `${color?.color?.value}`,
-                                                }}
-                                            />
-                                        </div>
+                                        </PopoverContent>
                                     </Popover>
                                 ) : null;
                             })}

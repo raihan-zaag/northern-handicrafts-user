@@ -4,7 +4,18 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
 import PrescriptionForm from "@/sections/productDetails/PrescriptionForm";
-import { Divider, Drawer, Popover } from "antd";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import PriceBreakdown from "@/sections/Checkout/PriceBreakdown";
 import { formatNumber } from "@/utils";
@@ -55,15 +66,15 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
               ${formatNumber(cartInfo?.singleProductPrice)}
             </p>
 
-            <Popover
-              title={null}
-              content={<PriceBreakdown cartInfo={cartInfo} />}
-              arrow={false}
-              placement={"bottom"}
-            >
-              <p className="underline font-medium text-xs cursor-pointer">
-                See price Breakdown
-              </p>
+            <Popover>
+              <PopoverTrigger asChild>
+                <p className="underline font-medium text-xs cursor-pointer">
+                  See price Breakdown
+                </p>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PriceBreakdown cartInfo={cartInfo} />
+              </PopoverContent>
             </Popover>
           </div>
         </div>
@@ -104,17 +115,11 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
       </div>
 
       {isPrescriptionModalOpen && (
-        <Drawer
-          open={isPrescriptionModalOpen}
-          centered
-          footer={null}
-          width={600}
-          onCancel={() => {}}
-          closeIcon={null}
-          title={
-            <div>
+        <Sheet open={isPrescriptionModalOpen} onOpenChange={(open) => !open && handleOpenClosePrescriptionModal()}>
+          <SheetContent className="w-[600px] sm:max-w-[600px]">
+            <SheetHeader>
               <div className="flex items-center justify-between">
-                <p>My Prescription</p>
+                <SheetTitle>My Prescription</SheetTitle>
                 <button
                   onClick={() => {
                     handleOpenClosePrescriptionModal();
@@ -123,25 +128,23 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
                   <IoCloseOutline className="h-8 w-8" />
                 </button>
               </div>
-              <Divider style={{ padding: 0, margin: "5px 0 0px 0" }} />
+              <Separator />
+            </SheetHeader>
+            <div className="mt-4">
+              <PrescriptionForm
+                mode={"view"}
+                onSubmit={() => {}}
+                handleSkipAddPrescription={handleOpenClosePrescriptionModal}
+                prescriptionInfo={cartInfo?.prescription || {}}
+                onDelete={() => {}}
+                showPriceBreakDown={false}
+                showButtons={false}
+                readOnly={true}
+                cartInfo={cartInfo}
+              />
             </div>
-          }
-          styles={{ body: { padding: "0 24px" } }}
-        >
-          <div>
-            <PrescriptionForm
-              mode={"view"}
-              onSubmit={() => {}}
-              handleSkipAddPrescription={handleOpenClosePrescriptionModal}
-              prescriptionInfo={cartInfo?.prescription || {}}
-              onDelete={() => {}}
-              showPriceBreakDown={false}
-              showButtons={false}
-              readOnly={true}
-              cartInfo={cartInfo}
-            />
-          </div>
-        </Drawer>
+          </SheetContent>
+        </Sheet>
       )}
     </div>
   );

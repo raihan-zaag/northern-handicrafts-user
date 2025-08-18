@@ -31,7 +31,7 @@ const sheetVariants = cva(
   }
 )
 
-const SheetOverlay = React.forwardRef(({ className, ...props }, ref) => (
+const SheetOverlay = ({ className, ref, ...props }) => (
   <DialogPrimitive.Overlay
     className={cn(
       "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -40,10 +40,10 @@ const SheetOverlay = React.forwardRef(({ className, ...props }, ref) => (
     {...props}
     ref={ref}
   />
-))
+)
 SheetOverlay.displayName = DialogPrimitive.Overlay.displayName
 
-const SheetContent = React.forwardRef(({ side = "right", className, children, ...props }, ref) => (
+const SheetContent = ({ side = "right", className, children, ref, ...props }) => (
   <SheetPortal>
     <SheetOverlay />
     <DialogPrimitive.Content
@@ -58,7 +58,7 @@ const SheetContent = React.forwardRef(({ side = "right", className, children, ..
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </SheetPortal>
-))
+)
 SheetContent.displayName = DialogPrimitive.Content.displayName
 
 const SheetHeader = ({ className, ...props }) => (
@@ -83,22 +83,22 @@ const SheetFooter = ({ className, ...props }) => (
 )
 SheetFooter.displayName = "SheetFooter"
 
-const SheetTitle = React.forwardRef(({ className, ...props }, ref) => (
+const SheetTitle = ({ className, ref, ...props }) => (
   <DialogPrimitive.Title
     ref={ref}
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
-))
+)
 SheetTitle.displayName = DialogPrimitive.Title.displayName
 
-const SheetDescription = React.forwardRef(({ className, ...props }, ref) => (
+const SheetDescription = ({ className, ref, ...props }) => (
   <DialogPrimitive.Description
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
+)
 SheetDescription.displayName = DialogPrimitive.Description.displayName
 
 export {

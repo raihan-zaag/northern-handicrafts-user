@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from "react";
 import useGetAddress from "@/hooks/address/useGetUserAddress";
-import { Select } from "antd";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Button from "@/components/common/Button";
 import AddressModal from "../address/AddressAddModal";
 import useCreateAddress from "@/hooks/address/useCreateAddress";
@@ -53,38 +59,19 @@ const AuthUserAddress = ({ setDeliveryAddress, deliveryAddress }) => {
         <div className="flex flex-col gap-5">
             <div className="flex flex-col md:flex-row gap-4 w-full">
                 <Select
-                    value={selectedAddress}
-                    onChange={handleChange}
-                    placeholder="Select a delivery address"
-                    className="w-full h-32"
-                    style={{ height: "56px" }}
-                    options={addressOption}
-                    optionRender={(option) => {
-                        return (
-                            <div className="flex flex-row items-center justify-start gap-2">
-                                <p className="font-normal">
-                                    {option.data.label}
-                                </p>
-                            </div>
-                        );
-                    }}
+                    value={selectedAddress?.toString()}
+                    onValueChange={(value) => handleChange(parseInt(value))}
                 >
-                    {/* {address?.content?.map((addr) => (
-            <Option key={addr.id} value={addr.id}>
-              <div>
-                <h3 className="text-lg font-semibold">{addr.title}</h3>
-                <p className="text-gray-700 text-sm">Country: {addr.country}</p>
-                {addr?.state && (
-                  <p className="text-gray-700 text-sm">State: {addr.state}</p>
-                )}
-                <p className="text-gray-700 text-sm">City: {addr.city}</p>
-                <p className="text-gray-700 text-sm">
-                  Zip Code: {addr.zipCode}
-                </p>
-                <p className="text-gray-700 text-sm">Street: {addr.street}</p>
-              </div>
-            </Option>
-          ))} */}
+                    <SelectTrigger className="w-full h-14">
+                        <SelectValue placeholder="Select a delivery address" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {addressOption?.map((option) => (
+                            <SelectItem key={option.value} value={option.value.toString()}>
+                                {option.label}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
                 </Select>
 
                 <Button

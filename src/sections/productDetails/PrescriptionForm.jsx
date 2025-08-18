@@ -1,16 +1,54 @@
+import React, { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import Button from "@/components/common/Button";
 import InputLabel from "@/components/common/InputLabel";
 import Typography from "@/components/Typography";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import useGetPrescription from "@/hooks/prescription/useGetPrescription";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
-import { Select, Form, Checkbox, Input, Popover } from "antd";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
-import React, { useCallback, useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import PrescriptionBreakdown from "./PrescriptionBreakdown";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useGetColorList from "@/hooks/color/useGetColorList";
 import { IoIosArrowDown } from "react-icons/io";
+
+// Prescription form schema
+const prescriptionSchema = z.object({
+  name: z.string().optional(),
+  leftEyeSPH: z.string().optional(),
+  leftEyeCYL: z.string().optional(),
+  leftEyeAxis: z.string().optional(),
+  rightEyeSPH: z.string().optional(),
+  rightEyeCYL: z.string().optional(),
+  rightEyeAxis: z.string().optional(),
+  pdDistance: z.string().optional(),
+  leftPdDistance: z.string().optional(),
+  rightPdDistance: z.string().optional(),
+});
 
 const PrescriptionForm = ({
     mode, // "create", "update", or "view"
@@ -23,7 +61,10 @@ const PrescriptionForm = ({
     readOnly = true,
     cartInfo = {},
 }) => {
-    const [form] = Form.useForm();
+    const form = useForm({
+        resolver: zodResolver(prescriptionSchema),
+        defaultValues: mode === "create" ? {} : prescriptionInfo || {},
+    });
     const { isAuthenticated } = useUserContext();
 
     const { prescription, loading } = useGetPrescription();
@@ -45,7 +86,7 @@ const PrescriptionForm = ({
     useEffect(() => {
         if (prescriptionInfo) {
             // Set form values based on prescriptionInfo
-            form.setFieldsValue(prescriptionInfo);
+            form.reset(prescriptionInfo);
 
             // Check and set 2D PD if necessary
             if (
@@ -147,13 +188,13 @@ const PrescriptionForm = ({
         values.productSize = selectedSize;
         if (onSubmit) {
             onSubmit(values);
-            form.resetFields();
+            form.reset();
         }
     };
 
     const handle2PdDistance = useCallback(
-        (e) => {
-            setIs2DPd(e?.target?.checked);
+        (checked) => {
+            setIs2DPd(checked);
         },
         [is2DPd]
     );
@@ -163,15 +204,15 @@ const PrescriptionForm = ({
         return allData.find((data) => data?.value === value);
     };
 
-    const leftEyeSPH = Form.useWatch("leftEyeSPH", form);
-    const leftEyeCYL = Form.useWatch("leftEyeCYL", form);
-    const rightEyeSPH = Form.useWatch("rightEyeSPH", form);
-    const rightEyeCYL = Form.useWatch("rightEyeCYL", form);
-    const leftEyeAxis = Form.useWatch("leftEyeAxis", form);
-    const rightEyeAxis = Form.useWatch("rightEyeAxis", form);
-    const pdDistance = Form.useWatch("pdDistance", form);
-    const leftPdDistance = Form.useWatch("leftPdDistance", form);
-    const rightPdDistance = Form.useWatch("rightPdDistance", form);
+    const leftEyeSPH = form.watch("leftEyeSPH");
+    const leftEyeCYL = form.watch("leftEyeCYL");
+    const rightEyeSPH = form.watch("rightEyeSPH");
+    const rightEyeCYL = form.watch("rightEyeCYL");
+    const leftEyeAxis = form.watch("leftEyeAxis");
+    const rightEyeAxis = form.watch("rightEyeAxis");
+    const pdDistance = form.watch("pdDistance");
+    const leftPdDistance = form.watch("leftPdDistance");
+    const rightPdDistance = form.watch("rightPdDistance");
 
     // Get price for each form value
     const prices = {
@@ -204,141 +245,135 @@ const PrescriptionForm = ({
                 />
             )}
 
-            <Form
-                form={form}
-                layout="vertical"
-                onFinish={handleFormSubmit}
-                initialValues={mode === "create" ? {} : prescriptionInfo}
-            >
-                {isAuthenticated && mode !== "view" ? (
-                    <div className="mt-6">
-                        <Form.Item
-                            name="name"
-                            label={
-                                <div className="flex items-center">
-                                    <InputLabel>Prescription Name</InputLabel>
-                                    <Typography.BodyText className="text-sm font-medium">
-                                        <span className="text-red-500">*</span>
-                                    </Typography.BodyText>
-                                </div>
-                            }
-                            rules={[
-                                {
-                                    required: true,
-                                    message:
-                                        "Please write a prescription name.",
-                                },
-                            ]}
-                        >
-                            <Input
-                                type="text"
-                                readOnly={readOnly}
-                                placeholder="Please enter prescription name"
-                            />
-                        </Form.Item>
-                    </div>
-                ) : null}
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-4">
+                        {isAuthenticated && mode !== "view" ? (
+                            <div className="mt-6">
+                                <FormField
+                                    control={form.control}
+                                    name="name"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>
+                                                <div className="flex items-center">
+                                                    <InputLabel>Prescription Name</InputLabel>
+                                                    <Typography.BodyText className="text-sm font-medium">
+                                                        <span className="text-red-500">*</span>
+                                                    </Typography.BodyText>
+                                                </div>
+                                            </FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    readOnly={readOnly}
+                                                    placeholder="Please enter prescription name"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        ) : null}
 
                 <div className="w-full my-4 flex flex-col gap-2">
                     <p className="text-primary text-base font-semibold">
                         Left Eye - OD
                     </p>
                     <div className="flex gap-2 w-full">
-                        <Form.Item
-                            name={"leftEyeSPH"}
-                            label={<p className="font-semibold text-sm">SPH</p>}
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select SPH",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                defaultValue={prescriptionInfo?.leftEyeSPH}
-                                style={{ width: "100%", height: "48px" }}
-                                options={sphData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="SPH"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="leftEyeSPH"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="font-semibold text-sm">SPH</p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="SPH" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {sphData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                        <Form.Item
-                            name={"leftEyeCYL"}
-                            label={<p className="font-semibold text-sm">CYL</p>}
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select CYL",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={cylData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="CYL"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="leftEyeCYL"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="font-semibold text-sm">CYL</p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="CYL" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {cylData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                        <Form.Item
-                            name={"leftEyeAxis"}
-                            label={
-                                <p className="font-semibold text-sm">Axis</p>
-                            }
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select Axis",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={axisData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="Axis"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="leftEyeAxis"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="font-semibold text-sm">Axis</p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="Axis" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {axisData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </div>
                 </div>
 
@@ -347,100 +382,98 @@ const PrescriptionForm = ({
                         Right Eye - OD
                     </p>
                     <div className="flex gap-2 w-full">
-                        <Form.Item
-                            name={"rightEyeSPH"}
-                            label={<p className="font-semibold text-sm">SPH</p>}
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select SPH",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={sphData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="SPH"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="rightEyeSPH"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="font-semibold text-sm">SPH</p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="SPH" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {sphData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                        <Form.Item
-                            name={"rightEyeCYL"}
-                            label={<p className="font-semibold text-sm">CYL</p>}
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select CYL",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={cylData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="CYL"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="rightEyeCYL"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="font-semibold text-sm">CYL</p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="CYL" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {cylData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                        <Form.Item
-                            name={"rightEyeAxis"}
-                            label={
-                                <p className="font-semibold text-sm">Axis</p>
-                            }
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select Axis",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={axisData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="Axis"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="rightEyeAxis"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="font-semibold text-sm">Axis</p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="Axis" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {axisData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </div>
                 </div>
 
@@ -449,121 +482,120 @@ const PrescriptionForm = ({
                         Pupillary Distance (PD)
                     </p>
 
-                    {readOnly ? (
-                        <Checkbox checked={is2DPd}>2 PD Numbers</Checkbox>
-                    ) : (
-                        <Checkbox onClick={handle2PdDistance} checked={is2DPd}>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                            id="2pd"
+                            checked={is2DPd}
+                            onCheckedChange={handle2PdDistance}
+                            disabled={readOnly}
+                        />
+                        <label htmlFor="2pd" className="text-sm font-medium">
                             2 PD Numbers
-                        </Checkbox>
-                    )}
+                        </label>
+                    </div>
                 </div>
 
                 {is2DPd ? (
                     <div className="flex flex-row gap-6 w-full">
-                        <Form.Item
-                            name={"leftPdDistance"}
-                            label={
-                                <p className="text-primary text-sm font-semibold">
-                                    Left PD
-                                </p>
-                            }
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select left PD Distance",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={pdData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="Left PD Distance"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="leftPdDistance"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="text-primary text-sm font-semibold">
+                                            Left PD
+                                        </p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="Left PD Distance" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {pdData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                        <Form.Item
-                            name={"rightPdDistance"}
-                            label={
-                                <p className="text-primary text-sm font-semibold">
-                                    Right PD
-                                </p>
-                            }
-                            rules={[
-                                {
-                                    required: false,
-                                    message: "Please select right PD Distance",
-                                },
-                            ]}
-                            className="w-full"
-                        >
-                            <Select
-                                suffixIcon={
-                                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                                }
-                                disabled={readOnly}
-                                style={{ width: "100%", height: "48px" }}
-                                options={pdData}
-                                optionRender={(option) => {
-                                    return (
-                                        <div className="flex flex-row items-center justify-start gap-2">
-                                            <p className="font-normal">
-                                                {option.data.label}
-                                            </p>
-                                        </div>
-                                    );
-                                }}
-                                placeholder="Right PD Distance"
-                            />
-                        </Form.Item>
+                        <FormField
+                            control={form.control}
+                            name="rightPdDistance"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>
+                                        <p className="text-primary text-sm font-semibold">
+                                            Right PD
+                                        </p>
+                                    </FormLabel>
+                                    <Select
+                                        disabled={readOnly}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="h-12">
+                                                <SelectValue placeholder="Right PD Distance" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {pdData.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </div>
                 ) : (
-                    <Form.Item
-                        name={"pdDistance"}
-                        label={
-                            <p className="text-primary text-sm font-semibold">
-                                PD Distance
-                            </p>
-                        }
-                        rules={[
-                            {
-                                required: false,
-                                message: "Please select PD Distance",
-                            },
-                        ]}
-                    >
-                        <Select
-                            suffixIcon={
-                                <IoIosArrowDown className="text-primary h-5 w-5" />
-                            }
-                            disabled={readOnly}
-                            style={{ width: "100%", height: "48px" }}
-                            options={pdData}
-                            optionRender={(option) => {
-                                return (
-                                    <div className="flex flex-row items-center justify-start gap-2">
-                                        <p className="font-normal">
-                                            {option.data.label}
-                                        </p>
-                                    </div>
-                                );
-                            }}
-                            placeholder="PD Distance"
-                        />
-                    </Form.Item>
+                    <FormField
+                        control={form.control}
+                        name="pdDistance"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>
+                                    <p className="text-primary text-sm font-semibold">
+                                        PD Distance
+                                    </p>
+                                </FormLabel>
+                                <Select
+                                    disabled={readOnly}
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                >
+                                    <FormControl>
+                                        <SelectTrigger className="h-12">
+                                            <SelectValue placeholder="PD Distance" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {pdData.map((option) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                 )}
 
                 {/* Product lens Index info */}
@@ -577,9 +609,25 @@ const PrescriptionForm = ({
                             <div className="flex items-center justify-start gap-2 flex-wrap">
                                 {sizeList?.map((size, index) => {
                                     return (
-                                        <Popover
-                                            title={null}
-                                            content={
+                                        <Popover key={index}>
+                                            <PopoverTrigger asChild>
+                                                <div
+                                                    className={`p-2 cursor-pointer ${
+                                                        mode === "create"
+                                                            ? size?.value ===
+                                                              selectedSize
+                                                                ? "text-blue-500 border-2 border-blue-400"
+                                                                : ""
+                                                            : size?.value ===
+                                                              lensPrice?.label
+                                                            ? "text-blue-500 border-2 border-blue-400"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <p>{size?.label}</p>
+                                                </div>
+                                            </PopoverTrigger>
+                                            <PopoverContent>
                                                 <div className="flex flex-col items-start justify-start gap-1">
                                                     <p className="text-[#2A2A2A] text-base">
                                                         Index size :{" "}
@@ -589,26 +637,7 @@ const PrescriptionForm = ({
                                                         $ ({size?.price})
                                                     </p>
                                                 </div>
-                                            }
-                                            arrow={false}
-                                            placement={"bottom"}
-                                        >
-                                            <div
-                                                key={index}
-                                                className={`p-2 ${
-                                                    mode === "create"
-                                                        ? size?.value ===
-                                                          selectedSize
-                                                            ? "text-blue-500 border-2 border-blue-400"
-                                                            : ""
-                                                        : size?.value ===
-                                                          lensPrice?.label
-                                                        ? "text-blue-500 border-2 border-blue-400"
-                                                        : ""
-                                                }`}
-                                            >
-                                                <p>{size?.label}</p>
-                                            </div>
+                                            </PopoverContent>
                                         </Popover>
                                     );
                                 })}
@@ -625,9 +654,26 @@ const PrescriptionForm = ({
                             <div className="flex items-center justify-start gap-2 flex-wrap cursor-pointer">
                                 {sizeList?.map((size, index) => {
                                     return (
-                                        <Popover
-                                            title={null}
-                                            content={
+                                        <Popover key={index}>
+                                            <PopoverTrigger asChild>
+                                                <div
+                                                    className={`p-2 cursor-pointer ${
+                                                        size?.value ===
+                                                        lensPrice?.label
+                                                            ? "text-blue-500 border-2 border-blue-400"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() => {
+                                                        handleSizeChange(size);
+                                                        setLensPrice(size);
+                                                        if (mode === "update") {
+                                                        }
+                                                    }}
+                                                >
+                                                    <p>{size?.label}</p>
+                                                </div>
+                                            </PopoverTrigger>
+                                            <PopoverContent>
                                                 <div className="flex flex-col items-start justify-start gap-1">
                                                     <p className="text-[#2A2A2A] text-base">
                                                         Index size :{" "}
@@ -637,28 +683,7 @@ const PrescriptionForm = ({
                                                         $ ({size?.price})
                                                     </p> */}
                                                 </div>
-                                            }
-                                            arrow={false}
-                                            placement={"bottom"}
-                                        >
-                                            <div
-                                                key={index}
-                                                className={`p-2 ${
-                                                    size?.value ===
-                                                    lensPrice?.label
-                                                        ? "text-blue-500 border-2 border-blue-400"
-                                                        : ""
-                                                }`}
-                                                onClick={() => {
-                                                    handleSizeChange(size);
-
-                                                    setLensPrice(size);
-                                                    if (mode === "update") {
-                                                    }
-                                                }}
-                                            >
-                                                <p>{size?.label}</p>
-                                            </div>
+                                            </PopoverContent>
                                         </Popover>
                                     );
                                 })}
@@ -703,7 +728,8 @@ const PrescriptionForm = ({
                         </Button>
                     ) : null}
                 </div>
-            </Form>
+                    </form>
+                </Form>
             </div>
         </LoadingOverlay>
     );

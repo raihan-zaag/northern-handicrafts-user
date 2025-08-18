@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@/components/Typography";
 import useGetCategories from "@/hooks/categories/useGetCategories";
-import { Checkbox, Collapse, Divider, Menu, Radio, Slider } from "antd";
+import { Checkbox, Collapse, Menu, Radio, Slider } from "antd";
+import { Separator } from "@/components/ui/separator";
 import { useRouter, useSearchParams } from "next/navigation";
 import { HiPlus, HiMinus } from "react-icons/hi";
 
@@ -451,7 +452,7 @@ const Filter = ({
                 </Typography.Title3>
             </div>
 
-            <Divider style={{ padding: 0, margin: 0 }} />
+            <Separator className="my-0" />
 
             <div className="">
                 <Collapse

@@ -5,7 +5,12 @@ import React from "react";
 import Link from "next/link";
 import { RxExit } from "react-icons/rx";
 import { usePathname, useRouter } from "next/navigation";
-import { Collapse } from "antd";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { profileMenu } from "@/constants/common";
 import { useCart } from "@/contextProviders/useCartContext";
@@ -126,18 +131,45 @@ const Sidebar = () => {
       </div>
 
       <div className="block lg:hidden">
-        <Collapse
-          defaultActiveKey={[]}
-          className="border-none"
-          style={{
-            border: "none",
-            padding: 0,
-            whiteSpaceCollapse: "none",
-          }}
-          expandIconPosition={"end"}
-          ghost
-          items={items}
-        ></Collapse>
+        <Accordion type="single" collapsible className="border-none">
+          <AccordionItem value="profile-menu" className="border-none">
+            <AccordionTrigger className="font-semibold text-sm md:text-base text-[#2A2A2A] hover:no-underline">
+              {currentLabel}
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-col gap-4 py-4">
+                {profileMenu.map((menu, index) => (
+                  <Link
+                    key={index}
+                    href={menu.link}
+                    className={`flex items-center justify-start gap-6 px-4 py-2 rounded-md ${
+                      pathname === menu.link
+                        ? "bg-primary text-white"
+                        : "text-[#2A2A2A] hover:bg-gray-100"
+                    }`}
+                  >
+                    {React.createElement(menu.icon, {
+                      className: `${
+                        pathname === menu.link
+                          ? "text-white"
+                          : "text-[#2A2A2A]"
+                      } h-4 w-4`,
+                    })}
+                    <p className="font-normal text-sm">{menu.title}</p>
+                  </Link>
+                ))}
+                
+                <div
+                  onClick={handleLogout}
+                  className="flex items-center justify-start gap-6 px-4 py-2 rounded-md cursor-pointer hover:bg-red-50"
+                >
+                  <RxExit className="text-red-500 h-4 w-4" />
+                  <p className="font-medium text-base text-red-500">Logout</p>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
   );

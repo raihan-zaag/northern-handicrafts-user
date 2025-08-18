@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import useGetProductReviews from "@/hooks/singleProduct/useGetProductReviews";
 import { ratingData } from "@/utils/dummyData";
-import { Divider, Rate } from "antd";
+import { StarRating } from "@/components/ui/star-rating";
+import { Separator } from "@/components/ui/separator";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import NoCommentDataFound from "./NoCommentDataFound";
 import Image from "next/image";
@@ -179,14 +180,10 @@ const Comments = ({ data }) => {
                 </div>
 
                 <div className="pt-1 flex items-center gap-x-2 md:gap-x-2.5">
-                  <Rate
+                  <StarRating
+                    value={item?.rating}
                     disabled
-                    defaultValue={item?.rating}
-                    count={item?.rating}
-                    style={{
-                      color: "#F08200",
-                      fontSize: "12px",
-                    }}
+                    size="w-3 h-3"
                   />
                   <p className="text-primary text-sm font-medium">
                     {item.rating}
@@ -233,28 +230,19 @@ const RightSidecontent = ({
           </div>
 
           <div className="md:hidden">
-            <Rate
-              disabled
+            <StarRating
               value={rating?.average || 5}
+              disabled
               allowHalf
-              style={{
-                color: "#F08200",
-                fontSize: "12px",
-              }}
-              count={5}
+              size="w-3 h-3"
             />
           </div>
           <div className="hidden md:block">
-            <Rate
-              disabled
-              // defaultValue={5}
+            <StarRating
               value={rating?.average || 5.0}
+              disabled
               allowHalf
-              style={{
-                color: "#F08200",
-                fontSize: "12px",
-              }}
-              count={5}
+              size="w-3 h-3"
             />
           </div>
           <p className="text-font_color_one text-base font-normal">
@@ -266,14 +254,11 @@ const RightSidecontent = ({
         <div className="flex flex-col gap-y-2 md:gap-y-2 pb-10">
           {ratingsWithDivWidth?.map((item) => (
             <div key={item.id} className="flex items-center px-5 gap-x-">
-              <Rate
+              <StarRating
+                value={1}
                 disabled
-                count={1}
-                defaultValue={item.rating}
-                style={{
-                  color: "#F08200",
-                  fontSize: "12px",
-                }}
+                max={1}
+                size="w-3 h-3"
               />
               <p className="text-font_color_one text-sm font-semibold pl-2 ">
                 {item.rating}

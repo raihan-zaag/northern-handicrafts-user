@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Select, Checkbox } from "antd";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
@@ -9,6 +11,29 @@ import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import InputLabel from "@/components/common/InputLabel";
 import useGetPrescription from "@/hooks/prescription/useGetPrescription";
 import Typography from "@/components/Typography";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 import useCreatePrescription from "@/hooks/prescription/useCreatePrescription";
 import useGetPrescriptionList from "@/hooks/prescription/useGetPrescriptionsList";
@@ -17,6 +42,20 @@ import useNotification from "@/hooks/useNotification";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 
+// Prescription modal schema
+const prescriptionModalSchema = z.object({
+  name: z.string().min(1, "Please write a prescription name."),
+  leftEyeSPH: z.string().optional(),
+  leftEyeCYL: z.string().optional(),
+  leftEyeAxis: z.string().optional(),
+  rightEyeSPH: z.string().optional(),
+  rightEyeCYL: z.string().optional(),
+  rightEyeAxis: z.string().optional(),
+  pdDistance: z.string().optional(),
+  leftPdDistance: z.string().optional(),
+  rightPdDistance: z.string().optional(),
+});
+
 const PrescriptionModal = ({
   open,
   onClose,
@@ -24,7 +63,10 @@ const PrescriptionModal = ({
   selectedPrescription,
   setSelectedPrescription,
 }) => {
-  const [form] = Form.useForm();
+  const form = useForm({
+    resolver: zodResolver(prescriptionModalSchema),
+    defaultValues: isCreate ? {} : selectedPrescription || {},
+  });
   const router = useRouter();
 
   const [axisData, setAxisData] = useState([]);
@@ -49,7 +91,7 @@ const PrescriptionModal = ({
   useEffect(() => {
     setSelectedSize(null);
     if (!isCreate && selectedPrescription) {
-      form.setFieldsValue(selectedPrescription);
+      form.reset(selectedPrescription);
       setSelectedSize(selectedPrescription.productSize);
     }
 
@@ -78,7 +120,7 @@ const PrescriptionModal = ({
 
   const handleCloseModal = () => {
     onClose();
-    form.resetFields();
+    form.reset();
 
     setSelectedPrescription(null);
     setIs2DPd(false);
@@ -117,8 +159,8 @@ const PrescriptionModal = ({
     // handleCloseModal();
   };
 
-  const handle2PdDistance = (e) => {
-    setIs2DPd(e?.target?.checked);
+  const handle2PdDistance = (checked) => {
+    setIs2DPd(checked);
   };
 
   const handleSizeChange = (size) => {
@@ -137,43 +179,42 @@ const PrescriptionModal = ({
   }
 
   return (
-    <Modal
-      title={
-        <div className="flex items-center justify-between border-b pb-4">
-          <p>{isCreate ? "Add new Prescription " : "Edit Prescription"}</p>
-          <IoClose
-            className="h-7 w-7 cursor-pointer"
-            onClick={handleCloseModal}
-          />
-        </div>
-      }
-      open={open}
-      onCancel={handleCloseModal}
-      footer={null}
-      centered
-      closable={false}
-      closeIcon={<h1>sdf</h1>}
-    >
-      <LoadingOverlay isLoading={createLoading}>
-        <Form form={form} layout="vertical" onFinish={handleFinish}>
-          <div className="mt-4">
-            <Form.Item
-              name="name"
-              label={
-                <div className="flex items-center">
-                  <InputLabel>Prescription Name</InputLabel>
-                  <Typography.BodyText className="text-sm font-medium">
-                    <span className="text-red-500">*</span>
-                  </Typography.BodyText>
-                </div>
-              }
-            rules={[
-              { required: true, message: "Please write a prescription name." },
-            ]}
-          >
-            <Input type="text" placeholder="Enter prescription name" />
-          </Form.Item>
-        </div>
+    <Dialog open={open} onOpenChange={(open) => !open && handleCloseModal()}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <div className="flex items-center justify-between border-b pb-4">
+            <DialogTitle>{isCreate ? "Add new Prescription " : "Edit Prescription"}</DialogTitle>
+            <IoClose
+              className="h-7 w-7 cursor-pointer"
+              onClick={handleCloseModal}
+            />
+          </div>
+        </DialogHeader>
+        <LoadingOverlay isLoading={createLoading}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleFinish)} className="space-y-4">
+              <div className="mt-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className="flex items-center">
+                          <InputLabel>Prescription Name</InputLabel>
+                          <Typography.BodyText className="text-sm font-medium">
+                            <span className="text-red-500">*</span>
+                          </Typography.BodyText>
+                        </div>
+                      </FormLabel>
+                      <FormControl>
+                        <Input type="text" placeholder="Enter prescription name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
         <div className="w-full flex flex-col gap-2">
           <p className="text-primary text-xs sm:text-sm md:text-base font-semibold">
@@ -480,19 +521,19 @@ const PrescriptionModal = ({
         </div>
 
         <div className="flex gap-2 w-full mt-6">
-          {
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="w-full text-base font-semibold"
-            >
-              {isCreate ? "Create" : "Update"}
-            </Button>
-          }
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="w-full text-base font-semibold"
+          >
+            {isCreate ? "Create" : "Update"}
+          </Button>
         </div>
-        </Form>
-      </LoadingOverlay>
-    </Modal>
+            </form>
+          </Form>
+        </LoadingOverlay>
+      </DialogContent>
+    </Dialog>
   );
 };
 

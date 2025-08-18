@@ -2,16 +2,16 @@ import * as React from "react"
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const StarRating = React.forwardRef(({ 
-  value = 0,
-  max = 5,
-  onChange,
-  disabled = false,
-  allowHalf = false,
-  size = "w-4 h-4",
+const StarRating = ({ 
+  rating = 0, 
+  totalStars = 5, 
+  size = 16, 
+  readonly = true, 
+  onRatingChange,
   className,
+  ref,
   ...props 
-}, ref) => {
+}) => {
   const [hoverValue, setHoverValue] = React.useState(0)
   const isInteractive = !disabled && onChange
 
@@ -96,8 +96,7 @@ const StarRating = React.forwardRef(({
       })}
     </div>
   )
-})
-
+}
 StarRating.displayName = "StarRating"
 
 export { StarRating }

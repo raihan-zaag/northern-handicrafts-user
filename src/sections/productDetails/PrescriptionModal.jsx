@@ -1,7 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Divider, Drawer, Select } from "antd";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { IoCloseOutline } from "react-icons/io5";
 import { useUserContext } from "@/contextProviders/userContextProvider";
@@ -133,32 +146,22 @@ const PrescriptionModal = ({
 
   return (
     <LoadingOverlay isLoading={loading}>
-      <Drawer
-        open={open}
-        centered
-        footer={null}
-        width={600}
-        onCancel={() => {
-          handleModalOpenClose();
-        }}
-        closeIcon={null}
-        title={
-          <div>
+      <Sheet open={open} onOpenChange={(open) => !open && handleModalOpenClose()}>
+        <SheetContent className="w-[600px] sm:max-w-[600px]">
+          <SheetHeader>
             <div className="flex items-center justify-between border-b pb-2">
-            <p>My Prescription</p>
-            <button
-              onClick={() => {
-                // handleSkipAddPrescription();
-                handleModalOpenClose();
-              }}
-            >
-              <IoCloseOutline className="h-8 w-8" />
-            </button>
-          </div>
-        </div>
-      }
-      styles={{ body: { padding: "0 24px" } }}
-    >
+              <SheetTitle>My Prescription</SheetTitle>
+              <button
+                onClick={() => {
+                  // handleSkipAddPrescription();
+                  handleModalOpenClose();
+                }}
+              >
+                <IoCloseOutline className="h-8 w-8" />
+              </button>
+            </div>
+          </SheetHeader>
+          <div className="mt-4">{/* Content will continue here */}
       {mode === "create" ? (
         isAuthenticated ? (
           <div className="flex flex-col gap-2">
@@ -179,15 +182,18 @@ const PrescriptionModal = ({
                     </p>
                   )}
                 </div>
-                <Select
-                  placeholder="Select any saved prescription"
-                  style={{ width: "100%", height: "56px" }}
-                  options={prescriptionList}
-                  onChange={handleSelectPrescription}
-                  suffixIcon={
-                    <IoIosArrowDown className="text-primary h-5 w-5" />
-                  }
-                />
+                <Select onValueChange={handleSelectPrescription}>
+                  <SelectTrigger className="w-full h-14">
+                    <SelectValue placeholder="Select any saved prescription" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {prescriptionList?.map((prescription) => (
+                      <SelectItem key={prescription.value} value={prescription.value.toString()}>
+                        {prescription.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
                 {buttonsForAuthUser}
               </div>
@@ -235,18 +241,25 @@ const PrescriptionModal = ({
                 Update Prescription
               </p>
             </div>
-            <Select
-              placeholder="Select any saved prescription"
-              style={{ width: "100%", height: "56px" }}
-              options={prescriptionList}
-              onChange={handleSelectPrescription}
+            <Select 
+              onValueChange={handleSelectPrescription}
               defaultValue={
                 mode === "update" && isAuthenticated
                   ? selectedPrescriptionData?.name
                   : null
               }
-              suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-            />
+            >
+              <SelectTrigger className="w-full h-14">
+                <SelectValue placeholder="Select any saved prescription" />
+              </SelectTrigger>
+              <SelectContent>
+                {prescriptionList?.map((prescription) => (
+                  <SelectItem key={prescription.value} value={prescription.value.toString()}>
+                    {prescription.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
             {buttonsForAuthUser}
           </div>
@@ -310,7 +323,9 @@ const PrescriptionModal = ({
           cartInfo={cartInfo}
         />
       )}
-      </Drawer>
+          </div>
+        </SheetContent>
+      </Sheet>
     </LoadingOverlay>
   );
 };

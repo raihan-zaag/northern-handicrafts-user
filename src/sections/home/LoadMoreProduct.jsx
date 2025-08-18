@@ -8,7 +8,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ProductCardSkeleton from "@/skeleton/ProductCardSkeleton";
 import { MdFilterAlt } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-import { Drawer } from "antd";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import Filter from "./Filter";
 import { CgClose } from "react-icons/cg";
 
@@ -305,29 +310,25 @@ const LoadMoreProduct = ({
                 )}
             </div>
 
-            <Drawer
-                // closable
-                destroyOnClose
-                title={
-                    <div className="flex items-center justify-between">
-                        <p className="text-primary">Product Filter</p>
-                        <div onClick={() => setOpenFilterDrawer(false)}>
-                            <CgClose className="h-5 w-5" />
+            <Sheet open={openFilterDrawer} onOpenChange={(open) => setOpenFilterDrawer(open)}>
+                <SheetContent side="left" className="w-[400px] sm:w-[540px]">
+                    <SheetHeader>
+                        <div className="flex items-center justify-between">
+                            <SheetTitle className="text-primary">Product Filter</SheetTitle>
+                            <div onClick={() => setOpenFilterDrawer(false)}>
+                                <CgClose className="h-5 w-5 cursor-pointer" />
+                            </div>
                         </div>
+                    </SheetHeader>
+                    <div className="mt-4">
+                        <Filter
+                            categoryList={handleSpreadCategory}
+                            setPriceFilter={setPriceFilter}
+                            priceFilter={priceFilter}
+                        />
                     </div>
-                }
-                placement="left"
-                open={openFilterDrawer}
-                onClose={() => setOpenFilterDrawer(false)}
-                style={{ padding: 0 }}
-                closeIcon={false}
-            >
-                <Filter
-                    categoryList={handleSpreadCategory}
-                    setPriceFilter={setPriceFilter}
-                    priceFilter={priceFilter}
-                />
-            </Drawer>
+                </SheetContent>
+            </Sheet>
         </div>
     );
 };
