@@ -49,7 +49,6 @@ const LoginForm = () => {
   const router = useRouter();
   const { setUser, setToken, setIsAuthenticated } = useUserContext();
   const { openErrorNotification, openSuccessNotification } = useNotification();
-  const { handleUpdateCartInBackend, cart, getCartListForAuthUser } = useCart();
   const [redirectUrl, setRedirectUrl] = useState("/");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -89,13 +88,6 @@ const LoginForm = () => {
         setCookie(USER_INFO, response.data.user);
         setCookie(USER_PERMISSION, response.data.user?.roles);
 
-        // Handle cart update
-        if (cart?.length > 0) {
-          handleUpdateCartInBackend();
-        } else {
-          getCartListForAuthUser();
-        }
-
         // Redirect
         if (redirectUrl) {
           router.push(redirectUrl);
@@ -119,7 +111,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-600px bg-secondary p-8 px-4 sm:px-10 md:px-12 border border-border">
+    <div className="w-full bg-background max-w-600px p-8 px-4 sm:px-10 md:px-12 border border-border">
       <div className="mb-5">
         <h2 className="text-2xl font-semibold text-left mb-2">Sign In</h2>
         <span className="text-gray-medium text-left mb-6 font-light">
@@ -228,21 +220,6 @@ const LoginForm = () => {
             </Link>
           </p>
 
-          <div className="flex items-center w-full">
-            <div className="flex-1 border-t border-gray-300"></div>
-            <span className="px-3 text-xs font-normal text-gray-600">Or</span>
-            <div className="flex-1 border-t border-gray-300"></div>
-          </div>
-
-          <button
-            type="button"
-            className="w-full border-none py-0 text-center cursor-pointer"
-            onClick={handleGoToCheckoutPage}
-          >
-            <p className="text-xs sm:text-sm md:text-base font-normal text-light-font2 leading-none py-0">
-              Continue as a guest
-            </p>
-          </button>
         </div>
       </div>
     </div>

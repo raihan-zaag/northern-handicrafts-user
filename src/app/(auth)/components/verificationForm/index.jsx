@@ -18,7 +18,7 @@ const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
   };
 
   return (
-    <div className="w-full max-w-330px sm:max-w-500px flex flex-col pt-6 px-4 pb-9 md:pt-4 md:px-12 md:pb-12 shadow-light-grey bg-secondary border border-border">
+    <div className="w-full max-w-330px sm:max-w-500px flex flex-col pt-6 px-4 pb-9 md:pt-4 md:px-12 md:pb-12 shadow-light-grey bg-background border border-border">
       <h1 className="flex w-full justify-center font-semibold text-xl text-neutral-700 py-3 border-b border-gray-blue/10">
         Verification Code
       </h1>

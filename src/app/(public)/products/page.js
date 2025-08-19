@@ -1,15 +1,24 @@
-import React from 'react';
+import Container from "@/common/components/common/Container";
+import SliderComponent from "@/common/components/common/Slider";
+import HomePageComponent from "@/sections/home";
 
-// This would be the main products listing page
-// Content to be implemented based on existing product listing logic
+const Products = async ({ searchParams }) => {
+  // const productList = await getProductFilterList(searchParams);
 
-const ProductsPage = () => {
+  // Using sample data for development
+  const productList = getProductData(1, searchParams);
+
   return (
-    <div>
-      <h1>Products</h1>
-      <p>Product listing page - to be implemented</p>
+    <div className="">
+      <SliderComponent />
+      <Container classname={""}>
+        <HomePageComponent
+          product={productList?.data?.content}
+          pageSize={productList?.data?.totalPages}
+        />
+      </Container>
     </div>
   );
 };
 
-export default ProductsPage;
+export default Products;

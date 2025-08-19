@@ -186,7 +186,7 @@ function SingleCartItemCard({
             </p>
             <Popover>
               <PopoverTrigger asChild>
-                <p className="underline font-medium text-10px sm:text-xs cursor-pointer block md:block">
+                <p className="underline font-medium text-xxs sm:text-xs cursor-pointer block md:block">
                   Price Breakdown
                 </p>
               </PopoverTrigger>

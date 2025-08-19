@@ -18,6 +18,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        icon: "bg-transparent cursor-pointer",
+        text: "bg-transparent cursor-pointer",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -33,14 +35,43 @@ const buttonVariants = cva(
   }
 )
 
-const Button = ({ className, variant, size, asChild = false, ref, ...props }) => {
+const Button = ({
+  className,
+  variant,
+  size,
+  asChild = false,
+  icon,
+  iconPosition = "left",
+  children,
+  ref,
+  ...props
+}) => {
   const Comp = asChild ? Slot : "button"
+
+  const renderIcon = () => {
+    if (!icon) return null
+
+    return (
+      <span className={cn(
+        "inline-flex items-center justify-center",
+        children && iconPosition === "left" && "mr-2",
+        children && iconPosition === "right" && "ml-2"
+      )}>
+        {React.isValidElement(icon) ? icon : React.createElement(icon)}
+      </span>
+    )
+  }
+
   return (
     <Comp
       className={cn(buttonVariants({ variant, size, className }))}
       ref={ref}
       {...props}
-    />
+    >
+      {iconPosition === "left" && renderIcon()}
+      {children}
+      {iconPosition === "right" && renderIcon()}
+    </Comp>
   )
 }
 

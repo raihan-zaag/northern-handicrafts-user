@@ -20,7 +20,7 @@ const EmailVerification = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-sky-900">
       {(loading || resendOtpLoading) && (
         <div className="fixed inset-0 grid place-items-center bg-background/60 z-50">
           <Spinner size="xl" className="text-primary" />

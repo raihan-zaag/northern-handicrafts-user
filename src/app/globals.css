@@ -4,13 +4,12 @@
    🌞 Light Mode Variables
    ======================= */
 :root {
-  --background: #ebedf0;
-  --foreground: #2a2a2a;
+  --background: #FFFFFF;
+  --foreground: #2A2A2A;
 
   /* Brand Colors */
   --color-primary: #3EB345;
   --color-secondary: #fafbfb;
-  --color-background: #ebedf0;
 
   /* Borders */
   --color-border: #ebedf0;
@@ -55,6 +54,8 @@
   --color-bg-lighter: #FAFBFB;
   --color-light-blue-bg: #EFF5FF;
   --color-light-blue-gray-bg: #F3F5F6;
+  --color-secondary-bg: #F5F7FA;
+
 
   /* Font Sizes */
   --text-xs2: 12px;
@@ -129,7 +130,7 @@
   /* Colors */
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
-  --color-background: var(--color-background);
+  --color-background: var(--background);
   --color-border: var(--color-border);
   --color-border-dark: var(--color-border-dark);
   --color-border-gray: var(--color-border-gray);
@@ -169,6 +170,7 @@
   --color-bg-lighter: var(--color-bg-lighter);
   --color-light-blue-bg: var(--color-light-blue-bg);
   --color-light-blue-gray-bg: var(--color-light-blue-gray-bg);
+  --color-secondary-bg: var(--color-secondary-bg);
 
   /* Font Sizes */
   --text-xs2: var(--text-xs2);
@@ -318,7 +320,7 @@
   --leading-1562: 15.62px;
 
   /* font sizes */
-  --text-10px: 10px;
+  --text-xxs: 10px;
   --text-18px: 18px;
   --text-36px: 36px;
   --text-40px: 40px;
@@ -343,17 +345,23 @@ body {
 
 /* Autofill Fix */
 @keyframes autofill {
-  0%, 100% {
+
+  0%,
+  100% {
     color: #666;
     background: transparent;
   }
 }
+
 @-webkit-keyframes autofill {
-  0%, 100% {
+
+  0%,
+  100% {
     color: #666;
     background: transparent;
   }
 }
+
 input:-webkit-autofill {
   -webkit-animation-delay: 1s;
   -webkit-animation-name: autofill;

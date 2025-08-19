@@ -14,13 +14,13 @@ const Home = async ({ searchParams }) => {
 
     return (
         <div className="">
-            <SliderComponent />
+            {/* <SliderComponent />
             <Container classname={""}>
                 <HomePageComponent
                     product={productList?.data?.content}
                     pageSize={productList?.data?.totalPages}
                 />
-            </Container>
+            </Container> */}
         </div>
     );
 };
