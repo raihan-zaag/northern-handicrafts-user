@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+eslint fix 
+npx eslint . --config eslint.config.mjs
+
 First, run the development server:
 
 ```bash
