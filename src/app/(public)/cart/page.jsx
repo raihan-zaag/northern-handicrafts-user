@@ -2,13 +2,13 @@
 
 import Button from "@/common/components/common/Button";
 import Container from "@/common/components/common/Container";
-import OrderSummary from "../../../components/orderSummary";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import SingleCartItemCard from "@/sections/cart/SingleCartItemCard";
 import { Input } from "@/common/components/ui/input";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import OrderSummary from "@/sections/orderSummary/OrderSummary";
 
 const MyCart = () => {
   const { isAuthenticated } = useUserContext();

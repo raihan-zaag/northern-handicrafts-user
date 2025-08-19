@@ -21,18 +21,18 @@ import Link from "next/link";
 
 import Button from "@/common/components/common/Button";
 import Container from "@/common/components/common/Container";
-import OrderSummary from "../../../components/orderSummary";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useGetDefaultSettings from "@/app/(public)/checkout/hooks/useGetSettingsInfo";
 import useCreateOrder from "@/app/(public)/orders/hooks/useMakeOrder";
 import AuthUserAddress from "@/app/(public)/checkout/sections/AuthUserAddress";
-import CheckoutProductCard from "./_component/CheckoutProductCart";
+import CheckoutProductCard from "./components/CheckoutProductCart";
 import useNotification from "@/common/hooks/useNotification";
 import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
 import { formatNumber } from "@/utils";
 import GuestUserAddressForm from "@/sections/checkout/GuestUserAddressForm";
 import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
+import OrderSummary from "@/sections/orderSummary/OrderSummary";
 
 // Checkout form schema with dynamic validation
 const createCheckoutSchema = (isAuthenticated) => {
