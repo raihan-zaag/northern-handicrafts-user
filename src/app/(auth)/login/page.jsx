@@ -3,9 +3,7 @@ import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
   return (
-    <Fragment>
-      <LoginForm />
-    </Fragment>
+    <LoginForm />
   );
 };
 

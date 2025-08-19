@@ -6,7 +6,7 @@ export default function AuthLayout({ children }) {
         <>
             <TopHeading />
             <BreadcrumbWrapper />
-            {children}
+            <div className="flex justify-center items-center my-80px">{children}</div>
             <Footer />
         </>
     );

@@ -49,10 +49,10 @@ const ResetPasswordForm = () => {
 
   const onSubmit = async (values) => {
     setIsLoading(true);
-    
+
     try {
       const response = await resetPassword(values);
-      
+
       if (response.success) {
         openSuccessNotification("Success", response.message || "Password reset successfully");
         form.reset();
@@ -65,67 +65,65 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-4 mb-16">
-      <div className="w-full max-w-600px bg-secondary p-8 rounded border border-border">
-        <h2 className="text-2xl font-semibold text-left mb-2">
-          Reset password
-        </h2>
-  <p className="text-gray-medium text-left mb-6 font-light">
-          Enter your new password to reset the password.
-        </p>
+    <div className="w-full max-w-600px bg-secondary p-8 rounded border border-border">
+      <h2 className="text-2xl font-semibold text-left mb-2">
+        Reset password
+      </h2>
+      <p className="text-gray-medium text-left mb-6 font-light">
+        Enter your new password to reset the password.
+      </p>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="newPassword"
-              render={({ field }) => (
-                <FormItem>
-          <FormLabel className="text-dark font-medium text-sm">
-                    Password
-                  </FormLabel>
-                  <FormControl>
-                    <PasswordInput
-                      placeholder="Min. 8 characters"
-            className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="newPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-dark font-medium text-sm">
+                  Password
+                </FormLabel>
+                <FormControl>
+                  <PasswordInput
+                    placeholder="Min. 8 characters"
+                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="confirmNewPassword"
-              render={({ field }) => (
-                <FormItem>
-          <FormLabel className="text-dark font-medium text-sm">
-                    Confirm Password
-                  </FormLabel>
-                  <FormControl>
-                    <PasswordInput
-                      placeholder="Min. 8 characters"
-            className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="confirmNewPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-dark font-medium text-sm">
+                  Confirm Password
+                </FormLabel>
+                <FormControl>
+                  <PasswordInput
+                    placeholder="Min. 8 characters"
+                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-primary text-white font-semibold h-52px rounded hover:bg-primary/90"
-            >
-              {isLoading ? "Resetting..." : "Confirm Reset Password"}
-            </Button>
-          </form>
-        </Form>
-      </div>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-primary text-white font-semibold h-52px rounded hover:bg-primary/90"
+          >
+            {isLoading ? "Resetting..." : "Confirm Reset Password"}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };

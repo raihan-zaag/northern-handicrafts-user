@@ -68,18 +68,20 @@ const SocialLoginForm = () => {
       title: "google",
       icon: Icons.googleIcon,
       isLoading: isSocialLoading.google,
+      showTitle: "Sign in with Google"
     },
     // { title: "apple", icon: Icons.apple },
     {
       title: "facebook",
       icon: Icons.facebookIcon,
       isLoading: isSocialLoading.facebook,
+      showTitle: "Sign in with Facebook"
     },
   ];
 
   return (
     <div className="w-full">
-      <div className="flex flex-row gap-4 justify-between w-full">
+      <div className="space-y-4 w-full">
         {loginWithSocialMedia.map((ele, id) => {
           const handleSocialMediaLogin = () => {
             if (ele.title === "google") {
@@ -105,6 +107,8 @@ const SocialLoginForm = () => {
                 quality={100}
                 className="w-5 h-5"
               />
+
+              <p>{ele.showTitle}</p>
             </button>
           );
         })}

@@ -3,9 +3,7 @@ import RegisterForm from "../components/RegisterForm";
 
 const SignUp = () => {
   return (
-    <div>
-      <RegisterForm />
-    </div>
+    <RegisterForm />
   );
 };
 

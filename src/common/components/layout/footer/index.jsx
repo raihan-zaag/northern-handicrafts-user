@@ -65,7 +65,7 @@ const Footer = () => {
   };
 
   return (
-  <footer className="bg-dark-black text-light-font py-12 mt-108px">
+  <footer className="bg-dark-black text-light-font py-12">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap- w-full">
           {/* Left Section */}

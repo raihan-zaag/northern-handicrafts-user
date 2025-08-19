@@ -3,9 +3,7 @@ import ForgotPasswordForm from "../components/ForgotPasswordForm";
 
 const ForgetPassword = () => {
   return (
-    <div>
-      <ForgotPasswordForm />
-    </div>
+    <ForgotPasswordForm />
   );
 };
 
