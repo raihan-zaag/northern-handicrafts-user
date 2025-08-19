@@ -7,6 +7,7 @@ import * as z from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
+import { HOME_URL, CHECKOUT_URL, SIGN_UP_URL } from "@/common/config/constants/routes";
 
 import {
   Form,
@@ -102,7 +103,7 @@ const LoginForm = () => {
         if (redirectUrl) {
           router.push(redirectUrl);
         } else {
-          router.push("/");
+          router.push(HOME_URL);
         }
       }
     } catch (error) {
@@ -114,9 +115,9 @@ const LoginForm = () => {
 
   const handleGoToCheckoutPage = () => {
     if (cart?.length > 0) {
-      router.push("/checkout");
+      router.push(CHECKOUT_URL);
     } else {
-      router.push("/");
+      router.push(HOME_URL);
     }
   };
 
@@ -224,7 +225,7 @@ const LoginForm = () => {
             <p className="text-center text-sm text-light-font2">
               Don't have an account?{" "}
               <Link
-                href="/sign-up"
+                href={SIGN_UP_URL}
                 className="text-primary font-semibold hover:underline"
               >
                 Sign Up

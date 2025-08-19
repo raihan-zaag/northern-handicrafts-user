@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { BsCart3 } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { PRODUCT_DETAILS_DYNAMIC_URL } from "@/common/config/constants/routes";
 
 const MyWishlistPage = () => {
   const { getWishlists, loading } = useGetWishlist();
@@ -70,7 +71,7 @@ const WishlistCard = ({ item, handleRemoveWishlist }) => {
   const router = useRouter();
 
   const goToPageDetails = () => {
-    router.push(`/product-details/${item?.product?.id}`);
+    router.push(PRODUCT_DETAILS_DYNAMIC_URL(item?.product?.id));
   };
 
   return (

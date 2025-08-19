@@ -5,12 +5,13 @@ import Container from "@/common/components/common/Container";
 import Image from "next/image";
 import React from "react";
 import { redirect, useRouter } from "next/navigation";
+import { HOME_URL } from "@/common/config/constants/routes";
 
 function OrderSuccess() {
   const router = useRouter();
 
   const handleGoToHomePage = () => {
-    router.push("/");
+    router.push(HOME_URL);
   };
 
   return (

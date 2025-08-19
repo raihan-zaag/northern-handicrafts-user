@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import Icons from "../../../../public/icons/index.js";
+import { HOME_URL } from "@/common/config/constants/routes.js";
 
 const SocialLoginForm = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const SocialLoginForm = () => {
         if (redirect) {
           router.push(redirect);
         } else {
-          router.push("/");
+          router.push(HOME_URL);
         }
       }
     } catch (e) {

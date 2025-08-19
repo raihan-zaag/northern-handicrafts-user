@@ -17,6 +17,14 @@ import { RxExit } from "react-icons/rx";
 import { CgClose } from "react-icons/cg";
 import { IMAGE_BASE_URL } from "@/common/config/constants/apiUrls";
 import Icons from "@/public/icons";
+import {
+  HOME_URL,
+  CATEGORY_URL,
+  TRACK_ORDER_URL,
+  PROFILE_MY_ACCOUNT_URL,
+  LOGIN_URL,
+  SIGN_UP_URL
+} from "@/common/config/constants/routes";
 
 const HeaderDrawer = ({ open, setOpen }) => {
   const router = useRouter();
@@ -40,20 +48,20 @@ const HeaderDrawer = ({ open, setOpen }) => {
   const menCategory = categories?.content?.find(isMenCategory);
   const womenCategory = categories?.content?.find(isWomenCategory);
 
-  const menus = [{ name: "Home", link: "/" }];
+  const menus = [{ name: "Home", link: HOME_URL }];
   if (menCategory) {
     menus.push({
       name: menCategory.name,
-      link: `/?category=${menCategory.id}`,
+      link: CATEGORY_URL(menCategory.id),
     });
   }
   if (womenCategory) {
     menus.push({
       name: womenCategory.name,
-      link: `/?category=${womenCategory.id}`,
+      link: CATEGORY_URL(womenCategory.id),
     });
   }
-  menus.push({ name: "Track Order", link: "/track-order" });
+  menus.push({ name: "Track Order", link: TRACK_ORDER_URL });
 
   const isProfileActive = pathname?.includes("/profile/my-account");
 
@@ -69,7 +77,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
                   <div
                     className="flex items-center justify-center text-gray-500"
                     onClick={() => {
-                      router.push("/profile/my-account");
+                      router.push(PROFILE_MY_ACCOUNT_URL);
                       setOpen(false);
                     }}
                   >
@@ -93,7 +101,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
                   <div
                     className="flex items-center justify-center gap-4"
                     onClick={() => {
-                      router.push("/profile/my-account");
+                      router.push(PROFILE_MY_ACCOUNT_URL);
                       setOpen(false);
                     }}
                   >
@@ -189,7 +197,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
                 <button
                   className="py-2 px-0 text-white bg-primary w-full h-[48px] font-semibold border"
                   onClick={() => {
-                    router.push("/login");
+                    router.push(LOGIN_URL);
                     setOpen(false);
                   }}
                 >
@@ -198,7 +206,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
                 <button
                   className="border border-primary p- text-primary w-full h-[48px] font-semibold"
                   onClick={() => {
-                    router.push("/sign-up");
+                    router.push(SIGN_UP_URL);
                     setOpen(false);
                   }}
                 >

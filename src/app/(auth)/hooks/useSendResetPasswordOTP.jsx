@@ -8,6 +8,7 @@ import { RESET_PASSWORD_BY_EMAIL } from "@/common/config/constants/apiUrls";
 import useNotification from "../useNotification";
 import { IS_RESET_PASSWORD, VERIFY_EMAIL } from "@/common/config/constants/cookiesKeys";
 import { useRouter } from "next/navigation";
+import { EMAIL_VERIFICATION_URL } from "@/common/config/constants/routes";
 
 const useSendOTP = () => {
   const { openSuccessNotification, openErrorNotification } = useNotification();
@@ -31,7 +32,7 @@ const useSendOTP = () => {
       if (response?.status === 200) {
         setCookie(IS_RESET_PASSWORD, true);
         setCookie(VERIFY_EMAIL, email);
-        router.push("/email-verification");
+        router.push(EMAIL_VERIFICATION_URL);
       }
 
       // If the request is successful, update success state

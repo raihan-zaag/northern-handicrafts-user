@@ -9,6 +9,7 @@ import { deleteCookie, getCookie } from "cookies-next";
 import { useState } from "react";
 import useNotification from "../useNotification";
 import { useRouter } from "next/navigation";
+import { LOGIN_URL } from "@/common/config/constants/routes";
 
 const useResetPassword = () => {
   const { openErrorNotification, openSuccessNotification } = useNotification();
@@ -48,7 +49,7 @@ const useResetPassword = () => {
           response?.data || "Password reset successfully."
         );
 
-        router.push("/login");
+        router.push(LOGIN_URL);
       }
     } catch (err) {
       openErrorNotification(

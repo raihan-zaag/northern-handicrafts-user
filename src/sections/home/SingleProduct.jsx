@@ -1,12 +1,12 @@
 "use client";
 
-import { PRODUCT_DETAILS_URL } from "@/common/config/constants/pageRoutersUrl";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useWishlist } from "@/contextProviders/useWishListProvider";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import Icons from "../../../public/icons";
+import { PRODUCT_DETAILS_URL } from "@/common/config";
 
 const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
     const [showWishListIcon, setShowWishListIcon] = useState(false);

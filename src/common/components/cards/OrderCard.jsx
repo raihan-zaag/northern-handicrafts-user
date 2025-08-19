@@ -5,6 +5,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import useUpdateOrderStatus from "@/app/(public)/orders/hooks/useMakeChangeOrderStatus";
 import { Spinner } from "@/common/components/ui/spinner";
+import { PROFILE_TRACK_ORDER_DYNAMIC_URL } from "@/common/config/constants/routes";
 
 const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
   const router = useRouter();
@@ -74,7 +75,7 @@ const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
 
         <button
           onClick={() =>
-            router.push(`/profile/my-orders/track-order/${order.invoiceNumber}`)
+            router.push(PROFILE_TRACK_ORDER_DYNAMIC_URL(order.invoiceNumber))
           }
           className="text-sm flex-grow sm:flex-grow-0 text-[#0F62FE] font-medium flex gap-1.5 items-center justify-center"
         >

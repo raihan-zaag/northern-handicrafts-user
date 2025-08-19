@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import useOrderById from "@/app/(public)/orders/hooks/useOrderById";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
+import { PROFILE_TRACK_ORDER_DYNAMIC_URL, TRACK_ORDER_URL } from "@/common/config/constants/routes";
 
 const OrderFailed = ({ params }) => {
     const router = useRouter();
@@ -33,9 +34,9 @@ const OrderFailed = ({ params }) => {
 
     const handleGoToHomePage = () => {
         if (isAuthenticated) {
-            router.push("/profile/my-orders/track-order/" + orderId);
+            router.push(PROFILE_TRACK_ORDER_DYNAMIC_URL(orderId));
         } else {
-            router.push("/track-order");
+            router.push(TRACK_ORDER_URL);
         }
     };
 

@@ -5,6 +5,7 @@ import { formatNumber } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { CHECKOUT_URL } from "@/common/config/constants/routes";
 
 const OrderSummary = ({
   total,
@@ -26,7 +27,7 @@ const OrderSummary = ({
       // handleUpdateCartInBackend();
     }
 
-    router.push("/checkout");
+    router.push(CHECKOUT_URL);
   };
 
   return (

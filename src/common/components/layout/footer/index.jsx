@@ -9,6 +9,18 @@ import useCreateNewsletter from "@/common/hooks/newsletter/useCreateNewsletter";
 import Link from "next/link";
 import useGetCategories from "@/common/hooks/categories/useGetCategories";
 import Container from "@/common/components/common/Container";
+import {
+  HOME_URL,
+  TRACK_ORDER_URL,
+  CATEGORY_URL,
+  TERMS_AND_CONDITION_URL,
+  PRIVACY_POLICY_URL,
+  SHIPPING_POLICY_URL,
+  REFUND_POLICY_URL,
+  COOKIE_POLICY_URL,
+  ACCESSIBILITY_STATEMENT_URL,
+  CUSTOMER_SUPPORT_URL
+} from "@/common/config/constants/routes";
 
 const Footer = () => {
   const [email, setEamil] = useState("");
@@ -103,27 +115,27 @@ const Footer = () => {
                 <h3 className="text-lg font-semibold">SHOP</h3>
                 <ul className="space-y-5 text-sm">
                   <li>
-                    <Link href={"/"}>Home</Link>
+                    <Link href={HOME_URL}>Home</Link>
                   </li>
                   {menCategory && (
                     <li>
-                      <Link href={`/?category=${menCategory?.id}`}>
+                      <Link href={CATEGORY_URL(menCategory?.id)}>
                         {menCategory?.name || "Men"}
                       </Link>
                     </li>
                   )}
                   {womenCategory && (
                     <li>
-                      <Link href={`/?category=${womenCategory?.id}`}>
+                      <Link href={CATEGORY_URL(womenCategory?.id)}>
                         {womenCategory?.name || "Women"}
                       </Link>
                     </li>
                   )}
                   <li>
-                    <Link href={"/track-order"}>Track Order</Link>
+                    <Link href={TRACK_ORDER_URL}>Track Order</Link>
                   </li>
                   <li>
-                    <a href="/customer-support">Customer Support</a>
+                    <a href={CUSTOMER_SUPPORT_URL}>Customer Support</a>
                   </li>
                 </ul>
               </div>
@@ -131,24 +143,24 @@ const Footer = () => {
                 <h3 className="text-lg font-semibold">LEGAL</h3>
                 <ul className="space-y-5 text-sm">
                   <li>
-                    <Link href={`/terms-and-condition`}>
+                    <Link href={TERMS_AND_CONDITION_URL}>
                       Terms & Conditions
                     </Link>
                   </li>
                   <li>
-                    <Link href={`/privacy-policy`}>Privacy Policy</Link>
+                    <Link href={PRIVACY_POLICY_URL}>Privacy Policy</Link>
                   </li>
                   <li>
-                    <Link href={`/shipping-policy`}>Shipping Policy</Link>
+                    <Link href={SHIPPING_POLICY_URL}>Shipping Policy</Link>
                   </li>
                   <li>
-                    <Link href={`/refund-policy`}>Refund Policy</Link>
+                    <Link href={REFUND_POLICY_URL}>Refund Policy</Link>
                   </li>
                   <li>
-                    <Link href={`/cookie-policy`}>Cookie Policy</Link>
+                    <Link href={COOKIE_POLICY_URL}>Cookie Policy</Link>
                   </li>
                   <li>
-                    <Link href={`accessibility-statement`}>
+                    <Link href={ACCESSIBILITY_STATEMENT_URL}>
                       Accessibility Statement
                     </Link>
                   </li>

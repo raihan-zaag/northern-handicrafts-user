@@ -13,6 +13,7 @@ import {
   STORE_OTP,
 } from "@/common/config/constants/cookiesKeys";
 import useNotification from "@/common/hooks/useNotification";
+import { RESET_PASSWORD_URL, LOGIN_URL } from "@/common/config/constants/routes";
 import { useRouter } from "next/navigation";
 
 const useVerifyEmail = () => {
@@ -53,13 +54,13 @@ const useVerifyEmail = () => {
       if (response?.status === 200) {
         openSuccessNotification("Success", "Successfully verified your email.");
         if (isResetPassword) {
-          router.push("/reset-password");
+          router.push(RESET_PASSWORD_URL);
 
           setCookie(VERIFY_EMAIL, email);
           setCookie(STORE_OTP, code);
         } else {
           deleteCookie(VERIFY_EMAIL);
-          router.push("/login");
+          router.push(LOGIN_URL);
         }
       }
 

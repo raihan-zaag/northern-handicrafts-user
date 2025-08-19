@@ -5,6 +5,7 @@ import useNotification from "../useNotification";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 import { IS_RESET_PASSWORD, VERIFY_EMAIL } from "@/common/config/constants/cookiesKeys";
+import { EMAIL_VERIFICATION_URL } from "@/common/config/constants/routes";
 
 const useSignUp = () => {
   // States for loading, error, and response
@@ -32,7 +33,7 @@ const useSignUp = () => {
         setCookie(VERIFY_EMAIL, response?.data?.email);
         setCookie(IS_RESET_PASSWORD, false);
         router.refresh();
-        router.push("/email-verification");
+        router.push(EMAIL_VERIFICATION_URL);
       }
     } catch (err) {
       setError(err.response?.data || "Something went wrong");

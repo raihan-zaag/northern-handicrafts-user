@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { EMAIL_VERIFICATION_URL, CHECKOUT_URL, HOME_URL, LOGIN_URL } from "@/common/config/constants/routes";
 
 import {
   Form,
@@ -100,7 +101,7 @@ const RegisterForm = () => {
         setCookie(VERIFY_EMAIL, response.data?.email);
         setCookie(IS_RESET_PASSWORD, false);
         router.refresh();
-        router.push("/email-verification");
+        router.push(EMAIL_VERIFICATION_URL);
       }
     } catch (error) {
       openErrorNotification("Error", error.message);
@@ -109,11 +110,11 @@ const RegisterForm = () => {
     }
   };
 
-  const handleGoToCheckoutPage = () => {
+    const handleGoToCheckoutPage = () => {
     if (cart?.length > 0) {
-      router.push("/checkout");
+      router.push(CHECKOUT_URL);
     } else {
-      router.push("/");
+      router.push(HOME_URL);
     }
   };
 
@@ -249,7 +250,7 @@ const RegisterForm = () => {
         <p className="text-center text-sm mt-9">
           Already have an account?{" "}
           <Link
-            href="/login"
+            href={LOGIN_URL}
             className="text-primary font-semibold hover:underline"
           >
             Sign in
