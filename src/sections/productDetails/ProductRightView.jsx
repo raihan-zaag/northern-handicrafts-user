@@ -300,7 +300,7 @@ const ProductRightView = ({ forModal = false, data }) => {
                         {averageRatingValue?.averageRating}
                     </Typography.BodyText>
 
-                    <p className="text-[#8790AB] text-sm font-medium">.</p>
+                    <p className="text-gray-blue text-sm font-medium">.</p>
 
                     <Typography.BodyText
                         color="text-primary"
@@ -330,11 +330,7 @@ const ProductRightView = ({ forModal = false, data }) => {
                                 ${formatNumber(calculatePriceForSingleProduct)}
                             </Typography.Title3>
                             {data?.priceAfterDiscount ? (
-                                <p
-                                    className={
-                                        "line-through text-font_color_two text-[24px]"
-                                    }
-                                >
+                                <p className={"line-through text-font_color_two text-18px md:text-xl2"}>
                                     ${formatNumber(basePriceWithoutDiscount)}
                                 </p>
                             ) : null}
@@ -386,9 +382,9 @@ const ProductRightView = ({ forModal = false, data }) => {
                                             <div
                                                 className={`${
                                                     selectedColor?.id === color?.id
-                                                        ? "border-[#3A3A3A] border-opacity-40"
+                                                          ? "border-gray-dark2 border-opacity-40"
                                                         : "border-transparent"
-                                                } border-[3px] rounded-full cursor-pointer`}
+                                                } border-2 rounded-full cursor-pointer`}
                                             >
                                                 <div
                                                     onClick={() => {
@@ -403,7 +399,7 @@ const ProductRightView = ({ forModal = false, data }) => {
                                         </PopoverTrigger>
                                         <PopoverContent className="w-auto p-3">
                                             <div className="flex flex-col items-start justify-start gap-1">
-                                                <p className="text-[#2A2A2A] text-base">
+                                                <p className="text-gray-dark text-base">
                                                     Color : {color?.color?.name}
                                                 </p>
                                             </div>
@@ -429,7 +425,7 @@ const ProductRightView = ({ forModal = false, data }) => {
                             current={quantity}
                         />
 
-                        <p className="mt-3 sm:text-sm md:text-[18px] font-medium">
+                        <p className="mt-3 sm:text-sm md:text-18px font-medium">
                             Total: ${" "}
                             {(
                                 formatNumber(calculatePriceForSingleProduct) *
@@ -438,8 +434,8 @@ const ProductRightView = ({ forModal = false, data }) => {
                         </p>
                     </div>
 
-                    <div className="bg-[#EFF5FF] px-6 py-4">
-                        <p className="font-medium text-[15px]">
+                    <div className="bg-light-blue-bg px-6 py-4">
+                        <p className="font-medium text-base">
                             You can customize your lens by adding your
                             prescription here *
                         </p>

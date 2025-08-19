@@ -15,7 +15,7 @@ const Typography = {
     ),
 
     Title3: ({ children, className = "" }) => (
-        <h3 className={cn("text-lg sm:text-xl md:text-[28px] font-semibold text-primary leading-normal", className)}>
+        <h3 className={cn("text-lg sm:text-xl md:text-xl2 font-semibold text-primary leading-normal", className)}>
             {children}
         </h3>
     ),

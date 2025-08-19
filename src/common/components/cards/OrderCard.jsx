@@ -31,7 +31,7 @@ const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
     order?.orderStatus === "ORDER_PLACED";
 
   return (
-    <div className="py-6 border-b border-[#EBEDF0] flex flex-col sm:flex-row items-start justify-between relative">
+  <div className="py-6 border-b border-border-gray flex flex-col sm:flex-row items-start justify-between relative">
       {loading && (
         <div className="absolute inset-0 grid place-items-center bg-background/40 z-10">
           <Spinner className="text-primary" />
@@ -40,24 +40,24 @@ const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
 
       <div className="flex flex-row justify-between sm:justify-start items-start sm:flex-col w-full sm:w-auto">
         <div className="flex flex-col">
-          <p className="text-[13px] sm:text-[15px] text-[#4A4A4A]">
+          <p className="text-xs2 sm:text-md2 text-gray-medium">
             Order Id{" "}
-            <span className="text-[13px] sm:text-[15px] text-[#2A2A2A]">
+            <span className="text-xs2 sm:text-md2 text-gray-dark">
               #{order.invoiceNumber}
             </span>
           </p>
-          <p className="text-[13px] sm:text-[15px] text-[#4A4A4A] mt-1">
+          <p className="text-xs2 sm:text-md2 text-gray-medium mt-1">
             {formatTimestamp(order.createdAt)}
           </p>
-          <p className="text-[13px] sm:text-[15px] mt-1 text-[#4A4A4A]">
+          <p className="text-xs2 sm:text-md2 mt-1 text-gray-medium">
             Total{" "}
-            <span className="text-[13px] sm:text-[15px] text-[#2A2A2A]">
+            <span className="text-xs2 sm:text-md2 text-gray-dark">
               ${order.invoice.totalFinalPrice}
             </span>
           </p>
         </div>
-        <div className="py-2 px-3.5 sm:py-2.5 sm:px-4 bg-[#F7F8FA] sm:mt-2 inline-block">
-          <span className="text-xs sm:text-sm text-[#0F62FE] font-semibold">
+  <div className="py-2 px-3.5 sm:py-2.5 sm:px-4 bg-bg-off-white sm:mt-2 inline-block">
+          <span className="text-xs sm:text-sm text-blue font-semibold">
             {formatText(order.orderStatus)}
           </span>
         </div>
@@ -77,7 +77,7 @@ const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
           onClick={() =>
             router.push(PROFILE_TRACK_ORDER_DYNAMIC_URL(order.invoiceNumber))
           }
-          className="text-sm flex-grow sm:flex-grow-0 text-[#0F62FE] font-medium flex gap-1.5 items-center justify-center"
+          className="text-sm flex-grow sm:flex-grow-0 text-blue font-medium flex gap-1.5 items-center justify-center"
         >
           <IoEyeOutline />
           <span>View Details</span>

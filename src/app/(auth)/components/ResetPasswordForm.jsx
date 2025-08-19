@@ -66,11 +66,11 @@ const ResetPasswordForm = () => {
 
   return (
     <div className="flex items-center justify-center p-4 mb-16">
-      <div className="w-full max-w-[600px] bg-secondary p-8 rounded border border-border">
+      <div className="w-full max-w-600px bg-secondary p-8 rounded border border-border">
         <h2 className="text-2xl font-semibold text-left mb-2">
           Reset password
         </h2>
-        <p className="text-[#4A4A4A] text-left mb-6 font-light">
+  <p className="text-gray-medium text-left mb-6 font-light">
           Enter your new password to reset the password.
         </p>
 
@@ -81,13 +81,13 @@ const ResetPasswordForm = () => {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+          <FormLabel className="text-dark font-medium text-sm">
                     Password
                   </FormLabel>
                   <FormControl>
                     <PasswordInput
                       placeholder="Min. 8 characters"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+            className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -101,13 +101,13 @@ const ResetPasswordForm = () => {
               name="confirmNewPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+          <FormLabel className="text-dark font-medium text-sm">
                     Confirm Password
                   </FormLabel>
                   <FormControl>
                     <PasswordInput
                       placeholder="Min. 8 characters"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+            className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -119,7 +119,7 @@ const ResetPasswordForm = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary text-white font-semibold h-[52px] rounded hover:bg-primary/90"
+              className="w-full bg-primary text-white font-semibold h-52px rounded hover:bg-primary/90"
             >
               {isLoading ? "Resetting..." : "Confirm Reset Password"}
             </Button>

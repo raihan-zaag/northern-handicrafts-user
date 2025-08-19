@@ -44,7 +44,7 @@ const PrescriptionBreakdown = ({ priceForValue, cartInfo = {}, mode }) => {
           )
       )}
 
-      <div className="h-0.5 bg-[#EBEDF0] w-full my-2" />
+  <div className="h-0.5 bg-border-gray w-full my-2" />
       <div className="flex items-center justify-between">
         <p>Price Per Unit after prescription</p>
         <p>

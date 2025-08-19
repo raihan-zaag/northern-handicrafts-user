@@ -22,20 +22,20 @@ function OrderSuccess() {
           height={1000}
           width={1000}
           alt="Success_image"
-          className="w-[190px] h-[140px]"
+          className="w-190px h-140px"
         />
-        <h1 className="text-[24px] text-[#2a2a2a] font-semibold mt-12">
+        <h1 className="text-18px md:text-xl2 text-gray-dark font-semibold mt-12">
           Thanks for your order!
         </h1>
-        <p className="font-normal text-base text-[#5A5A5A]">
+        <p className="font-normal text-base text-gray-mid2">
           Your order has been placed successfully.{" "}
         </p>
-        <p className="font-normal text-base text-[#5A5A5A]">
+        <p className="font-normal text-base text-gray-mid2">
           Please be patient while we confirm your order.
         </p>
         <Button
           type={"primary"}
-          className={"w-[100%] mt-2"}
+          className={"w-full mt-2"}
           onClick={handleGoToHomePage}
         >
           Continue Shopping

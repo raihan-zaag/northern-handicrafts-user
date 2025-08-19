@@ -67,7 +67,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
+  <SheetContent side="left" className="w-300px sm:w-400px p-0">
         <SheetHeader className="px-6 py-4 border-b">
           <div className="flex items-center justify-between gap-5">
             {isAuthenticated ? (
@@ -195,7 +195,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
             {!isAuthenticated ? (
               <div className="flex flex-col items-center justify-between gap-4 w-full px-4">
                 <button
-                  className="py-2 px-0 text-white bg-primary w-full h-[48px] font-semibold border"
+                  className="py-2 px-0 text-white bg-primary w-full h-48px font-semibold border"
                   onClick={() => {
                     router.push(LOGIN_URL);
                     setOpen(false);
@@ -204,7 +204,7 @@ const HeaderDrawer = ({ open, setOpen }) => {
                   Log In
                 </button>
                 <button
-                  className="border border-primary p- text-primary w-full h-[48px] font-semibold"
+                  className="border border-primary p- text-primary w-full h-48px font-semibold"
                   onClick={() => {
                     router.push(SIGN_UP_URL);
                     setOpen(false);

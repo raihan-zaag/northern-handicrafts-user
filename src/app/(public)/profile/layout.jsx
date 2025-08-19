@@ -10,7 +10,7 @@ const ProfileLayout = ({ children }) => {
       <Container>
         <div
           className={
-            "grid grid-cols-1 lg:grid-cols-12 lg:gap-x-10 2xl:gap-x-[100px] h-full"
+            "grid grid-cols-1 lg:grid-cols-12 lg:gap-x-10 2xl:gap-x-100px h-full"
           }
         >
           {/* Sidebar - occupies 4 columns on large screens */}

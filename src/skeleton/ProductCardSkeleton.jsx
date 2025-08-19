@@ -6,7 +6,7 @@ const ProductCardSkeleton = () => {
   return (
     <div className="animate-pulse">
       {/* Skeleton for Product Image */}
-      <div className="bg-gray-300 h-[369px] w-full rounded-md"></div>
+  <div className="bg-gray-300 h-369px w-full rounded-md"></div>
 
       {/* Skeleton for Product Details */}
       <div className="mt-4 space-y-2">

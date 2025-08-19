@@ -71,7 +71,7 @@ const DrawerComponent = () => {
 
   return (
     <Sheet open={openCartDrawer} onOpenChange={setOpenCartDrawer}>
-      <SheetContent side="right" className="w-[500px] flex flex-col">
+  <SheetContent side="right" className="w-full max-w-500px flex flex-col">
         <SheetHeader>
           <SheetTitle className="flex flex-row items-center justify-between">
             <h2>My Cart ({cart?.length})</h2>
@@ -96,7 +96,7 @@ const DrawerComponent = () => {
         </div>
 
         <SheetFooter className="flex flex-col gap-6 mt-4">
-          <div className="flex flex-row items-center justify-between p-4 bg-[#F7F8FA]">
+          <div className="flex flex-row items-center justify-between p-4 bg-bg-light-gray">
             <p className="font-semibold">Subtotal</p>
             <p className="font-semibold">
               $ {formatNumber(calculateTotalPrice())}

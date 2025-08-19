@@ -34,8 +34,8 @@ const LoadMoreProduct = ({
     const [pageLimit, setPageLimit] = useState(5);
     const [loading, setLoading] = useState(false);
     const [totalPage, setTotalPage] = useState(totalPages);
-    const [filteredItems, setFilteredItems] = useState([]);
     const [hasPrice, setHasPrice] = useState(false);
+    const [filteredItems, setFilteredItems] = useState([]);
 
     const [openFilterDrawer, setOpenFilterDrawer] = useState(false);
 
@@ -49,7 +49,7 @@ const LoadMoreProduct = ({
         return () => {
             setProduct([]);
         };
-    }, [productList]);
+    }, [productList, totalPages]);
 
     useEffect(() => {
         // Get all existing page params
@@ -73,7 +73,7 @@ const LoadMoreProduct = ({
         if (priceTo[0] || priceFrom[1]) {
             setHasPrice(true);
         }
-    }, [searchParams, pageLimit]);
+    }, [searchParams, pageLimit, page]);
 
     useEffect(() => {
         // Only execute this code on the client
@@ -213,7 +213,9 @@ const LoadMoreProduct = ({
             <div className="flex flex-col md:flex-row gap-4 items-start md:items-start lg:items-center justify-between mb-6">
                 <div
                     className={`${
-                        filteredItems ? "flex flex-row" : "hidden"
+                        filteredItems?.length || hasPrice || searchParams.get("sortBy") !== "RECOMMENDED"
+                            ? "flex flex-row"
+                            : "hidden"
                     } items-start justify-between w-full`}
                 >
                     <div className="flex flex-row flex-wrap items-center gap-4 ">
@@ -221,7 +223,7 @@ const LoadMoreProduct = ({
                             return (
                                 <div
                                     key={index}
-                                    className="border border-[#8A8A8A] p-[10px] flex gap-2 items-center"
+                                    className="border border-gray-medium px-2.5 py-2.5 flex gap-2 items-center"
                                 >
                                     <p className="text-primary text-sm">
                                         {category.label}
@@ -238,7 +240,7 @@ const LoadMoreProduct = ({
 
                         {searchParams.get("sortBy") !== "RECOMMENDED" ? (
                             <>
-                                <div className="border border-[#8A8A8A] p-[10px] flex gap-2 items-center">
+                                <div className="border border-gray-medium px-2.5 py-2.5 flex gap-2 items-center">
                                     <p className="text-primary text-sm">
                                         {/* {searchParams.get("sortBy")} */}
                                         {sortByLabel}
@@ -253,7 +255,7 @@ const LoadMoreProduct = ({
 
                         {hasPrice ? (
                             <>
-                                <div className="border border-[#8A8A8A] p-[10px] flex gap-2 items-center">
+                                <div className="border border-gray-medium px-2.5 py-2.5 flex gap-2 items-center">
                                     <p className="text-primary text-sm">
                                         Price ({priceFilter[0]}-{priceFilter[1]}
                                         )
@@ -269,7 +271,7 @@ const LoadMoreProduct = ({
                         {filteredItems?.length ||
                         (hasPrice && searchParams.get("sortBy")) ? (
                             <div
-                                className="p-[10px] flex gap-2 items-center cursor-pointer"
+                                className="px-2.5 py-2.5 flex gap-2 items-center cursor-pointer"
                                 onClick={handleClearAllFilters}
                             >
                                 <p className="text-primary text-sm cursor-pointer underline">
@@ -280,7 +282,7 @@ const LoadMoreProduct = ({
                     </div>
 
                     <div
-                        className="md:hidden border p-2 border-primary w- ml-auto flex items-center justify-center"
+                        className="md:hidden border p-2 border-primary ml-auto flex items-center justify-center"
                         onClick={() => {
                             setOpenFilterDrawer(true);
                         }}
@@ -311,7 +313,7 @@ const LoadMoreProduct = ({
             </div>
 
             <Sheet open={openFilterDrawer} onOpenChange={(open) => setOpenFilterDrawer(open)}>
-                <SheetContent side="left" className="w-[400px] sm:w-[540px]">
+                <SheetContent side="left" className="w-full max-w-400px sm:max-w-540px">
                     <SheetHeader>
                         <div className="flex items-center justify-between">
                             <SheetTitle className="text-primary">Product Filter</SheetTitle>

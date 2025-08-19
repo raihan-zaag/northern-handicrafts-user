@@ -122,11 +122,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen my-[30px] md:my-[80px] p-4 md:p-0">
-      <div className="w-full max-w-[600px] bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border">
+    <div className="flex items-center justify-center min-h-screen my-30px md:my-80px p-4 md:p-0">
+      <div className="w-full max-w-600px bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border">
         <div className="mb-5">
           <h2 className="text-2xl font-semibold text-left mb-2">Sign In</h2>
-          <span className="text-[#4A4A4A] text-left mb-6 font-light">
+          <span className="text-gray-medium text-left mb-6 font-light">
             Please fill up the form to sign in!
           </span>
         </div>
@@ -138,13 +138,13 @@ const LoginForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+          <FormLabel className="text-dark font-medium text-sm">
                     Email Id
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your email"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+            className="h-52px bg-secondary border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -158,13 +158,13 @@ const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+          <FormLabel className="text-dark font-medium text-sm">
                     Password
                   </FormLabel>
                   <FormControl>
                     <PasswordInput
                       placeholder="Min. 8 characters"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+            className="h-52px bg-secondary border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -204,7 +204,7 @@ const LoginForm = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary text-white font-semibold h-[52px] rounded mt-5 hover:bg-primary/90"
+              className="w-full bg-primary text-white font-semibold h-52px rounded mt-5 hover:bg-primary/90"
             >
               {isLoading ? "Signing In..." : "Sign In"}
             </Button>

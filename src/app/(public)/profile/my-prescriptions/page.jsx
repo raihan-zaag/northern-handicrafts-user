@@ -46,14 +46,14 @@ const MyPrescription = () => {
     <LoadingOverlay isLoading={loading || deleteLoading || createLoading}>
       <div>
         <div className="flex items-center justify-between">
-          <h2 className="text-[#2A2A2A] font-semibold text-2xl hidden sm:block">
+          <h2 className="text-gray-dark font-semibold text-2xl hidden sm:block">
             My Saved Prescriptions
           </h2>
-          <h2 className="text-[#2A2A2A] font-semibold text-sm sm:text-base md:text-2xl block sm:hidden">
+          <h2 className="text-gray-dark font-semibold text-sm sm:text-base md:text-2xl block sm:hidden">
             Prescriptions
           </h2>
           <Button
-          className={"py-2 sm:py-[15px] px-3 sm:px-8"}
+          className={"py-2 sm:py-15 px-3 sm:px-8"}
           onClick={() => setOpenPrescriptionModal(true)}
         >
           Add new Prescription
@@ -116,9 +116,9 @@ const PrescriptionCard = ({
   handleRemoveDelete,
 }) => {
   return (
-    <div className="flex sm:flex-row flex-col sm:gap-auto gap-4 items-start justify-between py-5 border-b border-[#EBEDF0]">
+  <div className="flex sm:flex-row flex-col sm:gap-auto gap-4 items-start justify-between py-5 border-b border-border">
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold text-[#2A2A2A]">
+    <h3 className="text-lg font-semibold text-gray-dark">
           {prescription?.name}
         </h3>
         {prescription?.leftEyeSPH && (
@@ -165,8 +165,8 @@ const PrescriptionCard = ({
             setOpenPrescriptionModal(true);
           }}
         >
-          <MdOutlineEdit className="text-[#0F62FE] text-base" />
-          <p className="text-[#0F62FE] text-sm font-semibold">
+          <MdOutlineEdit className="text-blue text-base" />
+          <p className="text-blue text-sm font-semibold">
             Edit Prescription
           </p>
         </button>
@@ -174,8 +174,8 @@ const PrescriptionCard = ({
           onClick={() => handleRemoveDelete(prescription?.id)}
           className="flex items-center justify-end sm:justify-center gap-1.5 sm:flex-grow-0 flex-grow"
         >
-          <RiDeleteBin6Line className="text-[#4A4A4A] text-base" />
-          <p className="text-[#4A4A4A] text-sm font-semibold">Remove</p>
+          <RiDeleteBin6Line className="text-gray-medium text-base" />
+          <p className="text-gray-medium text-sm font-semibold">Remove</p>
         </button>
       </div>
     </div>

@@ -35,7 +35,7 @@ const NextBreadcrumb = () => {
             <Link
               href={"/"}
               style={{
-                color: paths === "/" ? "#2A2A2A" : "#7A8699",
+                color: paths === "/" ? "var(--color-gray-dark)" : "var(--color-light-font2)",
                 fontWeight: paths === "/" ? "600" : "500",
               }}
             >
@@ -64,7 +64,7 @@ const NextBreadcrumb = () => {
                 {isLastItem ? (
                   <BreadcrumbPage
                     style={{
-                      color: "#2A2A2A",
+                      color: "var(--color-gray-dark)",
                       fontWeight: "600",
                       cursor: "default",
                     }}
@@ -76,7 +76,7 @@ const NextBreadcrumb = () => {
                     <Link
                       href={href}
                       style={{
-                        color: "#7A8699",
+                        color: "var(--color-light-font2)",
                         fontWeight: "600",
                       }}
                     >

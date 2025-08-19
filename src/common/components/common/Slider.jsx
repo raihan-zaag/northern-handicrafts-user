@@ -56,18 +56,18 @@ const SliderComponent = () => {
         return (
             <Container>
                 <div className="w-full my-9">
-                    <div className="relative w-full h-[500px] bg-gray-200 animate-pulse">
+                    <div className="relative w-full h-500px bg-gray-200 animate-pulse">
                         {/* Skeleton for the image */}
                         <div className="absolute inset-0 bg-gray-300"></div>
 
                         {/* Skeleton for the content overlay */}
                         <div className="absolute inset-0 z-10 flex flex-col items-start justify-center px-12 py-8 text-left">
-                            <div className="bg-gray-400 w-[260px] sm:w-[300px] md:w-[380px] lg:w-[500px] h-8 mb-4"></div>
-                            <div className="bg-gray-400 w-[150px] h-6"></div>
+                            <div className="bg-gray-400 w-260px sm:w-300px md:w-380px lg:w-500px h-8 mb-4"></div>
+                            <div className="bg-gray-400 w-150px h-6"></div>
                         </div>
 
                         {/* Skeleton for navigation buttons */}
-                        <div className="absolute bottom-14 flex justify-between items-center gap-3 w-[100%] px-16 md:px-20 lg:px-15 xl:px-12">
+                        <div className="absolute bottom-14 flex justify-between items-center gap-3 w-full px-16 md:px-20 lg:px-15 xl:px-12">
                             <div className="flex gap-3 items-center justify-center">
                                 <div className="w-6 h-2 bg-gray-400 rounded-full"></div>
                                 <div className="w-6 h-2 bg-gray-400 rounded-full"></div>
@@ -94,7 +94,7 @@ const SliderComponent = () => {
             {/* Slider Wrapper */}
             <Container className="relative w-full">
                 {/* Slide */}
-                <div className="relative w-full h-[500px]">
+                <div className="relative w-full h-500px">
                     <div className="absolute inset-0 z-0">
                         <Image
                             height={1000}
@@ -110,7 +110,7 @@ const SliderComponent = () => {
 
                     {/* Content Overlay */}
                     <div className="absolute inset-0 z-10 flex flex-col items-start justify-center px-12 py-8 text-left text-white">
-                        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold leading-[25px] sm:leading-[30px] md:leading-[44px] w-[260px] sm:w-[300px] md:w-[380px] lg:w-[500px]">
+                        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold leading-25px sm:leading-30px md:leading-44px w-260px sm:w-300px md:w-380px lg:w-500px">
                             {data[currentIndex]?.description}
                         </h1>
                         <button className="px-0 py-2 mt-4 border-b border-white text-white transition-all duration-200 min-w-20 uppercase">
@@ -126,7 +126,7 @@ const SliderComponent = () => {
 
                 {/* Custom Navigation Buttons */}
                 <div className="flex items-center justify-center">
-                    <div className="absolute bottom-14 cursor-pointer z-10 flex justify-between items-center gap-3 w-[100%] px-16 md:px-20 lg:px-15 xl:px-12 ">
+                    <div className="absolute bottom-14 cursor-pointer z-10 flex justify-between items-center gap-3 w-full px-16 md:px-20 lg:px-15 xl:px-12 ">
                         <div className="flex gap-3 items-center justify-center">
                             {data.map((slide, index) => (
                                 <div

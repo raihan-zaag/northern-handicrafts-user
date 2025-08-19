@@ -147,7 +147,7 @@ const PrescriptionModal = ({
   return (
     <LoadingOverlay isLoading={loading}>
       <Sheet open={open} onOpenChange={(open) => !open && handleModalOpenClose()}>
-        <SheetContent className="w-[600px] sm:max-w-[600px]">
+  <SheetContent className="w-600px sm:max-w-600px">
           <SheetHeader>
             <div className="flex items-center justify-between border-b pb-2">
               <SheetTitle>My Prescription</SheetTitle>

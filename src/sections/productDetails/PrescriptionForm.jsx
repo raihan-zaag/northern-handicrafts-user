@@ -629,7 +629,7 @@ const PrescriptionForm = ({
                                             </PopoverTrigger>
                                             <PopoverContent>
                                                 <div className="flex flex-col items-start justify-start gap-1">
-                                                    <p className="text-[#2A2A2A] text-base">
+                                                    <p className="text-gray-dark text-base">
                                                         Index size :{" "}
                                                         {size?.label}
                                                     </p>
@@ -675,7 +675,7 @@ const PrescriptionForm = ({
                                             </PopoverTrigger>
                                             <PopoverContent>
                                                 <div className="flex flex-col items-start justify-start gap-1">
-                                                    <p className="text-[#2A2A2A] text-base">
+                                                    <p className="text-gray-dark text-base">
                                                         Index size :{" "}
                                                         {size?.label}
                                                     </p>

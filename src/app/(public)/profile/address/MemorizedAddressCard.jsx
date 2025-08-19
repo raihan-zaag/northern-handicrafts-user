@@ -9,9 +9,9 @@ const AddressCard = ({
     handleRemoveDelete,
 }) => {
     return (
-        <div className="flex sm:flex-row flex-col sm:gap-auto gap-4 items-start justify-between py-5 border-b border-[#EBEDF0]">
+    <div className="flex sm:flex-row flex-col sm:gap-auto gap-4 items-start justify-between py-5 border-b border-border">
             <div className="flex flex-col gap-2">
-                <h3 className="text-lg font-semibold text-[#2A2A2A]">
+        <h3 className="text-lg font-semibold text-gray-dark">
                     {address?.title}
                 </h3>
                 {/* <p className="text-[#4A4A4A] text-sm">Country : {address?.country}</p> */}
@@ -39,8 +39,8 @@ const AddressCard = ({
                         setOpenAddressModal(true);
                     }}
                 >
-                    <MdOutlineEdit className="text-[#0F62FE] text-base" />
-                    <p className="text-[#0F62FE] text-sm font-semibold">
+                    <MdOutlineEdit className="text-blue text-base" />
+                    <p className="text-blue text-sm font-semibold">
                         Edit Address
                     </p>
                 </button>
@@ -48,8 +48,8 @@ const AddressCard = ({
                     onClick={() => handleRemoveDelete(address.id)}
                     className="flex items-center justify-center gap-1.5 sm:flex-grow-0 flex-grow"
                 >
-                    <RiDeleteBin6Line className="text-[#4A4A4A] text-base" />
-                    <p className="text-[#4A4A4A] text-sm font-semibold">
+                    <RiDeleteBin6Line className="text-gray-medium text-base" />
+                    <p className="text-gray-medium text-sm font-semibold">
                         Remove
                     </p>
                 </button>

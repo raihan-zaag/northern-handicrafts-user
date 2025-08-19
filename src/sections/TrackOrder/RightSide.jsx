@@ -15,7 +15,7 @@ const RightSide = ({ data }) => {
               orderStatus={data?.orderStatus}
               allOrderInfo={data}
             />
-            <div className="w-full h-0.5 border-b border-[#EBEDF0]" />
+            <div className="w-full h-0.5 border-b border-border" />
           </>
         ))}
       </div>
@@ -24,7 +24,7 @@ const RightSide = ({ data }) => {
           title={
             <span>
               Sub Total{" "}
-              <span className="text-[#0F62FE]">
+              <span className="text-blue">
                 ({data.cartDetailsList.length} item)
               </span>
             </span>
@@ -36,14 +36,14 @@ const RightSide = ({ data }) => {
         <CalculationBox
           title="Discount"
           value={data?.invoice?.promoDiscountAmount}
-          valueColor="text-[#D9333F]"
+          valueColor="text-red-variant1"
         />
         <CalculationBox title="Tax" value={data?.invoice?.taxAmount} />
         <CalculationBox
           title="Shipping cost"
           value={data?.invoice?.shippingCost}
         />
-        <div className="w-full h-0.5 border-b border-[#EBEDF0]" />
+  <div className="w-full h-0.5 border-b border-border" />
       </div>
 
       {data?.invoice?.refundAmount > 0 && (
@@ -57,17 +57,17 @@ const RightSide = ({ data }) => {
           <CalculationBox
             title="Return Amount"
             value={formatNumber(data?.invoice?.refundAmount)}
-            valueColor={"text-[#E91C24]"}
+            valueColor={"text-red-variant2"}
           />
-          <div className="w-full h-0.5 border-b border-[#EBEDF0]" />
+          <div className="w-full h-0.5 border-b border-border" />
         </div>
       )}
 
       <div className="flex justify-between mt-3">
-        <p className="text-lg font-semibold text-[#2A2A2A]">
+        <p className="text-lg font-semibold text-gray-dark">
           Final Order Price
         </p>
-        <p className="text-lg font-semibold text-[#0F62FE]">
+        <p className="text-lg font-semibold text-blue">
           ${formatNumber(data?.invoice?.totalFinalPrice)}
         </p>
       </div>
@@ -77,10 +77,10 @@ const RightSide = ({ data }) => {
 
 export default RightSide;
 
-const CalculationBox = ({ title, value, valueColor = "text-[#2A2A2A]" }) => {
+const CalculationBox = ({ title, value, valueColor = "text-gray-dark" }) => {
   return (
     <div className="flex justify-between">
-      <p className="text-sm font-medium text-[#2A2A2A]">{title}</p>
+  <p className="text-sm font-medium text-gray-dark">{title}</p>
       <p className={`text-sm font-medium ${valueColor}`}>
         {title === "Discount" || (title === "Return Amount" && "-")}${value}
       </p>

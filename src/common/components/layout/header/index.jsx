@@ -92,8 +92,8 @@ const HeaderComponent = () => {
 
   return (
     <div className="">
-      <div className="bg-primary text-light-font h-[75px]">
-        <Container className="flex justify-between items-center  text-light-font py-[4px]">
+      <div className="bg-primary text-light-font h-75px">
+        <Container className="flex justify-between items-center  text-light-font py-4px">
           {/*Left Item*/}
           <div>
             <div className="hidden lg:flex flex-row justify-start items-center gap-9">
@@ -124,22 +124,20 @@ const HeaderComponent = () => {
           </div>
 
           {/*Right Item */}
-          <div className="flex items-center justify-center gap-[15px] md:gap-[26px] relative">
+          <div className="flex items-center justify-center gap-15px md:gap-26px relative">
             {/* Search */}
             <div
-              className={`absolute right-24 sm:right-32 md:right-[215px] ${
-                isAuthenticated ? "lg:right-[274px]" : "lg:right-56"
+              className={`absolute right-24 sm:right-32 md:right-215px ${
+                isAuthenticated ? "lg:right-274px" : "lg:right-56"
               } top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out ${
-                showSearchInput
-                  ? "translate-x-0 opacity-100 w-[270%] sm:w-[300px] md:w-[300px]"
-                  : "translate-x-full opacity-0 w-0"
+                showSearchInput ? "translate-x-0 opacity-100 sm:w-300px md:w-300px" : "translate-x-full opacity-0 w-0"
               }`}
             >
               {showSearchInput && (
                 <Input
                   onChange={handleInputChange}
                   placeholder="Search..."
-                  className="rounded h-[48px] p-4 bg-[#fff] text-sm text-black border border-[#DFE2E6] focus:outline-none w-[100%] md:w-[300px]"
+                  className="rounded h-48px p-4 bg-white text-sm text-black border border-border-input focus:outline-none w-full md:w-300px"
                 />
               )}
             </div>
@@ -149,7 +147,7 @@ const HeaderComponent = () => {
                 setShowSearchInput(!showSearchInput);
               }}
             />
-            <div className="h-5 w-px bg-[#515151]" />
+            <div className="h-5 w-px bg-gray-mid2" />
 
             {isAuthenticated ? (
               <div
@@ -197,7 +195,7 @@ const HeaderComponent = () => {
 
             <div className="relative">
               {cart?.length ? (
-                <span className="absolute -top-2 -right-2 inline-flex items-center justify-center rounded-full bg-white text-black text-[10px] h-4 min-w-4 px-1">
+                <span className="absolute -top-2 -right-2 inline-flex items-center justify-center rounded-full bg-white text-black text-10px h-4 min-w-4 px-1">
                   {cart.length}
                 </span>
               ) : null}

@@ -180,7 +180,7 @@ const PrescriptionModal = ({
 
   return (
     <Dialog open={open} onOpenChange={(open) => !open && handleCloseModal()}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+  <DialogContent className="max-w-2xl max-h-90vh overflow-y-auto">
         <DialogHeader>
           <div className="flex items-center justify-between border-b pb-4">
             <DialogTitle>{isCreate ? "Add new Prescription " : "Edit Prescription"}</DialogTitle>

@@ -47,8 +47,8 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
         width={1000}
         quality={100}
         className={`${
-          pageCard ? "w-[100px] h-[112px]" : "w-[110px] h-[123px]"
-        }  object-fit bg-[#F6F6F6]`}
+          pageCard ? "w-100px h-112px" : "w-110px h-123px"
+        }  object-fit bg-bg-light-gray`}
       />
 
       {/* cart details */}
@@ -82,12 +82,12 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
         {/* Attributes */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
           {cartInfo?.productColor && (
-            <div className="bg-[#F2F2F2] px-1 md:px-2 py-1 text-sm border whitespace-nowrap">
+            <div className="bg-border-gray/40 px-1 md:px-2 py-1 text-sm border whitespace-nowrap">
               Color :
-              <span className={`font-medium]`}> {cartInfo?.productColor}</span>
+              <span className="font-medium"> {cartInfo?.productColor}</span>
             </div>
           )}
-          <div className="bg-[#F2F2F2] px-1 md:px-2 py-1 text-sm border whitespace-nowrap">
+          <div className="bg-border-gray/40 px-1 md:px-2 py-1 text-sm border whitespace-nowrap">
             Lens Index :{" "}
             <span className="font-medium">
               {cartInfo?.prescription?.productSize}
@@ -98,14 +98,14 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
         {/* <div className="flex items-center gap-2 mt-4 border"></div> */}
         {isPrescriptionEmpty() ? (
           <div className="">
-            <button className="text-[#6E6E6E] text-sm font-medium flex items-center gap-1 cursor-not-allowed">
+            <button className="text-light-gray text-sm font-medium flex items-center gap-1 cursor-not-allowed">
               No Prescription
             </button>
           </div>
         ) : (
           <div className="">
             <button
-              className="text-blue-500 text-sm font-medium flex items-center gap-1 "
+              className="text-blue text-sm font-medium flex items-center gap-1 "
               onClick={handleOpenClosePrescriptionModal}
             >
               View Prescription
@@ -116,7 +116,7 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
 
       {isPrescriptionModalOpen && (
         <Sheet open={isPrescriptionModalOpen} onOpenChange={(open) => !open && handleOpenClosePrescriptionModal()}>
-          <SheetContent className="w-[600px] sm:max-w-[600px]">
+          <SheetContent className="w-full sm:max-w-600px">
             <SheetHeader>
               <div className="flex items-center justify-between">
                 <SheetTitle>My Prescription</SheetTitle>

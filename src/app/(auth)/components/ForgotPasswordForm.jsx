@@ -59,8 +59,8 @@ const ForgotPasswordForm = () => {
   return (
     <Container>
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-full max-w-[600px] bg-secondary p-8 rounded border border-border">
-          <div className="flex flex-col items-center justify-center border-b border-b-[#8790ab]/[.1] pb-4">
+  <div className="w-full max-w-600px bg-secondary p-8 rounded border border-border">
+          <div className="flex flex-col items-center justify-center border-b border-b-gray-blue/10 pb-4">
             <h2 className="text-2xl font-semibold">Reset Password</h2>
           </div>
 
@@ -77,7 +77,7 @@ const ForgotPasswordForm = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 md:gap-3 mt-10">
               <div className="flex flex-col gap-3">
-                <p className="text-[#4A4A4A] text-left font-light">
+                <p className="text-gray-medium text-left font-light">
                   Enter the email address which is linked to your account
                 </p>
               </div>
@@ -87,13 +87,13 @@ const ForgotPasswordForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[#262626] font-medium text-sm">
+                    <FormLabel className="text-dark font-medium text-sm">
                       Email Id
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="username@mail.com"
-                        className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-sm px-4 py-3 text-sm focus:border-primary focus:ring-0"
+                        className="h-52px bg-bg-lighter border-border-input rounded-sm px-4 py-3 text-sm focus:border-primary focus:ring-0"
                         {...field}
                       />
                     </FormControl>

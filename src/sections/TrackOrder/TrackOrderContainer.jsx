@@ -32,13 +32,13 @@ const TrackOrderContainer = ({ orderId }) => {
         <>
           {orderDetails ? (
             <div>
-              <h1 className="text-2xl font-semibold text-[#262626] text-center">
+              <h1 className="text-2xl font-semibold text-dark text-center">
                 Track Order{" "}
-                <span className="text-[#0F62FE]">
+                <span className="text-blue">
                   #{orderDetails?.invoiceNumber}
                 </span>
               </h1>
-              <div className="mt-12 grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-[60px]">
+              <div className="mt-12 grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-60px">
                 <LeftSide data={orderDetails} />
                 <RightSide data={orderDetails} />
               </div>

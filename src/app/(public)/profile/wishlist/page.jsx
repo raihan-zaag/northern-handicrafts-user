@@ -41,7 +41,7 @@ const MyWishlistPage = () => {
 
   return (
     <div>
-      <h2 className="text-[#2A2A2A] font-semibold text-2xl">My Wishlist</h2>
+  <h2 className="text-gray-dark font-semibold text-2xl">My Wishlist</h2>
       <div className="mt-6">
         {loading ? (
           <RowSkeleton count={3} />
@@ -82,31 +82,31 @@ const WishlistCard = ({ item, handleRemoveWishlist }) => {
           alt={item?.product?.name}
           width={1000}
           height={1000}
-          className="w-[70px] h-[80px] object-cover"
+          className="w-70px h-80px object-cover"
         />
         <div>
-          <p className="text-sm font-medium text-[#2A2A2A]">
+          <p className="text-sm font-medium text-gray-dark">
             {item?.product?.name}
           </p>
-          <p className="text-base font-medium text-[#2A2A2A]">
+          <p className="text-base font-medium text-gray-dark">
             $
             {item?.product?.priceAfterDiscount
               ? item?.product?.priceAfterDiscount
               : item?.product?.regularPrice}
           </p>
           <button
-            className="flex items-center gap-1.5 mt-[18px]"
+            className="flex items-center gap-1.5 mt-18px"
             onClick={goToPageDetails}
           >
-            <BsCart3 className="text-lg text-[#0F62FE]" />
-            <span className="text-[#0F62FE] text-sm font-semibold">
+            <BsCart3 className="text-lg text-blue" />
+            <span className="text-blue text-sm font-semibold">
               Buy Now
             </span>
           </button>
         </div>
       </div>
       <button
-        className="flex items-center gap-1.5 duration-300 sm:mt-[20px] text-[#EF4444] sm:text-[#4A4A4A] hover:text-[#EF4444]"
+        className="flex items-center gap-1.5 duration-300 sm:mt-20px text-red hover:text-red"
         onClick={() => handleRemoveWishlist(item.product.id)}
       >
         <RiDeleteBin6Line className="text-base " />

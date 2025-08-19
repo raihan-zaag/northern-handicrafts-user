@@ -8,31 +8,31 @@ import { RxCounterClockwiseClock } from "react-icons/rx";
 export const profileMenu = [
   {
     title: "My Profile",
-    icon: <RiUserLine className="text-[#6A6A6A] h-4 w-4" />,
+  icon: <RiUserLine className="text-gray h-4 w-4" />,
     activeIcon: <RiUserLine className="text-primary h-4 w-4" />,
     url: "/profile/my-account",
   },
   {
     title: "Saved Prescriptions",
-    icon: <CgFileDocument className="text-[#6A6A6A] h-4 w-4" />,
+  icon: <CgFileDocument className="text-gray h-4 w-4" />,
     activeIcon: <CgFileDocument className="text-primary h-4 w-4" />,
     url: "/profile/my-prescriptions",
   },
   {
     title: "Saved Addresses",
-    icon: <IoLocationOutline className="text-[#6A6A6A] h-4 w-4" />,
+  icon: <IoLocationOutline className="text-gray h-4 w-4" />,
     activeIcon: <IoLocationOutline className="text-primary h-4 w-4" />,
     url: "/profile/address",
   },
   {
     title: "My Wishlist",
-    icon: <FaRegHeart className="text-[#6A6A6A] h-4 w-4" />,
+  icon: <FaRegHeart className="text-gray h-4 w-4" />,
     activeIcon: <FaRegHeart className="text-primary h-4 w-4" />,
     url: "/profile/wishlist",
   },
   {
     title: "My Orders",
-    icon: <BsCart3 className="text-[#6A6A6A] h-4 w-4" />,
+  icon: <BsCart3 className="text-gray h-4 w-4" />,
     activeIcon: <BsCart3 className="text-primary h-4 w-4" />,
     url: "/profile/my-orders",
   },

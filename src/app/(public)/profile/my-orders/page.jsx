@@ -100,7 +100,7 @@ const MyOrders = () => {
 
   return (
     <div>
-      <h2 className="text-[#2A2A2A] font-semibold text-2xl">
+  <h2 className="text-gray-dark font-semibold text-2xl">
         {activeTab.title}
       </h2>
       <div className="mt-6">

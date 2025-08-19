@@ -331,11 +331,11 @@ const CheckoutPage = () => {
                 </h2>
 
                 <Form {...form}>
-                    <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-12 gap-6 md:gap-[50px] mt-[50px]">
+                    <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-12 gap-6 md:gap-12 mt-12">
                         <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-7 2xl:col-span-8">
                         <div className="flex flex-col gap-6">
                         {isAuthenticated && (
-                            <div className="bg-[#E5E7EB] px-4 py-6 font-semibold">
+                            <div className="bg-neutral-200 px-4 py-6 font-semibold">
                                 <h2>Contact Information</h2>
                             </div>
                         )}
@@ -380,7 +380,7 @@ const CheckoutPage = () => {
                             </div>
                         )}
                         {/* Delivery address */}
-                        <div className="bg-[#E5E7EB] px-4 py-6 font-semibold">
+                        <div className="bg-neutral-200 px-4 py-6 font-semibold">
                             <h2>Delivery Address</h2>
                         </div>
                         {isAuthenticated ? (
@@ -393,7 +393,7 @@ const CheckoutPage = () => {
                         )}
 
                         {/* Delivery Method */}
-                        <div className="bg-[#E5E7EB] px-4 py-6 font-semibold">
+                        <div className="bg-neutral-200 px-4 py-6 font-semibold">
                             <h2>Delivery Method</h2>
                         </div>
 
@@ -424,22 +424,22 @@ const CheckoutPage = () => {
                                                     <div className="flex items-center justify-between w-full">
                                                         <label
                                                             htmlFor={`delivery-${index}`}
-                                                            className={`text-[14px] cursor-pointer ${
+                                                            className={`text-sm cursor-pointer ${
                                                                 field.value === delivery?.value
-                                                                    ? "font-semibold text-[#2A2A2A]"
-                                                                    : "font-normal text-[#4A4A4A]"
+                                                                    ? "font-semibold text-gray-dark"
+                                                                    : "font-normal text-gray-medium"
                                                             }`}
                                                         >
                                                             {delivery.status}&nbsp;
-                                                            <span className="font-normal text-[#9A9A9A] text-[14px]">
+                                                            <span className="font-normal text-gray text-sm">
                                                                 {delivery?.info}
                                                             </span>
                                                         </label>
                                                         <h3
                                                             className={`text-lg ${
                                                                 field.value === delivery?.value
-                                                                    ? "font-semibold text-[#2A2A2A]"
-                                                                    : "font-normal text-[#4A4A4A]"
+                                                                    ? "font-semibold text-gray-dark"
+                                                                    : "font-normal text-gray-medium"
                                                             }`}
                                                         >
                                                             $ {delivery.price}
@@ -455,7 +455,7 @@ const CheckoutPage = () => {
                         />
 
                         {/* Payment Method */}
-                        <div className="bg-[#E5E7EB] px-4 py-6 font-semibold">
+                        <div className="bg-neutral-200 px-4 py-6 font-semibold">
                             <h2>Payment Method</h2>
                         </div>
 
@@ -483,17 +483,17 @@ const CheckoutPage = () => {
                     </div>
                 </div>
 
-                <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-5 2xl:col-span-4 bg-[#FAFBFB] p-3 sm:p-6 md:p-8">
+                <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-5 2xl:col-span-4 bg-secondary p-3 sm:p-6 md:p-8">
                     <div className="flex flex-col gap-6">
                         {/* Heading */}
                         <div className="flex items-center justify-between">
-                            <h1 className="font-bold text-[#262626 text-[20px]">
+                <h1 className="font-bold text-dark text-18px">
                                 Order Summary
                             </h1>
                             {isAuthenticated ? (
                                 <Link
                                     href={"/my-cart"}
-                                    className="text-blue-500 font-semibold text-[14px]"
+                                    className="text-blue font-semibold text-sm"
                                 >
                                     Edit Order
                                 </Link>
@@ -575,7 +575,7 @@ const CheckoutPage = () => {
                                 />
                                 <Button
                                     type="outline"
-                                    className={"w-full md:w-[30%]"}
+                                    className={"w-full md:w-1/3"}
                                     onClick={handleGetPromoCode}
                                     disabled={!form.watch("promoCode")}
                                 >

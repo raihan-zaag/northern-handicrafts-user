@@ -102,10 +102,10 @@ const LeftSideContent = ({ ratings, data }) => {
         <div className="flex gap-x-2 md:gap-x-2.5">
           <button
             onClick={() => handleSelection("All")}
-            className={`w-[46px] md:w-[49px] h-[28px] md:h-[30px] flex justify-center items-center py-1.5 px-3  rounded-sm text-sm duration-300 ${
+            className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-3  rounded-sm text-sm duration-300 ${
               selectedRating === "All"
-                ? "border-[2px] border-neutral-700 font-bold text-neutral-700"
-                : "border-[2px] border-neutral-30 text-[#6A6A6A] font-medium"
+                ? "border-2 border-neutral-700 font-bold text-neutral-700"
+                : "border-2 border-neutral-30 text-gray font-medium"
             }`}
           >
             All
@@ -115,10 +115,10 @@ const LeftSideContent = ({ ratings, data }) => {
               <button
                 key={item.id}
                 onClick={() => handleSelection(item.rating)}
-                className={`w-[46px] md:w-[49px] h-[28px] md:h-[30px] flex justify-center items-center py-1.5 px-4 rounded-sm ${
+                className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-4 rounded-sm ${
                   selectedRating === item.rating
-                    ? "border-[2px] border-black font-bold text-neutral-700 rounded-sm"
-                    : "border-[2px] border-neutral-30 font-medium text-neutral-300"
+                    ? "border-2 border-black font-bold text-neutral-700 rounded-sm"
+                    : "border-2 border-neutral-30 font-medium text-neutral-300"
                 }`}
               >
                 <div className="flex justify-center items-center gap-x-2">
@@ -169,12 +169,12 @@ const Comments = ({ data }) => {
                 className="w-10 h-10 md:w-10 md:h-10 rounded-full"
               />
 
-              <div className="w-full lg:w-[500px] xl:w-[642px]">
+              <div className="w-full lg:w-500px xl:w-642px">
                 <div className="flex flex-col justify-between items-start">
                   <h1 className="text-primary text-sm font-semibold">
                     {item?.customer?.fullName}
                   </h1>
-                  <p className="text-[#4a4a4a] text-[13px]">
+                  <p className="text-gray-mid2 text-xs2">
                     {formatDate(item?.createdAt)}
                   </p>
                 </div>
@@ -190,7 +190,7 @@ const Comments = ({ data }) => {
                   </p>
                 </div>
 
-                <p className="text-[#4a4a4a] text-sm leading-[16.5px] md:leading-[21px]">
+        <p className="text-gray-mid2 text-sm leading-4 md:leading-5">
                   {item.comment}
                 </p>
               </div>
@@ -200,7 +200,7 @@ const Comments = ({ data }) => {
       ) : (
         <NoCommentDataFound
           message="No Reviews Yet!"
-          className="w-full lg:w-[500px] xl:w-[600px] 2xl:w-[1000px] text-red-400 bg-red-100"
+      className="w-full text-red-400 bg-red-100"
         />
       )}
     </div>
@@ -218,7 +218,7 @@ const RightSidecontent = ({
       <div className="flex flex-col gap-y-4 w-full">
         <div className="mx-2 flex flex-col items-center w-full gap-0">
           <div className="flex items-end">
-            <h1 className="text-black text-[32px] font-medium">
+            <h1 className="text-black text-3xl font-medium">
               {averageRating}
             </h1>
             <span className="text-font_color_one text-xl font-normal mb-1.5 ml-1">
@@ -253,7 +253,7 @@ const RightSidecontent = ({
 
         <div className="flex flex-col gap-y-2 md:gap-y-2 pb-10">
           {ratingsWithDivWidth?.map((item) => (
-            <div key={item.id} className="flex items-center px-5 gap-x-">
+            <div key={item.id} className="flex items-center px-5 gap-x-2">
               <StarRating
                 value={1}
                 disabled
@@ -263,14 +263,14 @@ const RightSidecontent = ({
               <p className="text-font_color_one text-sm font-semibold pl-2 ">
                 {item.rating}
               </p>
-              <div className="w-full lg:w-[300px] h-1 bg-white rounded mx-3 md:mx-4">
+              <div className="w-full lg:w-300px h-1 bg-white rounded mx-3 md:mx-4">
                 {item?.divWidth > 0 ? (
-                  <div className="w-full bg-[#E5E7EB] rounded">
+                  <div className="w-full bg-neutral-200 rounded">
                     <div
                       style={{
                         width: `${item.divWidth}%`, // Set the width based on the divWidth field
                       }}
-                      className={`h-1 bg-[#F08200] rounded`}
+                      className={`h-1 bg-orange rounded`}
                     />
                   </div>
                 ) : (
@@ -278,7 +278,7 @@ const RightSidecontent = ({
                     style={{
                       width: `${100}%`, // Set the width based on the divWidth field
                     }}
-                    className={`h-1 bg-[#E5E7EB] w-full rounded`}
+                    className={`h-1 bg-neutral-200 w-full rounded`}
                   />
                 )}
               </div>

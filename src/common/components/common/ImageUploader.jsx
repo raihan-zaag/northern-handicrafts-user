@@ -34,19 +34,19 @@ const ImageUploader = ({ profileImage, setProfileImage, isReadOnly }) => {
           <img
             src={profileImage}
             alt="profile"
-            className="w-[140px] h-[140px] rounded-sm object-cover"
+            className="w-140px h-140px rounded-sm object-cover"
           />
           {!isReadOnly && (
             <div className="flex items-center gap-4 mt-4">
               <button
                 onClick={handleChangeImageClick}
-                className="text-sm font-semibold text-[#0F62FE] py-3.5 px-6 border border-[#0F62FE]"
+                className="text-sm font-semibold text-blue py-3.5 px-6 border border-blue"
               >
                 {loading ? "Uploading..." : "Change Image"}
               </button>
               <button
                 onClick={() => setProfileImage(null)}
-                className="text-sm font-semibold text-[#EF4444] py-3.5 px-6 border border-[#EF4444]"
+                className="text-sm font-semibold text-red py-3.5 px-6 border border-red"
               >
                 Remove
               </button>
@@ -58,12 +58,12 @@ const ImageUploader = ({ profileImage, setProfileImage, isReadOnly }) => {
           <img
             src={"/images/image_placeholder.png"}
             alt="profile_placeholder"
-            className="w-[140px] h-[140px] rounded-sm object-cover"
+            className="w-140px h-140px rounded-sm object-cover"
           />
           {!isReadOnly && (
             <label
               htmlFor="upload"
-              className="cursor-pointer text-sm font-semibold text-[#0F62FE] py-3.5 px-6 border border-[#0F62FE]"
+              className="cursor-pointer text-sm font-semibold text-blue py-3.5 px-6 border border-blue"
             >
               {loading ? "Uploading..." : "Add Image"}
             </label>

@@ -41,10 +41,10 @@ const ProductDescriptionSection = ({ data }) => {
           <button
             key={index}
             onClick={() => setSelectedTab(index)}
-            className={`w-[180px] h-10 flex justify-center items-center gap-2 font-medium border-b-[3px] duration-300 whitespace-nowrap ${
+            className={`w-180px h-10 flex justify-center items-center gap-2 font-medium border-b-2 duration-300 whitespace-nowrap ${
               selectedTab === index
                 ? "border-primary font-medium text-primary"
-                : "text-[#BABABA] border-transparent"
+                : "text-gray-light2 border-transparent"
             }`}
           >
             {item}

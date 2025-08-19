@@ -30,7 +30,7 @@ const PeopleAlsoLikeProduct = ({ productId }) => {
       <div className="w-full flex justify-start gap-x-10 mb-6">
         {["You Might Also Like"].map((item, index) => (
           <div key={index} className="flex flex-col items-center gap-y-2">
-            <h2 className="text-neutral-700 text-[20px] font-bold">{item}</h2>
+            <h2 className="text-neutral-700 text-18px font-bold">{item}</h2>
           </div>
         ))}
       </div>

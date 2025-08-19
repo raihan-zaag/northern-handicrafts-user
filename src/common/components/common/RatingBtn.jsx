@@ -27,11 +27,11 @@ const RatingBtn = ({
         disabled && "filter invert opacity-40 text-opacity-60"
       } justify-center duration-200 ${
         active
-          ? " border-[1.5px] border-neutral-700 text-primary"
+          ? " border border-neutral-700 text-primary"
           : "border border-neutral-30 text-neutral-400"
-      } ${paddingY ? paddingY : "py-[6px]"} rounded-sm ${
+      } ${paddingY ? paddingY : "py-6px"} rounded-sm ${
         textColor ? textColor : "text-neutral-300black"
-      } text-sm font-medium leading-[18.23px] ${
+      } text-sm font-medium leading-18px ${
         paddingX ? paddingX : "px-3"
       } ${width}`}
     >

@@ -100,12 +100,12 @@ const AccountPage = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-[#2A2A2A] font-semibold text-2xl">
+  <h2 className="text-gray-dark font-semibold text-2xl">
           Profile Information
         </h2>
         {isReadOnly ? (
           <Button
-            className="py-[15px] px-8 whitespace-nowrap"
+            className="py-15 px-8 whitespace-nowrap"
             onClick={() => setIsReadOnly(false)}
           >
             Edit Info
@@ -114,13 +114,13 @@ const AccountPage = () => {
           <div className="flex flex-col md:flex-row items-center gap-4">
             <Button
               type="outline"
-              className="py-[15px] px-8"
+              className="py-15 px-8"
               onClick={handleCancel}
             >
               Cancel
             </Button>
             <Button
-              className="py-[15px] px-8 whitespace-nowrap"
+              className="py-15 px-8 whitespace-nowrap"
               onClick={handleClickUpdate}
             >
               Update
@@ -132,7 +132,7 @@ const AccountPage = () => {
       {user ? (
         <>
           <div className="mb-5">
-            <h6 className="text-[#262626] font-medium text-sm mb-2">
+            <h6 className="text-dark font-medium text-sm mb-2">
               Profile Photo
             </h6>
             <ImageUploader
@@ -150,7 +150,7 @@ const AccountPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <h6 className="text-[#262626] font-medium text-sm">
+                      <h6 className="text-dark font-medium text-sm">
                         Full Name
                       </h6>
                     </FormLabel>
@@ -172,7 +172,7 @@ const AccountPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <h6 className="text-[#262626] font-medium text-sm">
+                      <h6 className="text-dark font-medium text-sm">
                         Email Address
                       </h6>
                     </FormLabel>
@@ -195,7 +195,7 @@ const AccountPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <h6 className="text-[#262626] font-medium text-sm">
+                      <h6 className="text-dark font-medium text-sm">
                         Phone Number
                       </h6>
                     </FormLabel>

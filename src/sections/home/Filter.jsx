@@ -245,7 +245,7 @@ const Filter = ({
             key: "1",
             label: (
                 <p
-                    className={`font-semibold text-base text-[#2A2A2A] whitespace-nowrap ${
+                    className={`font-semibold text-base text-gray-dark whitespace-nowrap ${
                         isSmallScreen ? "pl-6" : "pl-0"
                     }`}
                 >{`Categories (${checkedItems.length})`}</p>
@@ -315,20 +315,16 @@ const Filter = ({
                                         checked={checkedItems.includes(
                                             item.key
                                         )}
-                                        style={{
-                                            color: checkedItems.includes(
-                                                item.key
-                                            )
-                                                ? "#2a2a2a"
-                                                : "#4A4A4A",
-                                            fontWeight: checkedItems.includes(
-                                                item.key
-                                            )
-                                                ? 600
-                                                : 500,
-                                        }}
                                     >
-                                        {item.label}
+                                        <span
+                                            className={
+                                                checkedItems.includes(item.key)
+                                                    ? "text-gray-dark font-semibold"
+                                                    : "text-gray-medium font-medium"
+                                            }
+                                        >
+                                            {item.label}
+                                        </span>
                                     </Checkbox>
                                 </Menu.Item>
                             ))
@@ -337,7 +333,7 @@ const Filter = ({
                     {/* <Divider
             style={{ padding: "0px 0px 0px 0px", margin: "10px 0px 0px 0px" }}
           /> */}
-                    <div className="h-0.5 bg-[#E0E0E0] my-3"></div>
+                    <div className="h-0.5 bg-border-gray my-3"></div>
                 </>
             ),
         },
@@ -345,7 +341,7 @@ const Filter = ({
             key: "2",
             label: (
                 <p
-                    className={`font-semibold text-base text-[#2A2A2A] ${
+                    className={`font-semibold text-base text-gray-dark ${
                         isSmallScreen ? "ml-6" : ""
                     }`}
                 >
@@ -378,21 +374,16 @@ const Filter = ({
                                         height: "30px",
                                     }}
                                 >
-                                    <Radio
-                                        value={item.key}
-                                        style={{
-                                            color:
+                                    <Radio value={item.key}>
+                                        <span
+                                            className={
                                                 selectedRadio === item.key
-                                                    ? "#000"
-                                                    : "#2A2A2A",
-                                        }}
-                                        className={`${
-                                            selectedRadio === item.key
-                                                ? "#000 font-semibold"
-                                                : "#2A2A2A"
-                                        }`}
-                                    >
-                                        {item.label}
+                                                    ? "text-dark font-semibold"
+                                                    : "text-gray-dark"
+                                            }
+                                        >
+                                            {item.label}
+                                        </span>
                                     </Radio>
                                 </Menu.Item>
                             ))}
@@ -405,7 +396,7 @@ const Filter = ({
               backgroundColor: "red",
             }}
           /> */}
-                    <div className="h-0.5 bg-[#E0E0E0] my-3"></div>
+                    <div className="h-0.5 bg-border-gray my-3"></div>
                 </div>
             ),
         },
@@ -413,7 +404,7 @@ const Filter = ({
             key: "3",
             label: (
                 <p
-                    className={`font-semibold text-base text-[#2A2A2A] ${
+                    className={`font-semibold text-base text-gray-dark ${
                         isSmallScreen ? "ml-6" : ""
                     }`}
                 >

@@ -32,7 +32,7 @@ const OrderSummary = ({
 
   return (
     <div
-      className={`w-full mx-auto bg-[#FAFBFB] ${className} ${
+      className={`w-full mx-auto bg-bg-lighter ${className} ${
         fromCartPage ? "p-10" : ""
       }`}
     >
@@ -51,7 +51,7 @@ const OrderSummary = ({
       </div>
 
       {/* Discount */}
-      <div className="flex justify-between text-red-500 font-medium mb-4">
+  <div className="flex justify-between text-red font-medium mb-4">
         <span>Discount</span>
         <span>- ${discount || 0}</span>
       </div>

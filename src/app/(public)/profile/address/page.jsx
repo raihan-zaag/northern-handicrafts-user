@@ -188,14 +188,14 @@ const AddressPage = () => {
         <LoadingOverlay isLoading={loading}>
             <div>
                 <div className="flex items-center justify-between">
-                    <h2 className="text-[#2A2A2A] font-semibold text-2xl hidden sm:block">
+                    <h2 className="text-gray-dark font-semibold text-2xl hidden sm:block">
                         My Saved Address
                     </h2>
-                    <h2 className="text-[#2A2A2A] font-semibold text-2xl block sm:hidden">
+                    <h2 className="text-gray-dark font-semibold text-2xl block sm:hidden">
                         Address
                     </h2>
                 <Button
-                    className={"py-2 sm:py-[15px] px-3 sm:px-8"}
+                    className={"py-2 sm:py-15 px-3 sm:px-8"}
                     onClick={() => setOpenAddressModal(true)}
                 >
                     Add new address

@@ -102,8 +102,8 @@ const CounterBtn = ({
 
   return (
     <div
-      className={`flex justify-between items-center w-[120px] bg-transparent border px-4 ${className} ${
-        isCart ? "lg:w-[100px] h-8" : "lg:w-40 h-12"
+      className={`flex justify-between items-center w-120px bg-transparent border px-4 ${className} ${
+        isCart ? "lg:w-100px h-8" : "lg:w-40 h-12"
       }`}
     >
       <button onClick={handleDecrement} disabled={disabled}>

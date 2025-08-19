@@ -120,9 +120,9 @@ const RegisterForm = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 md:p-0">
-      <div className="w-full max-w-[600px] bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border pt-7">
+  <div className="w-full max-w-600px bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border pt-7">
         <h2 className="text-2xl font-semibold text-left mb-2">Sign Up</h2>
-        <p className="text-[#4A4A4A] text-left mb-6 font-light">
+  <p className="text-gray-medium text-left mb-6 font-light">
           Please fill up the form to sign up!
         </p>
 
@@ -133,13 +133,13 @@ const RegisterForm = () => {
               name="fullName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+                  <FormLabel className="text-dark font-medium text-sm">
                     Full Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your full name"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                      className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -153,13 +153,13 @@ const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+                  <FormLabel className="text-dark font-medium text-sm">
                     Email Id
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your email"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                      className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -173,13 +173,13 @@ const RegisterForm = () => {
               name="mobileNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+                  <FormLabel className="text-dark font-medium text-sm">
                     Phone Number (Optional)
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter phone number here"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                      className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -193,13 +193,13 @@ const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+                  <FormLabel className="text-dark font-medium text-sm">
                     Password
                   </FormLabel>
                   <FormControl>
                     <PasswordInput
                       placeholder="Min. 8 characters"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                      className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -213,13 +213,13 @@ const RegisterForm = () => {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem className="mb-8">
-                  <FormLabel className="text-[#262626] font-medium text-sm">
+                  <FormLabel className="text-dark font-medium text-sm">
                     Confirm Password
                   </FormLabel>
                   <FormControl>
                     <PasswordInput
                       placeholder="Min. 8 characters"
-                      className="h-[52px] bg-[#FAFBFB] border-[#DFE2E6] rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
+                      className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
                       {...field}
                     />
                   </FormControl>
@@ -231,7 +231,7 @@ const RegisterForm = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary text-white font-semibold h-[52px] rounded hover:bg-primary/90"
+              className="w-full bg-primary text-white font-semibold h-52px rounded hover:bg-primary/90"
             >
               {isLoading ? "Signing Up..." : "Sign Up"}
             </Button>

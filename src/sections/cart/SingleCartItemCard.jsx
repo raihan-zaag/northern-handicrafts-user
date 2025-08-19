@@ -169,8 +169,8 @@ function SingleCartItemCard({
           width={1000}
           quality={100}
           className={`${
-            pageCard ? "w-[100px] h-[112px]" : "w-[120px] h-[153px]"
-          }  object-fit bg-[#F6F6F6]`}
+            pageCard ? "w-100px h-112px" : "w-120px h-153px"
+          }  object-fit bg-bg-light-gray`}
         />
 
       {/* cart details */}
@@ -186,7 +186,7 @@ function SingleCartItemCard({
             </p>
             <Popover>
               <PopoverTrigger asChild>
-                <p className="underline font-medium text-[10px] sm:text-xs cursor-pointer block md:block">
+                <p className="underline font-medium text-10px sm:text-xs cursor-pointer block md:block">
                   Price Breakdown
                 </p>
               </PopoverTrigger>
@@ -200,12 +200,12 @@ function SingleCartItemCard({
         {/* Attributes */}
         <div className="flex items-center gap-2">
           {cartInfo?.productColorId && (
-            <div className="bg-[#F7F8FA] px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
+            <div className="bg-bg-light-gray px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
               Color :
               <span className={`font-medium `}>{cartInfo?.productColor}</span>
             </div>
           )}
-          <div className="bg-[#F7F8FA] px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
+          <div className="bg-bg-light-gray px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
             Lens Index :{" "}
             <span className="font-medium">
               {cartInfo?.prescription?.productSize}
@@ -296,7 +296,7 @@ function SingleCartItemCard({
       {/* delete and  quantity button */}
       {showButton ? (
         pageCard ? (
-          <div className="flex gap-[50px]">
+          <div className="flex gap-12">
             <div className="hidden md:block">
               <CounterBtn
                 maxLimit={Number(cartInfo?.totalQuantity)}
@@ -319,7 +319,7 @@ function SingleCartItemCard({
                 height={1000}
                 width={1000}
                 alt="Delete icon"
-                className="h-4 w-[15px] text-[#4A4A4A]"
+                className="h-4 w-15px text-gray-medium"
               />
             </button>
           </div>
@@ -335,7 +335,7 @@ function SingleCartItemCard({
               height={1000}
               width={1000}
               alt="Delete icon"
-              className="h-4 w-[15px] text-[#4A4A4A]"
+              className="h-4 w-15px text-gray-medium"
             />
           </button>
         )

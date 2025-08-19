@@ -67,37 +67,37 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
           alt="product image"
           width={1000}
           height={1000}
-          className="w-[90px] h-[110px]"
+          className="w-90px h-110px"
         />
 
       <div>
-        <h3 className="text-sm font-medium text-[#2A2A2A]">
+  <h3 className="text-sm font-medium text-gray-dark">
           {data?.productName}
         </h3>
         <div className="flex items-center gap-1 mt-0.5">
-          <p className="text-sm font-semibold text-[#0F62FE]">
+          <p className="text-sm font-semibold text-blue">
             {data?.sellQty} x
           </p>
-          <p className="text-sm font-medium text-[#2A2A2A]">
+          <p className="text-sm font-medium text-gray-dark">
             {data?.productPrice}
           </p>
         </div>
 
         {data?.returnQty > 0 && (
-          <h3 className="text-sm font-medium text-[#2A2A2A]">
+          <h3 className="text-sm font-medium text-gray-dark">
             Initial Qty : {data?.sellQty + data?.returnQty}
           </h3>
         )}
 
         <div className="flex items-center gap-3 mt-2">
           {data?.addOn?.color && (
-            <p className="text-xs font-medium text-[#3A3A3A] py-2 px-3 bg-[#F2F2F2]">
+            <p className="text-xs font-medium text-gray-dark2 py-2 px-3 bg-gray-light">
               Color:{data?.addOn?.color}
             </p>
           )}
 
           {data?.returnQty > 0 && (
-            <p className="text-xs text-center font-medium text-[#E91C24] py-2 px-3 bg-[#FFEFEF]">
+            <p className="text-xs text-center font-medium text-red-variant2 py-2 px-3 bg-red/10">
               Returned : {data?.returnQty}
             </p>
           )}
@@ -108,26 +108,26 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
         </div>
         <div className="flex items-center gap-3 mt-3">
           {isEmpty ? (
-            <button className="text-xs font-semibold text-[#6E6E6E] sm:no-underline cursor-not-allowed">
+            <button className="text-xs font-semibold text-light-gray sm:no-underline cursor-not-allowed">
               <span className="sm:inline hidden">No</span> Prescription
             </button>
           ) : (
             <button
-              className="text-xs font-semibold text-[#0F62FE] sm:no-underline"
+              className="text-xs font-semibold text-blue sm:no-underline"
               onClick={handleTogglePrescriptionDrawer}
             >
               <span className="sm:inline hidden">View</span> Prescription
             </button>
           )}
-          <div className="border-r border-[#EBEDF0] h-3 w-0.5" />
+          <div className="border-r border-border-gray h-3 w-0.5" />
 
           {isShowReviewButton ? (
             <button
               onClick={handleWriteReviewToggleModal}
-              className={`text-xs font-semibold text-[#614017] flex items-center gap-1.5 sm:no-underline cursor-pointer`}
+              className={`text-xs font-semibold text-orange flex items-center gap-1.5 sm:no-underline cursor-pointer`}
             >
-              <TiStarFullOutline className="text-[#F08200] sm:inline hidden" />
-              <span className="text-xs font-semibold text-[#F08200]">
+              <TiStarFullOutline className="text-orange sm:inline hidden" />
+              <span className="text-xs font-semibold text-orange">
                 Give Review
               </span>
             </button>
@@ -154,7 +154,7 @@ const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
 
       {showPrescriptionInfo && (
         <Sheet open={showPrescriptionInfo} onOpenChange={(open) => !open && handleTogglePrescriptionDrawer()}>
-          <SheetContent className="w-[600px] sm:max-w-[600px]">
+          <SheetContent className="w-600px sm:max-w-600px">
             <SheetHeader>
               <div className="flex items-center justify-between">
                 <SheetTitle>My Prescription</SheetTitle>

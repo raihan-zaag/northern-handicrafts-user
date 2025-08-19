@@ -93,7 +93,7 @@ const SocialLoginForm = () => {
             <button
               key={id}
               disabled={ele.isLoading}
-              className="rounded-sms w-full h-[48px] flex items-center justify-center gap-3 bg-[#EBEDF0] cursor-pointer disabled:opacity-50"
+              className="rounded-sms w-full h-48px flex items-center justify-center gap-3 bg-background cursor-pointer disabled:opacity-50"
               onClick={handleSocialMediaLogin}
             >
               {ele.isLoading && <Spinner size="sm" />}

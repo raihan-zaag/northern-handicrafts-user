@@ -270,7 +270,7 @@ const ProductViewMobile = ({ data }) => {
                   alt="value"
                   width={1000}
                   height={1000}
-                  className="xs:w-full h-[408px] sm:h-[500px] md:h-[600px] rounded-sm object-fit"
+                  className="xs:w-full h-408px sm:h-500px md:h-600px rounded-sm object-fit"
                 />
               </div>
             ))}
@@ -295,7 +295,7 @@ const ProductViewMobile = ({ data }) => {
       </div>
 
       <div
-        className={`grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:flex-wrap sm:gap-[13px]`}
+  className={`grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:flex-wrap sm:gap-13px`}
       >
         {[data?.thumbnailImage, ...images].map((item, index) => (
           <div
@@ -308,16 +308,14 @@ const ProductViewMobile = ({ data }) => {
             onClick={() => handleSmallImageClick(index)}
           >
             <div
-              className={`flex items-center justify-center
-                 w-full h-full sm:w-[100px] sm:h-[70px] xl:w-[120px] xl:h-[120px]
-              `}
+              className={`flex items-center justify-center w-full h-full sm:w-100px sm:h-70px xl:w-120px xl:h-120px`}
             >
               <Image
                 src={`${item}`}
                 alt="value"
                 width={1000}
                 height={1000}
-                className={`w-full h-full sm:w-[100px] sm:h-[70px] xl:w-full xl:h-full rounded-sm object-fit`}
+                className={`w-full h-full sm:w-100px sm:h-70px xl:w-full xl:h-full rounded-sm object-fit`}
               />
             </div>
           </div>
@@ -355,7 +353,7 @@ const ProductViewMobile = ({ data }) => {
               {averageRatingValue?.averageRating}
             </Typography.BodyText>
 
-            <p className="text-[#8790AB] text-sm font-medium">.</p>
+            <p className="text-gray-blue text-sm font-medium">.</p>
 
             <Typography.BodyText>
               {averageRatingValue?.totalReviewCount}
@@ -430,7 +428,7 @@ const ProductViewMobile = ({ data }) => {
                     title={null}
                     content={
                       <div className="flex flex-col items-start justify-start gap-1">
-                        <p className="text-[#2A2A2A] text-base">
+                        <p className="text-gray-dark text-base">
                           Color : {color?.color?.name}
                         </p>
                         <p className="text-red-500">$ ({color?.price})</p>
@@ -443,9 +441,9 @@ const ProductViewMobile = ({ data }) => {
                       key={`${color}-${colorIndex}`}
                       className={`${
                         selectedColor?.id === color?.id
-                          ? "border-[#3A3A3A] border-opacity-40"
+              ? "border-gray-dark2 border-opacity-40"
                           : "border-transparent"
-                      } border-[3px] rounded-full cursor-pointer`}
+                      } border-2 rounded-full cursor-pointer`}
                     >
                       <div
                         onClick={() => {
@@ -473,13 +471,13 @@ const ProductViewMobile = ({ data }) => {
               disabled={false}
               current={quantity}
             />
-            <p className="mt-3 sm:text-sm md:text-[18px] font-medium">
+            <p className="mt-3 sm:text-sm md:text-md2 font-medium">
               Total: $ {formatNumber(totalPrice)}
             </p>
           </div>
 
-          <div className="bg-[#EFF5FF] px-6 py-4">
-            <p className="font-medium text-[15px]">
+          <div className="bg-light-blue-bg px-6 py-4">
+            <p className="font-medium text-md2">
               You can customize your lens by adding your prescription here *
             </p>
           </div>

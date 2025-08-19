@@ -75,7 +75,7 @@ const AuthUserAddress = ({ setDeliveryAddress, deliveryAddress }) => {
                 </Select>
 
                 <Button
-                    className={"self-end w-full md:w-[30%] "}
+                    className={"self-end w-full md:w-1/3 "}
                     onClick={handleToggleAddressModal}
                 >
                     Add new Address
@@ -83,7 +83,7 @@ const AuthUserAddress = ({ setDeliveryAddress, deliveryAddress }) => {
             </div>
 
             {deliveryAddress && (
-                <div className="bg-[#F5F5F5] p-4 flex flex-col gap-2">
+                <div className="bg-bg-light-gray p-4 flex flex-col gap-2">
                     {deliveryAddress?.title && (
                         <p className="text-sm font-semibold text-primary">
                             {deliveryAddress.title}
@@ -91,37 +91,37 @@ const AuthUserAddress = ({ setDeliveryAddress, deliveryAddress }) => {
                     )}
 
                     {deliveryAddress?.country && (
-                        <p className="text-sm font-normal text-[#4A4A4A]">
+                        <p className="text-sm font-normal text-gray-medium">
                             Country: {deliveryAddress.country}
                         </p>
                     )}
 
                     {deliveryAddress?.state && (
-                        <p className="text-sm font-normal text-[#4A4A4A]">
+                        <p className="text-sm font-normal text-gray-medium">
                             State: {deliveryAddress.state}
                         </p>
                     )}
 
                     {deliveryAddress?.city && (
-                        <p className="text-sm font-normal text-[#4A4A4A]">
+                        <p className="text-sm font-normal text-gray-medium">
                             City: {deliveryAddress.city}
                         </p>
                     )}
 
                     {deliveryAddress?.zipCode && (
-                        <p className="text-sm font-normal text-[#4A4A4A]">
+                        <p className="text-sm font-normal text-gray-medium">
                             Zip Code: {deliveryAddress.zipCode}
                         </p>
                     )}
 
                     {deliveryAddress?.street && (
-                        <p className="text-sm font-normal text-[#4A4A4A]">
+                        <p className="text-sm font-normal text-gray-medium">
                             Street: {deliveryAddress.street}
                         </p>
                     )}
 
                     {deliveryAddress?.apartment && (
-                        <p className="text-sm font-normal text-[#4A4A4A]">
+                        <p className="text-sm font-normal text-gray-medium">
                             Apartment: {deliveryAddress.apartment}
                         </p>
                     )}

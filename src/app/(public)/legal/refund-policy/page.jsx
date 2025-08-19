@@ -14,7 +14,7 @@ const RefundPolicyPage = () => {
 
   if (loading) {
     return (
-      <div className="relative min-h-[200px]">
+  <div className="relative min-h-200px">
         <div className="fixed inset-0 grid place-items-center bg-background/60 z-50">
           <Spinner size="xl" className="text-primary" />
         </div>

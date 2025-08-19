@@ -167,7 +167,7 @@ const GuestUserAddressForm = () => {
                         <FormControl>
                             <Textarea
                                 placeholder="e.g. Road no., Area, City, Zip code etc."
-                                className="min-h-[120px] text-base"
+                                className="min-h-120px text-base"
                                 {...field}
                             />
                         </FormControl>

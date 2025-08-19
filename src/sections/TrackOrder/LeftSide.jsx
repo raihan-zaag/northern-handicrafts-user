@@ -41,11 +41,11 @@ const LeftSide = ({ data }) => {
     };
 
     return (
-        <div className="p-8 bg-[#FAFBFB] order-2 xl:order-1 w-full">
+        <div className="p-8 bg-secondary order-2 xl:order-1 w-full">
             <DetailsBox
                 title="Order ID"
                 value={data?.invoiceNumber}
-                valueColor="font-medium text-[#0F62FE]"
+                valueColor="font-medium text-blue"
                 padding="pb-5"
             />
             <DetailsBox
@@ -55,8 +55,8 @@ const LeftSide = ({ data }) => {
                 paymentLink={data?.stripePaymentLink}
             />
 
-            <div className={`py-5 border-b border-[#F0F0F0]`}>
-                <p className="text-[#3A3A3A] text-sm font-semibold">
+            <div className={`py-5 border-b border-border-light`}>
+                <p className="text-gray-dark2 text-sm font-semibold">
                     Tracking link
                 </p>
                 <div className="mt-1 flex items-center justify-between gap-2">
@@ -65,7 +65,7 @@ const LeftSide = ({ data }) => {
                             <div className="hidden md:block">
                                 <Link
                                     href={`${data?.deliveryTrackingLink}`}
-                                    className={`text-[#0F62FE] mt-1 text-sm font-medium underline`}
+                                    className={`text-blue mt-1 text-sm font-medium underline`}
                                     target="_blank"
                                 >
                                     <p className="w-full">
@@ -76,13 +76,13 @@ const LeftSide = ({ data }) => {
 
                             <Link
                                 href={`${data?.deliveryTrackingLink}`}
-                                className={`text-[#0F62FE] mt-1 text-sm font-semibold flex items-center gap-1`}
+                                className={`text-blue mt-1 text-sm font-semibold flex items-center gap-1`}
                                 target="_blank"
                             >
                                 <span className="whitespace-nowrap">
                                     Track order
                                 </span>
-                                <FaArrowRightLong className="-rotate-[45deg]" />
+                                <FaArrowRightLong className="-rotate-45" />
                             </Link>
                         </div>
                     ) : (
@@ -127,9 +127,9 @@ export default LeftSide;
 const DetailsBox = ({
     title,
     value,
-    valueColor = "text-[#5A5A5A]",
+    valueColor = "text-font-color-one",
     padding = "py-5",
-    border = "border-b border-[#F0F0F0]",
+    border = "border-b border-border-light",
     backgroundColor = "bg-transparent",
     paymentLink = "",
 }) => {
@@ -147,7 +147,7 @@ const DetailsBox = ({
             {title === "Current order status" && value === "Payment Pending" ? (
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-0">
                     <div>
-                        <p className="text-[#3A3A3A] text-sm font-semibold">
+                        <p className="text-gray-dark2 text-sm font-semibold">
                             {title}
                         </p>
                         <p
@@ -165,7 +165,7 @@ const DetailsBox = ({
                 </div>
             ) : (
                 <>
-                    <p className="text-[#3A3A3A] text-sm font-semibold">
+                    <p className="text-gray-dark2 text-sm font-semibold">
                         {title}
                     </p>
                     <p className={`${valueColor} mt-1 text-base font-medium`}>

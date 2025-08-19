@@ -173,7 +173,7 @@ const PriceBreakdown = ({ cartInfo }) => {
       )}
 
       {/* Total and subtotal Info */}
-      <div className="h-0.5 w-full bg-[#EBEDF0] my-2" />
+  <div className="h-0.5 w-full bg-border-gray my-2" />
       <div className="flex flex-row items-center justify-between text-sm">
         <p>Subtotal Price Unit:</p>
         <p>${formatNumber(totalPrice)}</p>
@@ -184,7 +184,7 @@ const PriceBreakdown = ({ cartInfo }) => {
         <p>{cartInfo?.sellQty}</p>
       </div>
 
-      <div className="h-0.5 w-full bg-[#EBEDF0] my-2" />
+  <div className="h-0.5 w-full bg-border-gray my-2" />
 
       <div className="flex flex-row items-center justify-between text-sm">
         <p className="text-sm">Total Price</p>

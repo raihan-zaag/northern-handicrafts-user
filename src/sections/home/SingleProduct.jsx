@@ -61,7 +61,7 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
                     <Image
                         src={product.thumbnailImage} // Adjust the image URL based on your data
                         alt={product.name}
-                        className="w-full h-[369px] object-cover transition-transform duration-300 ease-in-out bg-[#F6F6F6]"
+                        className="w-full h-369px object-cover transition-transform duration-300 ease-in-out bg-bg-light-gray"
                         height={1000}
                         width={1000}
                         quality={100}
@@ -112,10 +112,10 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
                 ) : null}
 
                 {/* Overlay div that shows up on hover */}
-                <div className="absolute inset-0 top-[330px] opacity-0 group-hover:opacity-70 transition-opacity duration-300 ease-in-out w-full">
-                    <button className="text-white font-semibold px-6 py-2 bg-black transition-al w-full bg-opacity-100 group-hover:bg-opacity-50">
+                <div className="absolute inset-0 top-330px opacity-0 group-hover:opacity-70 transition-opacity duration-300 ease-in-out w-full">
+                    <button className="text-white font-semibold px-6 py-2 bg-black transition-all w-full bg-opacity-100 group-hover:bg-opacity-50">
                         <Link href={`${PRODUCT_DETAILS_URL}/${product?.id}`}>
-                            <h1 className=" text-white  text-[15px]">
+                            <h1 className=" text-white  text-md2">
                                 View Details
                             </h1>
                         </Link>
@@ -129,11 +129,11 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
                     {product?.name}
                 </h3>
                 <div className="flex items-center gap-x-3">
-                    <p className="text-[18px] font-medium text-primary leading-5">
+                    <p className="text-18px font-medium text-primary leading-5">
                         ${calculatedPrice}
                     </p>
                     {product?.discount && (
-                        <p className="text-[18px] font-normal text-gray-500 leading-5 line-through">
+                        <p className="text-18px font-normal text-gray-500 leading-5 line-through">
                             ${product?.regularPrice}
                         </p>
                     )}

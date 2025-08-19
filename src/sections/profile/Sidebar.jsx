@@ -44,7 +44,7 @@ const Sidebar = () => {
     {
       key: "1",
       label: (
-        <div className="font-normal text-base text-[#2A2A2A] whitespace-nowrap  rounded-md">
+  <div className="font-normal text-base text-dark whitespace-nowrap  rounded-md">
           <div className="flex items-center justify-start gap-6">
             <p className="font-semibold text-sm md:text-base">{currentLabel}</p>
           </div>
@@ -64,11 +64,11 @@ const Sidebar = () => {
               >
                 <div className="flex gap-3 items-center">
                   {pathname?.includes(menu.url) ? menu.activeIcon : menu.icon}
-                  <p
+                    <p
                     className={`font-medium text-base  ${
                       pathname?.includes(menu.url)
                         ? "text-primary"
-                        : "text-[#6A6A6A]"
+                        : "text-gray"
                     }`}
                   >
                     {menu.title}
@@ -110,7 +110,7 @@ const Sidebar = () => {
                       className={`font-medium text-base  ${
                         pathname?.includes(menu.url)
                           ? "text-primary"
-                          : "text-[#6A6A6A]"
+                          : "text-gray"
                       }`}
                     >
                       {menu.title}
@@ -133,7 +133,7 @@ const Sidebar = () => {
       <div className="block lg:hidden">
         <Accordion type="single" collapsible className="border-none">
           <AccordionItem value="profile-menu" className="border-none">
-            <AccordionTrigger className="font-semibold text-sm md:text-base text-[#2A2A2A] hover:no-underline">
+            <AccordionTrigger className="font-semibold text-sm md:text-base text-dark hover:no-underline">
               {currentLabel}
             </AccordionTrigger>
             <AccordionContent>
@@ -142,17 +142,17 @@ const Sidebar = () => {
                   <Link
                     key={index}
                     href={menu.link}
-                    className={`flex items-center justify-start gap-6 px-4 py-2 rounded-md ${
+          className={`flex items-center justify-start gap-6 px-4 py-2 rounded-md ${
                       pathname === menu.link
                         ? "bg-primary text-white"
-                        : "text-[#2A2A2A] hover:bg-gray-100"
+            : "text-dark hover:bg-gray-100"
                     }`}
                   >
                     {React.createElement(menu.icon, {
                       className: `${
                         pathname === menu.link
                           ? "text-white"
-                          : "text-[#2A2A2A]"
+                          : "text-dark"
                       } h-4 w-4`,
                     })}
                     <p className="font-normal text-sm">{menu.title}</p>

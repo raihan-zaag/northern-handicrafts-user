@@ -65,13 +65,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-dark-black text-light-font py-12 mt-[108px]">
+  <footer className="bg-dark-black text-light-font py-12 mt-108px">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap- w-full">
           {/* Left Section */}
           <div className="col-span-1 sm:col-span-2 lg:col-span-4 flex flex-col space-y-4">
             <h2 className="text-2xl font-semibold">OPTILUXE</h2>
-            <p className="text-[15px] leading-8">
+            <p className="text-md2 leading-8">
               Welcome to Optiluxe, your ultimate destination for luxury eyewear.
               With a dedication to style and clarity, we present a curated
               selection of premium eyewear. Explore unparalleled craftsmanship
@@ -198,11 +198,11 @@ const Footer = () => {
                 <h3 className="text-lg font-semibold mb-4">
                   Subscribe to our newsletter
                 </h3>
-                <div className="flex flex-row gap-4 w-full">
+        <div className="flex flex-row gap-4 w-full">
                   <input
                     type="email"
                     placeholder="Enter Email"
-                    className="px- py-2 bg-dark-black border-b-2 border-[#2B2E3A] text-light-font w-full sm:w-[350px] "
+                    className="px- py-2 bg-dark-black border-b-2 border-border-dark text-light-font w-full sm:w-350px "
                     onChange={(e) => {
                       handleChangeEmail(e);
                     }}
@@ -224,9 +224,9 @@ const Footer = () => {
         {/* Uncomment if needed */}
 
         {/* Footer Copyright */}
-        <div className="mt-12 text-center text-sm border-t border-border_dark pt-6 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+  <div className="mt-12 text-center text-sm border-t border-border_dark pt-6 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
           <div className="flex items-center justify-center gap-3 md:gap-6">
-            <p className="text-xs sm:text-base text-[#CCCCCC]">
+            <p className="text-xs sm:text-base text-gray-light">
               Payment Securely with
             </p>
             <Image
@@ -235,7 +235,7 @@ const Footer = () => {
               height={1000}
               width={1000}
               quality={100}
-              className="w-[48px] h-[20px]"
+              className="w-48px h-20px"
             />
             <Image
               src="/icons/Visa_Inc.svg"
@@ -243,7 +243,7 @@ const Footer = () => {
               height={1000}
               width={1000}
               quality={100}
-              className="w-[48px] h-[20px]"
+              className="w-48px h-20px"
             />
             <Image
               src="/icons/master_card.svg"
@@ -251,12 +251,12 @@ const Footer = () => {
               height={1000}
               width={1000}
               quality={100}
-              className="w-[48px] h-[20px]"
+              className="w-48px h-20px"
             />
           </div>
           <p className="text-xs sm:text-base">
-            <span className="text-[#CCCCCC]">© All rights reserved </span>
-            <span className="text-[#fff]">OptiluxeEyewear.com</span>
+            <span className="text-gray-light">© All rights reserved </span>
+            <span className="text-white">OptiluxeEyewear.com</span>
           </p>
         </div>
       </Container>

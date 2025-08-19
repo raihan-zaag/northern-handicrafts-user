@@ -65,7 +65,7 @@ const CustomerSupportForm = () => {
         {/* Logo */}
         <div className="flex flex-col justify-center mb-4">
           <p className="text-primary font-semibold text-2xl">Get In Touch</p>
-          <p className="text-[#515151] text-sm md:text-base">
+          <p className="text-gray-mid2 text-sm md:text-base">
             You can reach out to us anytime from anywhere
           </p>
         </div>
@@ -83,7 +83,7 @@ const CustomerSupportForm = () => {
                   <FormControl>
                     <Input
                       placeholder="Enter full name here"
-                      className="h-[52px]"
+                      className="h-52px"
                       {...field}
                     />
                   </FormControl>
@@ -104,7 +104,7 @@ const CustomerSupportForm = () => {
                     <Input
                       type="email"
                       placeholder="username@mail.com"
-                      className="h-[52px]"
+                      className="h-52px"
                       {...field}
                     />
                   </FormControl>
@@ -124,7 +124,7 @@ const CustomerSupportForm = () => {
                   <FormControl>
                     <Input
                       placeholder="Enter your phone number here"
-                      className="h-[52px]"
+                      className="h-52px"
                       {...field}
                     />
                   </FormControl>
@@ -144,13 +144,13 @@ const CustomerSupportForm = () => {
                   <FormControl>
                     <Textarea
                       placeholder="How can we help you?"
-                      className="min-h-[120px] resize-none"
+                      className="min-h-120px resize-none"
                       maxLength={500}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
-                  <p className="text-sm text-[#8A8A8A]">
+                  <p className="text-sm text-gray">
                     Maximum 500 characters. Current: {field.value?.length || 0}/500
                   </p>
                 </FormItem>

@@ -436,7 +436,7 @@ const AddressModal = ({
 
     return (
         <Dialog open={open} onOpenChange={handleCloseModal}>
-            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-600px max-h-90vh overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center justify-between">
                         <span>Enter Address Details</span>
@@ -576,7 +576,7 @@ const AddressModal = ({
                                     <FormControl>
                                         <Textarea
                                             placeholder="e.g. Road no., Area etc."
-                                            className="min-h-[80px]"
+                                            className="min-h-80px"
                                             {...field}
                                         />
                                     </FormControl>

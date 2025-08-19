@@ -60,14 +60,14 @@ const ProductReviewForm = ({
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="px-[30px] pt-8">
+          <div className="px-30px pt-8">
             <div className="flex flex-col items-center">
               <Image
                 alt="avatar"
                 src={`${image}`}
                 width={1000}
                 height={1000}
-                className="h-[120px] w-[120px]"
+                className="h-120px w-120px"
               />
               {productName && (
                 <p className="text-brand-blue-800 text-base font-medium mt-4">
@@ -78,11 +78,11 @@ const ProductReviewForm = ({
 
             <div className="mt-8">
               <p className="text-primary text-sm font-medium">Rating</p>
-              <div className="text-[#6E6E6E] text-sm font-medium">
+              <div className="text-light-gray text-sm font-medium">
                 Give your rating by tapping the stars
               </div>
 
-              <div className="flex gap-x-[10px] mt-5">
+              <div className="flex gap-x-10px mt-5">
                 {Array.from({ length: 5 }, (_, index) => index + 1).map(
                   (item, i) => (
                     <RatingBtn
@@ -108,7 +108,7 @@ const ProductReviewForm = ({
               />
 
               <div className="space-y-3 mt-7">
-                <p className="text-[#6E6E6E] text-xs font-medium leading-[15.62px] md:text-sm md:leading-[18.23px]">
+                <p className="text-light-gray text-xs font-medium leading-1562 md:text-sm md:leading-18px">
                   Review
                 </p>
 
@@ -119,7 +119,7 @@ const ProductReviewForm = ({
                     <FormItem>
                       <FormControl>
                         <Textarea
-                          className="text-neutral-400 min-h-[100px]"
+                          className="text-neutral-400 min-h-100px"
                           placeholder="Write your review here...."
                           maxLength={500}
                           {...field}
@@ -130,14 +130,14 @@ const ProductReviewForm = ({
                   )}
                 />
                 
-                <div className="text-[#6E6E6E] text-[12px] mt-2">
+        <div className="text-light-gray text-xs2 mt-2">
                   Max character limit: 500
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="pb-5 px-[30px] pt-10 flex gap-4">
+      <div className="pb-5 px-30px pt-10 flex gap-4">
             <button
               type="button"
               className="w-full border-2 border-primary font-semibold text-xs md:text-sm transition-all duration-200 py-2 md:py-4 text-center antialiased"

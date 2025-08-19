@@ -31,7 +31,7 @@ const OrderSummary = ({
 
   return (
     <div
-      className={`w-full mx-auto bg-[#FAFBFB] ${className} ${
+      className={`w-full mx-auto bg-secondary ${className} ${
         fromCartPage ? "p-10" : ""
       }`}
     >

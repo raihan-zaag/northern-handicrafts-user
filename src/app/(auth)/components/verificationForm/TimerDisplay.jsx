@@ -67,7 +67,7 @@ const TimerDisplay = () => {
           Re-send Code
         </p>
       ) : (
-        <p className="text-primary text-sm font-normal leading-[18.23px]">
+  <p className="text-primary text-sm font-normal leading-18px">
           {`${Math.floor(timeRemaining / 180)}:${(timeRemaining % 180)
             .toString()
             .padStart(2, "0")}`}

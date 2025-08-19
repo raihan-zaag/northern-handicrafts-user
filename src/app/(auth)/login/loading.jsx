@@ -5,8 +5,8 @@ import React from "react";
 
 const SkeletonSignIn = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen my-[30px] md:my-[80px] p-4 md:p-0">
-      <div className="w-full max-w-[600px] bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border">
+    <div className="flex items-center justify-center min-h-screen my-30px md:my-80px p-4 md:p-0">
+      <div className="w-full max-w-600px bg-secondary p-8 px-4 sm:px-10 md:px-12 rounded border border-border">
         <div className="mb-5">
           <div className="h-6 w-40 bg-gray-300 animate-pulse rounded mb-2"></div>
           <div className="h-4 w-64 bg-gray-200 animate-pulse rounded"></div>
