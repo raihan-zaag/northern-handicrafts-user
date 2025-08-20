@@ -1,9 +1,6 @@
 "use client"
-
-import * as React from "react"
-import * as SliderPrimitive from "@radix-ui/react-slider"
-
 import { cn } from "@/common/lib/utils"
+import * as SliderPrimitive from "@radix-ui/react-slider"
 
 const Slider = ({ className, ref, ...props }) => (
   <SliderPrimitive.Root

@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/common/lib/utils"
 
+
 const CarouselContext = React.createContext(null)
 
 function useCarousel() {
@@ -33,6 +34,8 @@ const Carousel = ({
   }, plugins)
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [scrollSnaps, setScrollSnaps] = React.useState([])
 
   const onSelect = React.useCallback((api) => {
     if (!api) {
@@ -41,6 +44,7 @@ const Carousel = ({
 
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
+    setSelectedIndex(api.selectedScrollSnap())
   }, [])
 
   const scrollPrev = React.useCallback(() => {
@@ -75,6 +79,7 @@ const Carousel = ({
     }
 
     onSelect(api)
+    setScrollSnaps(api.scrollSnapList())
     api.on("reInit", onSelect)
     api.on("select", onSelect)
 
@@ -82,6 +87,10 @@ const Carousel = ({
       api?.off("select", onSelect)
     }
   }, [api, onSelect])
+
+  const scrollTo = React.useCallback((index) => {
+    api?.scrollTo(index)
+  }, [api])
 
   return (
     <CarouselContext.Provider
@@ -94,6 +103,9 @@ const Carousel = ({
         scrollNext,
         canScrollPrev,
         canScrollNext,
+        selectedIndex,
+        scrollSnaps,
+        scrollTo,
       }}
     >
       <div
@@ -149,53 +161,170 @@ const CarouselItem = ({ className, ref, ...props }) => {
 }
 CarouselItem.displayName = "CarouselItem"
 
-const CarouselPrevious = ({ className, variant = "outline", size = "icon", ref, ...props }) => {
+const CarouselPrevious = ({ className, _variant = "outline", _size = "icon", ref, ...props }) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
     <button
       ref={ref}
       className={cn(
-        "absolute h-8 w-8 rounded-full",
+        "absolute h-10 w-10 rounded-full flex items-center justify-center z-10 transition-all duration-200",
+        "bg-white/80 hover:bg-white border-none shadow-lg backdrop-blur-sm",
+        "disabled:opacity-50 disabled:cursor-not-allowed",
         orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+          ? "left-4 top-1/2 -translate-y-1/2"
+          : "top-4 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
-      <ChevronLeft className="h-4 w-4" />
+      <ChevronLeft className="h-5 w-5 text-gray-700" />
       <span className="sr-only">Previous slide</span>
     </button>
   )
 }
 CarouselPrevious.displayName = "CarouselPrevious"
 
-const CarouselNext = ({ className, variant = "outline", size = "icon", ref, ...props }) => {
+const CarouselNext = ({ className, _variant = "outline", _size = "icon", ref, ...props }) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
     <button
       ref={ref}
       className={cn(
-        "absolute h-8 w-8 rounded-full",
+        "absolute h-10 w-10 rounded-full flex items-center justify-center z-10 transition-all duration-200",
+        "bg-white/80 hover:bg-white border-none shadow-lg backdrop-blur-sm",
+        "disabled:opacity-50 disabled:cursor-not-allowed",
         orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+          ? "right-4 top-1/2 -translate-y-1/2"
+          : "bottom-4 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <ChevronRight className="h-4 w-4" />
+      <ChevronRight className="h-5 w-5 text-gray-700" />
       <span className="sr-only">Next slide</span>
     </button>
   )
 }
 CarouselNext.displayName = "CarouselNext"
+
+const CarouselDots = ({ className, dotClassName, activeDotClassName, ...props }) => {
+  const { scrollSnaps, selectedIndex, scrollTo } = useCarousel()
+
+  return (
+    <div
+      className={cn(
+        "absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10",
+        "flex justify-center space-x-2",
+        className
+      )}
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => (
+        <button
+          key={index}
+          className={cn(
+            "w-2 h-2 rounded-full transition-all duration-300 ease-in-out",
+            "bg-white/60 hover:bg-white/80 backdrop-blur-sm",
+            selectedIndex === index && "bg-white scale-125 shadow-lg",
+            dotClassName,
+            selectedIndex === index && activeDotClassName
+          )}
+          onClick={() => scrollTo(index)}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  )
+}
+CarouselDots.displayName = "CarouselDots"
+
+const CarouselOverlay = ({ className, children, ...props }) => {
+  return (
+    <div
+      className={cn(
+        "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent",
+        "flex items-end justify-center",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+CarouselOverlay.displayName = "CarouselOverlay"
+
+const CarouselTextContent = ({ className, children, ...props }) => {
+  return (
+    <div
+      className={cn(
+        "absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10",
+        "text-center text-white px-6 max-w-4xl",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+CarouselTextContent.displayName = "CarouselTextContent"
+
+const CarouselTitle = ({ className, children, ...props }) => {
+  return (
+    <h2
+      className={cn(
+        "text-2xl md:text-3xl lg:text-4xl font-bold mb-2 drop-shadow-lg",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </h2>
+  )
+}
+CarouselTitle.displayName = "CarouselTitle"
+
+const CarouselDescription = ({ className, children, ...props }) => {
+  return (
+    <p
+      className={cn(
+        "text-sm md:text-base lg:text-lg opacity-90 mb-4 drop-shadow-md",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </p>
+  )
+}
+CarouselDescription.displayName = "CarouselDescription"
+
+const CarouselButton = ({ className, children, as = 'button', ...props }) => {
+  const Component = as;
+  
+  return (
+    <Component
+      className={cn(
+        "px-6 py-2 bg-white text-black rounded-lg font-medium",
+        "hover:bg-gray-100 transition-colors shadow-lg",
+        "focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50",
+        as === 'a' && "inline-block text-center no-underline",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Component>
+  )
+}
+CarouselButton.displayName = "CarouselButton"
 
 export {
   Carousel,
@@ -203,4 +332,10 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselDots,
+  CarouselOverlay,
+  CarouselTextContent,
+  CarouselTitle,
+  CarouselDescription,
+  CarouselButton,
 }

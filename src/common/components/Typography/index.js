@@ -1,5 +1,6 @@
+import { cn } from "@/common/lib/utils";
 import React from "react";
-import { cn } from "@/utils";
+
 
 const Typography = {
     Title1: ({ children, className = "" }) => (

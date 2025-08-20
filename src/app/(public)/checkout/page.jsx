@@ -10,12 +10,12 @@ import { Textarea } from "@/common/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/common/components/ui/radio-group";
 import { Label } from "@/common/components/ui/label";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/common/components/ui/form";
 import Link from "next/link";
 
@@ -29,44 +29,43 @@ import AuthUserAddress from "@/app/(public)/checkout/sections/AuthUserAddress";
 import CheckoutProductCard from "./components/CheckoutProductCart";
 import useNotification from "@/common/hooks/useNotification";
 import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
-import { formatNumber } from "@/utils";
 import GuestUserAddressForm from "@/sections/checkout/GuestUserAddressForm";
 import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
 import OrderSummary from "@/sections/orderSummary/OrderSummary";
 
 // Checkout form schema with dynamic validation
 const createCheckoutSchema = (isAuthenticated) => {
-  const baseSchema = {
-    email: z
-      .string()
-      .min(1, "Email is required")
-      .email("Please enter a valid email address"),
-    mobileNumber: z
-      .string()
-      .min(1, "Mobile number is required")
-      .regex(/^[0-9+\-\s()]+$/, "Please enter a valid mobile number"),
-    deliveryMethod: z.enum(["STANDARD", "EXPRESS"], {
-      required_error: "Please select a delivery method",
-    }),
-    paymentMethod: z.literal("stripe"),
-    promoCode: z.string().optional(),
-    orderNote: z.string().optional(),
-  };
+    const baseSchema = {
+        email: z
+            .string()
+            .min(1, "Email is required")
+            .email("Please enter a valid email address"),
+        mobileNumber: z
+            .string()
+            .min(1, "Mobile number is required")
+            .regex(/^[0-9+\-\s()]+$/, "Please enter a valid mobile number"),
+        deliveryMethod: z.enum(["STANDARD", "EXPRESS"], {
+            required_error: "Please select a delivery method",
+        }),
+        paymentMethod: z.literal("stripe"),
+        promoCode: z.string().optional(),
+        orderNote: z.string().optional(),
+    };
 
-  // Add guest user address validation only for non-authenticated users
-  if (!isAuthenticated) {
-    return z.object({
-      ...baseSchema,
-      fullName: z.string().min(1, "Full name is required"),
-      country: z.string().min(1, "Country is required"),
-      state: z.string().min(1, "District/State is required"),
-      city: z.string().min(1, "City/Area is required"),
-      zipCode: z.string().min(1, "ZIP/Postal code is required"),
-      street: z.string().min(1, "Street address is required"),
-    });
-  }
+    // Add guest user address validation only for non-authenticated users
+    if (!isAuthenticated) {
+        return z.object({
+            ...baseSchema,
+            fullName: z.string().min(1, "Full name is required"),
+            country: z.string().min(1, "Country is required"),
+            state: z.string().min(1, "District/State is required"),
+            city: z.string().min(1, "City/Area is required"),
+            zipCode: z.string().min(1, "ZIP/Postal code is required"),
+            street: z.string().min(1, "Street address is required"),
+        });
+    }
 
-  return z.object(baseSchema);
+    return z.object(baseSchema);
 };
 
 const CheckoutPage = () => {
@@ -148,19 +147,22 @@ const CheckoutPage = () => {
     const deliveryMethods = [
         {
             status: "Standard delivery",
-            info:
-                `(${configData?.standardDeliveryTime})` ||
-                "(3-5 business days)",
+            info: configData?.standardDeliveryTime
+                ? `(${configData.standardDeliveryTime})`
+                : "(3-5 business days)",
             value: "STANDARD",
             price: configData?.standardDeliveryPrice ?? 0,
         },
         {
             status: "Express delivery",
-            info: `(${configData?.expressDeliveryTime})` || "(Within 24 hours)",
+            info: configData?.expressDeliveryTime
+                ? `(${configData.expressDeliveryTime})`
+                : "(Within 24 hours)",
             value: "EXPRESS",
             price: configData?.expressDeliveryPrice ?? 0,
         },
     ];
+
 
     useEffect(() => {
         if (cart?.length > 0) {
@@ -186,7 +188,7 @@ const CheckoutPage = () => {
         if (isAuthenticated) {
             const formData = form.getValues();
             const isValid = await form.trigger(["email", "mobileNumber"]);
-            
+
             if (!isValid) {
                 return;
             }
@@ -220,7 +222,7 @@ const CheckoutPage = () => {
     const handleFormFinish = async () => {
         const formData = form.getValues();
         const isValid = await form.trigger();
-        
+
         if (!isValid) {
             return;
         }
@@ -316,7 +318,7 @@ const CheckoutPage = () => {
     }, [profile, form]);
 
     return (
-        <LoadingOverlay 
+        <LoadingOverlay
             isLoading={
                 (isAuthenticated && getCartLoading) ||
                 orderLoading ||
@@ -333,293 +335,291 @@ const CheckoutPage = () => {
                 <Form {...form}>
                     <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-12 gap-6 md:gap-12 mt-12">
                         <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-7 2xl:col-span-8">
-                        <div className="flex flex-col gap-6">
-                        {isAuthenticated && (
-                            <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                                <h2>Contact Information</h2>
-                            </div>
-                        )}
-                        {isAuthenticated && (
-                            <div className="w-full flex gap-5 px-4 py-6">
-                                <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem className="flex-1">
-                                            <FormLabel>Email address</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="Enter your email address"
-                                                    className="h-14 text-base"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                            <div className="flex flex-col gap-6">
+                                {isAuthenticated && (
+                                    <div className="bg-neutral-200 px-4 py-6 font-semibold">
+                                        <h2>Contact Information</h2>
+                                    </div>
+                                )}
+                                {isAuthenticated && (
+                                    <div className="w-full flex gap-5 px-4 py-6">
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem className="flex-1">
+                                                    <FormLabel>Email address</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Enter your email address"
+                                                            className="h-14 text-base"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="mobileNumber"
+                                            render={({ field }) => (
+                                                <FormItem className="flex-1">
+                                                    <FormLabel>Phone number</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Enter your phone number"
+                                                            className="h-14 text-base"
+                                                            maxLength={15}
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                )}
+                                {/* Delivery address */}
+                                <div className="bg-neutral-200 px-4 py-6 font-semibold">
+                                    <h2>Delivery Address</h2>
+                                </div>
+                                {isAuthenticated ? (
+                                    <AuthUserAddress
+                                        setDeliveryAddress={setDeliveryAddress}
+                                        deliveryAddress={deliveryAddress}
+                                    />
+                                ) : (
+                                    <GuestUserAddressForm />
+                                )}
+
+                                {/* Delivery Method */}
+                                <div className="bg-neutral-200 px-4 py-6 font-semibold">
+                                    <h2>Delivery Method</h2>
+                                </div>
 
                                 <FormField
                                     control={form.control}
-                                    name="mobileNumber"
+                                    name="deliveryMethod"
                                     render={({ field }) => (
-                                        <FormItem className="flex-1">
-                                            <FormLabel>Phone number</FormLabel>
+                                        <FormItem className="w-full px-4">
                                             <FormControl>
-                                                <Input
-                                                    placeholder="Enter your phone number"
-                                                    className="h-14 text-base"
-                                                    maxLength={15}
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        )}
-                        {/* Delivery address */}
-                        <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                            <h2>Delivery Address</h2>
-                        </div>
-                        {isAuthenticated ? (
-                            <AuthUserAddress
-                                setDeliveryAddress={setDeliveryAddress}
-                                deliveryAddress={deliveryAddress}
-                            />
-                        ) : (
-                            <GuestUserAddressForm />
-                        )}
-
-                        {/* Delivery Method */}
-                        <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                            <h2>Delivery Method</h2>
-                        </div>
-
-                        <FormField
-                            control={form.control}
-                            name="deliveryMethod"
-                            render={({ field }) => (
-                                <FormItem className="w-full px-4">
-                                    <FormControl>
-                                        <RadioGroup
-                                            onValueChange={(value) => {
-                                                field.onChange(value);
-                                                handledeliveryMethodChange({ target: { value } });
-                                            }}
-                                            value={field.value}
-                                            className="flex flex-col gap-1 w-full"
-                                        >
-                                            {deliveryMethods?.map((delivery, index) => (
-                                                <div
-                                                    className="py-2 flex items-end gap-2 w-full"
-                                                    key={index}
+                                                <RadioGroup
+                                                    onValueChange={(value) => {
+                                                        field.onChange(value);
+                                                        handledeliveryMethodChange({ target: { value } });
+                                                    }}
+                                                    value={field.value}
+                                                    className="flex flex-col gap-1 w-full"
                                                 >
-                                                    <RadioGroupItem
-                                                        value={delivery.value}
-                                                        id={`delivery-${index}`}
-                                                        className="mt-1"
-                                                    />
-                                                    <div className="flex items-center justify-between w-full">
-                                                        <label
-                                                            htmlFor={`delivery-${index}`}
-                                                            className={`text-sm cursor-pointer ${
-                                                                field.value === delivery?.value
-                                                                    ? "font-semibold text-gray-dark"
-                                                                    : "font-normal text-gray-medium"
-                                                            }`}
+                                                    {deliveryMethods?.map((delivery, index) => (
+                                                        <div
+                                                            className="py-2 flex items-end gap-2 w-full"
+                                                            key={index}
                                                         >
-                                                            {delivery.status}&nbsp;
-                                                            <span className="font-normal text-gray text-sm">
-                                                                {delivery?.info}
-                                                            </span>
-                                                        </label>
-                                                        <h3
-                                                            className={`text-lg ${
-                                                                field.value === delivery?.value
-                                                                    ? "font-semibold text-gray-dark"
-                                                                    : "font-normal text-gray-medium"
-                                                            }`}
-                                                        >
-                                                            $ {delivery.price}
-                                                        </h3>
+                                                            <RadioGroupItem
+                                                                value={delivery.value}
+                                                                id={`delivery-${index}`}
+                                                                className="mt-1"
+                                                            />
+                                                            <div className="flex items-center justify-between w-full">
+                                                                <label
+                                                                    htmlFor={`delivery-${index}`}
+                                                                    className={`text-sm cursor-pointer ${field.value === delivery?.value
+                                                                        ? "font-semibold text-gray-dark"
+                                                                        : "font-normal text-gray-medium"
+                                                                        }`}
+                                                                >
+                                                                    {delivery.status}&nbsp;
+                                                                    <span className="font-normal text-gray text-sm">
+                                                                        {delivery?.info}
+                                                                    </span>
+                                                                </label>
+                                                                <h3
+                                                                    className={`text-lg ${field.value === delivery?.value
+                                                                        ? "font-semibold text-gray-dark"
+                                                                        : "font-normal text-gray-medium"
+                                                                        }`}
+                                                                >
+                                                                    $ {delivery.price}
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </RadioGroup>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                {/* Payment Method */}
+                                <div className="bg-neutral-200 px-4 py-6 font-semibold">
+                                    <h2>Payment Method</h2>
+                                </div>
+
+                                <FormField
+                                    control={form.control}
+                                    name="paymentMethod"
+                                    render={({ field }) => (
+                                        <FormItem className="px-4">
+                                            <FormControl>
+                                                <RadioGroup
+                                                    onValueChange={field.onChange}
+                                                    value={field.value}
+                                                    className="flex flex-col gap-2"
+                                                >
+                                                    <div className="flex items-center space-x-2">
+                                                        <RadioGroupItem value="stripe" id="stripe" />
+                                                        <Label htmlFor="stripe">Stripe</Label>
                                                     </div>
-                                                </div>
-                                            ))}
-                                        </RadioGroup>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        {/* Payment Method */}
-                        <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                            <h2>Payment Method</h2>
+                                                </RadioGroup>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
                         </div>
 
-                        <FormField
-                            control={form.control}
-                            name="paymentMethod"
-                            render={({ field }) => (
-                                <FormItem className="px-4">
-                                    <FormControl>
-                                        <RadioGroup
-                                            onValueChange={field.onChange}
-                                            value={field.value}
-                                            className="flex flex-col gap-2"
+                        <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-5 2xl:col-span-4 bg-secondary p-3 sm:p-6 md:p-8">
+                            <div className="flex flex-col gap-6">
+                                {/* Heading */}
+                                <div className="flex items-center justify-between">
+                                    <h1 className="font-bold text-dark text-18px">
+                                        Order Summary
+                                    </h1>
+                                    {isAuthenticated ? (
+                                        <Link
+                                            href={"/my-cart"}
+                                            className="text-blue font-semibold text-sm"
                                         >
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="stripe" id="stripe" />
-                                                <Label htmlFor="stripe">Stripe</Label>
-                                            </div>
-                                        </RadioGroup>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                </div>
+                                            Edit Order
+                                        </Link>
+                                    ) : null}
+                                </div>
 
-                <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-5 2xl:col-span-4 bg-secondary p-3 sm:p-6 md:p-8">
-                    <div className="flex flex-col gap-6">
-                        {/* Heading */}
-                        <div className="flex items-center justify-between">
-                <h1 className="font-bold text-dark text-18px">
-                                Order Summary
-                            </h1>
-                            {isAuthenticated ? (
-                                <Link
-                                    href={"/my-cart"}
-                                    className="text-blue font-semibold text-sm"
-                                >
-                                    Edit Order
-                                </Link>
-                            ) : null}
-                        </div>
+                                {/* Product list */}
+                                {cart?.map((cartItem, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <CheckoutProductCard
+                                                cartInfo={cartItem}
+                                                pageCard={false}
+                                                showButton={false}
+                                            />
+                                        </div>
+                                    );
+                                })}
 
-                        {/* Product list */}
-                        {cart?.map((cartItem, index) => {
-                            return (
-                                <div key={index}>
-                                    <CheckoutProductCard
-                                        cartInfo={cartItem}
-                                        pageCard={false}
-                                        showButton={false}
+                                {/* Summary */}
+                                <OrderSummary
+                                    total={
+                                        cart?.length > 0
+                                            ? calculatedData?.totalProductPriceAfterPromo +
+                                            calculatedData?.taxAmount +
+                                            calculatedData?.shippingCost
+                                            : 0
+                                    }
+                                    subTotal={
+                                        cart?.length > 0
+                                            ? calculatedData?.totalProductPrice +
+                                            calculatedData?.totalExtraCharge
+                                            : 0
+                                    }
+                                    taxPercentage={
+                                        cart?.length > 0
+                                            ? calculatedData?.taxPercentage
+                                            : 0
+                                    }
+                                    taxAmount={
+                                        cart?.length > 0 ? calculatedData?.taxAmount : 0
+                                    }
+                                    shippingCost={
+                                        cart?.length > 0
+                                            ? calculatedData?.shippingCost
+                                            : 0
+                                    }
+                                    discount={
+                                        cart?.length > 0
+                                            ? calculatedData?.promoDiscountAmount
+                                            : 0
+                                    }
+                                    fromCartPage={false}
+                                />
+
+                                {/* Discount */}
+                                <div className="flex flex-col items-start gap-1">
+                                    <p>Discount code</p>
+                                    <div className="flex flex-col md:flex-row items-center w-full gap-4 md:gap-2">
+                                        <FormField
+                                            control={form.control}
+                                            name="promoCode"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full flex-1">
+                                                    <FormControl>
+                                                        <Input
+                                                            className="h-14 w-full text-base"
+                                                            placeholder="Enter a promo code"
+                                                            {...field}
+                                                            onChange={(e) => {
+                                                                field.onChange(e.target.value);
+                                                                handlePromoCodeChange(e.target.value);
+                                                            }}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <Button
+                                            type="outline"
+                                            className={"w-full md:w-1/3"}
+                                            onClick={handleGetPromoCode}
+                                            disabled={!form.watch("promoCode")}
+                                        >
+                                            Apply
+                                        </Button>
+                                    </div>
+                                </div>
+
+                                {/* Note */}
+                                <div className="flex flex-col items-start gap-1">
+                                    <p>Order Note</p>
+                                    <FormField
+                                        control={form.control}
+                                        name="orderNote"
+                                        render={({ field }) => (
+                                            <FormItem className="w-full">
+                                                <FormControl>
+                                                    <Textarea
+                                                        rows={4}
+                                                        className="w-full text-base"
+                                                        placeholder="Write your instruction here.."
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
                                     />
                                 </div>
-                            );
-                        })}
 
-                        {/* Summary */}
-                        <OrderSummary
-                            total={
-                                cart?.length > 0
-                                    ? calculatedData?.totalProductPriceAfterPromo +
-                                      calculatedData?.taxAmount +
-                                      calculatedData?.shippingCost
-                                    : 0
-                            }
-                            subTotal={
-                                cart?.length > 0
-                                    ? calculatedData?.totalProductPrice +
-                                      calculatedData?.totalExtraCharge
-                                    : 0
-                            }
-                            taxPercentage={
-                                cart?.length > 0
-                                    ? calculatedData?.taxPercentage
-                                    : 0
-                            }
-                            taxAmount={
-                                cart?.length > 0 ? calculatedData?.taxAmount : 0
-                            }
-                            shippingCost={
-                                cart?.length > 0
-                                    ? calculatedData?.shippingCost
-                                    : 0
-                            }
-                            discount={
-                                cart?.length > 0
-                                    ? calculatedData?.promoDiscountAmount
-                                    : 0
-                            }
-                            fromCartPage={false}
-                        />
-
-                        {/* Discount */}
-                        <div className="flex flex-col items-start gap-1">
-                            <p>Discount code</p>
-                            <div className="flex flex-col md:flex-row items-center w-full gap-4 md:gap-2">
-                                <FormField
-                                    control={form.control}
-                                    name="promoCode"
-                                    render={({ field }) => (
-                                        <FormItem className="w-full flex-1">
-                                            <FormControl>
-                                                <Input
-                                                    className="h-14 w-full text-base"
-                                                    placeholder="Enter a promo code"
-                                                    {...field}
-                                                    onChange={(e) => {
-                                                        field.onChange(e.target.value);
-                                                        handlePromoCodeChange(e.target.value);
-                                                    }}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                {/* Payment button */}
                                 <Button
-                                    type="outline"
-                                    className={"w-full md:w-1/3"}
-                                    onClick={handleGetPromoCode}
-                                    disabled={!form.watch("promoCode")}
+                                    type="primary"
+                                    className={"w-full"}
+                                    onClick={handleMakeOrder}
                                 >
-                                    Apply
+                                    Confirm Order
                                 </Button>
                             </div>
                         </div>
-
-                        {/* Note */}
-                        <div className="flex flex-col items-start gap-1">
-                            <p>Order Note</p>
-                            <FormField
-                                control={form.control}
-                                name="orderNote"
-                                render={({ field }) => (
-                                    <FormItem className="w-full">
-                                        <FormControl>
-                                            <Textarea
-                                                rows={4}
-                                                className="w-full text-base"
-                                                placeholder="Write your instruction here.."
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-
-                        {/* Payment button */}
-                        <Button
-                            type="primary"
-                            className={"w-full"}
-                            onClick={handleMakeOrder}
-                        >
-                            Confirm Order
-                        </Button>
                     </div>
-                </div>
-            </div>
-        </Form>
-    </Container>
-</LoadingOverlay>
+                </Form>
+            </Container>
+        </LoadingOverlay>
     );
 };
 

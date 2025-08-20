@@ -22,8 +22,8 @@ import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductPro
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import useGetAverageRating from "@/hooks/singleProduct/useGetAverateRatingInfo";
-import { formatNumber } from "@/utils";
 import Icons from "../../../public/icons";
+import { formatNumber } from "@/common/lib/utils";
 
 const ProductRightView = ({ forModal = false, data }) => {
     // console.log("data----------", data);

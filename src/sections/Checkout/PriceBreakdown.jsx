@@ -6,7 +6,7 @@ import { Spinner } from "@/components/ui/spinner";
 import useGetColorList from "@/hooks/color/useGetColorList";
 import useGetPrescription from "@/hooks/prescription/useGetPrescription";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
-import { formatNumber } from "@/utils";
+import { formatNumber } from "@/common/lib/utils";
 
 const PriceBreakdown = ({ cartInfo }) => {
   const [axisData, setAxisData] = useState([]);

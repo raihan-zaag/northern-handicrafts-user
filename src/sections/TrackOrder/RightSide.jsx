@@ -1,5 +1,5 @@
+import { formatNumber } from "@/common/lib/utils";
 import OrdersProductCard from "@/components/cards/OrdersProductCard";
-import { formatNumber } from "@/utils";
 import React from "react";
 
 const RightSide = ({ data }) => {

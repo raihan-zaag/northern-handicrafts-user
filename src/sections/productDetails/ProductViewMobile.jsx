@@ -33,8 +33,8 @@ import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
 import PrescriptionModal from "./PrescriptionModal";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import useNotification from "@/hooks/useNotification";
-import { formatNumber } from "@/utils";
 import useGetAverageRating from "@/hooks/singleProduct/useGetAverateRatingInfo";
+import { formatNumber } from "@/common/lib/utils";
 
 const ProductViewMobile = ({ data }) => {
   const router = useRouter();

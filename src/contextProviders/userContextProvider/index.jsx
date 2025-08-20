@@ -186,7 +186,7 @@ export const UserProvider = ({ children }) => {
 
   // User Image upload.
   const handleUserProfilePictureUpload = async (formData) => {
-    showMessage("loading", "Please Wait, Your profile picture is uploading...");
+    // showMessage("loading", "Please Wait, Your profile picture is uploading...");
 
     try {
       const response = await axios.post("update profile", formData, {
@@ -197,7 +197,7 @@ export const UserProvider = ({ children }) => {
       });
 
       // Close the loading message immediately after the response
-      closeMessage();
+      // closeMessage();
 
       if (response?.data?.keys?.length > 0) {
         const imageKey = response.data.keys[0];
@@ -206,17 +206,17 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       // toast.error(error?.message);
-      showMessage(
-        "error",
-        error?.message ||
-          "Image can'nt upload now. Sorry for this inconvenient.  "
-      );
+      // showMessage(
+      //   "error",
+      //   error?.message ||
+      //     "Image can'nt upload now. Sorry for this inconvenient.  "
+      // );
     }
   };
 
   // User profile info Update.
   const handleUserProfileUpdate = async (data) => {
-    showMessage("loading", "Uploading User Data...");
+    // showMessage("loading", "Uploading User Data...");
 
     try {
       const response = await axios.patch("user profile", data, {
@@ -227,10 +227,10 @@ export const UserProvider = ({ children }) => {
       });
 
       // Close the loading message immediately after the response
-      closeMessage();
+      // closeMessage();
 
       if (response?.status === 200) {
-        showMessage("success", "Update Profile successfully.");
+        // showMessage("success", "Update Profile successfully.");
         // update user data.
         // setUser(response?.data?.user);
         setCookie(USER_INFO, response?.data?.user);
@@ -239,12 +239,12 @@ export const UserProvider = ({ children }) => {
       }
       return response;
     } catch (e) {
-      showMessage("error", e?.message || "Sorry! cannot update your data.");
+      // showMessage("error", e?.message || "Sorry! cannot update your data.");
     }
   };
 
   const changePassword = async (passwordData) => {
-    showMessage("loading", "Changing your password. Please wait....");
+    // showMessage("loading", "Changing your password. Please wait....");
 
     try {
       const res = await axios.patch(
@@ -258,17 +258,17 @@ export const UserProvider = ({ children }) => {
       );
 
       // Close the loading message immediately after the response
-      closeMessage();
+      // closeMessage();
 
       if (res?.status === 200) {
-        showMessage(
-          "success",
-          res?.data?.message || "Password changes successfully."
-        );
+        // showMessage(
+        //   "success",
+        //   res?.data?.message || "Password changes successfully."
+        // );
         return res;
       }
     } catch (e) {
-      showMessage("error", e?.response?.data?.message || "Something is wrong.");
+      // showMessage("error", e?.response?.data?.message || "Something is wrong.");
       return e;
     }
   };

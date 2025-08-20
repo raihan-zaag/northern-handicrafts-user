@@ -11,7 +11,6 @@ import useGetPrescription from "@/app/(public)/profile/hooks/useGetPrescription"
 import { GET_CART_ITEM_URL } from "@/common/config/constants/apiUrls";
 import axiosPrivate from "@/common/config/axios.publicInstance";
 import { useUserContext } from "../userContextProvider";
-import { formatNumber } from "@/utils";
 
 const CartContext = createContext();
 

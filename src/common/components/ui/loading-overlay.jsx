@@ -1,9 +1,10 @@
-"use client"; // needed in Next.js App Router
+"use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Spinner } from "./spinner";
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/lib/utils";
+
 
 const LoadingOverlay = ({
   isLoading = false,
@@ -69,5 +70,6 @@ const LoadingOverlay = ({
 LoadingOverlay.Fullscreen = (props) => (
   <LoadingOverlay {...props} fullscreen isLoading />
 );
+LoadingOverlay.Fullscreen.displayName = "LoadingOverlayFullscreen";
 
 export { LoadingOverlay };

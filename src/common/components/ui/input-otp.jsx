@@ -2,17 +2,7 @@
 
 import * as React from "react";
 import { OTPInput as BaseOTPInput, OTPInputContext, REGEXP_ONLY_DIGITS } from "input-otp";
-import { cn } from "@/lib/utils";
-
-// Shadcn-style Input OTP wrapper using the `input-otp` package
-// Example:
-// <InputOTP maxLength={6} value={value} onChange={setValue}>
-//   <InputOTPGroup className="w-full justify-between gap-x-2 md:gap-x-6">
-//     {[...Array(6)].map((_, i) => (
-//       <InputOTPSlot key={i} index={i} />
-//     ))}
-//   </InputOTPGroup>
-// </InputOTP>
+import { cn } from "@/common/lib/utils";
 
 const InputOTP = React.forwardRef(function InputOTP(
   { className, containerClassName, pattern = REGEXP_ONLY_DIGITS, ...props },

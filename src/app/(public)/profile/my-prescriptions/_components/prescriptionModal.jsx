@@ -169,18 +169,16 @@ const PrescriptionModal = ({
 
   if (loading || sizeLoading || getPrescriptionLoading || updateLoading) {
     return (
-      <Spin
+      <LoadingOverlay
         fullscreen
-        spinning={
-          loading || sizeLoading || getPrescriptionLoading || updateLoading
-        }
+        isLoading={true}
       />
     );
   }
 
   return (
     <Dialog open={open} onOpenChange={(open) => !open && handleCloseModal()}>
-  <DialogContent className="max-w-2xl max-h-90vh overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-90vh overflow-y-auto">
         <DialogHeader>
           <div className="flex items-center justify-between border-b pb-4">
             <DialogTitle>{isCreate ? "Add new Prescription " : "Edit Prescription"}</DialogTitle>
@@ -216,319 +214,318 @@ const PrescriptionModal = ({
                 />
               </div>
 
-        <div className="w-full flex flex-col gap-2">
-          <p className="text-primary text-xs sm:text-sm md:text-base font-semibold">
-            Left Eye - OD
-          </p>
-          <div className="flex gap-2 w-full">
-            <Form.Item
-              name={"leftEyeSPH"}
-              label={<p className="font-semibold text-xs sm:text-sm">SPH</p>}
-              rules={[{ required: false, message: "Please select SPH" }]}
-              className="w-full"
-            >
-              <Select
-                style={{ width: "100%", height: "48px" }}
-                options={sphData}
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="SPH"
-              />
-            </Form.Item>
-
-            <Form.Item
-              name={"leftEyeCYL"}
-              label={<p className="font-semibold text-xs sm:text-sm">CYL</p>}
-              rules={[{ required: false, message: "Please select CYL" }]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={cylData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="CYL"
-              />
-            </Form.Item>
-
-            <Form.Item
-              name={"leftEyeAxis"}
-              label={<p className="font-semibold text-xs sm:text-sm">Axis</p>}
-              rules={[{ required: false, message: "Please select Axis" }]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={axisData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="Axis"
-              />
-            </Form.Item>
-          </div>
-        </div>
-
-        <div className="w-full flex flex-col gap-2">
-          <p className="text-primary text-xs sm:text-sm md:text-base font-semibold">
-            Right Eye - OD
-          </p>
-          <div className="flex gap-2 w-full">
-            <Form.Item
-              name={"rightEyeSPH"}
-              label={<p className="font-semibold text-xs sm:text-sm">SPH</p>}
-              rules={[{ required: false, message: "Please select SPH" }]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={sphData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="SPH"
-              />
-            </Form.Item>
-
-            <Form.Item
-              name={"rightEyeCYL"}
-              label={<p className="font-semibold text-xs sm:text-sm">CYL</p>}
-              rules={[{ required: false, message: "Please select CYL" }]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={cylData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="CYL"
-              />
-            </Form.Item>
-
-            <Form.Item
-              name={"rightEyeAxis"}
-              label={<p className="font-semibold text-xs sm:text-sm">Axis</p>}
-              rules={[{ required: false, message: "Please select Axis" }]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={axisData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="Axis"
-              />
-            </Form.Item>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between pb-4">
-          <p className="text-xs sm:text-sm md:text-base font-semibold">
-            Pupillary Distance (PD)
-          </p>
-
-          <Checkbox onClick={handle2PdDistance} checked={is2DPd}>
-            <p className="text-xs sm:text-sm md:text-sm font-semibold whitespace-nowrap flex items-center">
-              2 PD <span className="hidden sm:block">&nbsp;Numbers</span>
-            </p>
-          </Checkbox>
-        </div>
-
-        {is2DPd ? (
-          <div className="flex flex-col sm:flex-row gap-0 sm:gap-6 w-full">
-            <Form.Item
-              name={"leftPdDistance"}
-              label={
-                <p className="text-primary text-xs sm:text-sm font-semibold">
-                  Left PD
+              <div className="w-full flex flex-col gap-2">
+                <p className="text-primary text-xs sm:text-sm md:text-base font-semibold">
+                  Left Eye - OD
                 </p>
-              }
-              rules={[
-                {
-                  required: false,
-                  message: "Please select left PD Distance",
-                },
-              ]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={pdData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="Left PD Distance"
-              />
-            </Form.Item>
-
-            <Form.Item
-              name={"rightPdDistance"}
-              label={
-                <p className="text-primary text-xs sm:text-sm font-semibold">
-                  Right PD
-                </p>
-              }
-              rules={[
-                {
-                  required: false,
-                  message: "Please select right PD Distance",
-                },
-              ]}
-              className="w-full"
-            >
-              <Select
-                suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-                style={{ width: "100%", height: "48px" }}
-                options={pdData}
-                optionRender={(option) => {
-                  // console.log({ selectedSize, option });
-                  return (
-                    <div className="flex flex-row items-center justify-start gap-2">
-                      <p className="font-normal">{option.data.label}</p>
-                      <p className="font-light text-red-500 text-sm">
-                        $ ({option.data.price})
-                      </p>
-                    </div>
-                  );
-                }}
-                placeholder="Right PD Distance"
-              />
-            </Form.Item>
-          </div>
-        ) : (
-          <Form.Item
-            name={"pdDistance"}
-            label={
-              <p className="text-primary text-sm font-semibold">PD Distance</p>
-            }
-            rules={[{ required: false, message: "Please select PD Distance" }]}
-          >
-            <Select
-              suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
-              style={{ width: "100%", height: "48px" }}
-              options={pdData}
-              optionRender={(option) => {
-                // console.log({ selectedSize, option });
-                return (
-                  <div className="flex flex-row items-center justify-start gap-2">
-                    <p className="font-normal">{option.data.label}</p>
-                    <p className="font-light text-red-500 text-sm">
-                      $ ({option.data.price})
-                    </p>
-                  </div>
-                );
-              }}
-              placeholder="PD Distance"
-            />
-          </Form.Item>
-        )}
-
-        {/* Product lens Index info */}
-
-        <div className="flex flex-col gap-y-3">
-          <div className=" flex flex-col justify-between items-start gap-2 w-full">
-            <Typography.BodyText className="text-sm font-medium">
-              Lens Index <span className="text-red-500">*</span>
-            </Typography.BodyText>
-
-            <div className="flex items-center justify-start gap-2 flex-wrap cursor-pointer">
-              {sizeList?.map((size, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={`p-2 ${
-                      size?.value === selectedSize
-                        ? "text-blue-500 border-2 border-blue-400"
-                        : ""
-                    }`}
-                    onClick={() => {
-                      handleSizeChange(size);
-                    }}
+                <div className="flex gap-2 w-full">
+                  <Form.Item
+                    name={"leftEyeSPH"}
+                    label={<p className="font-semibold text-xs sm:text-sm">SPH</p>}
+                    rules={[{ required: false, message: "Please select SPH" }]}
+                    className="w-full"
                   >
-                    <p>{size?.label}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+                    <Select
+                      style={{ width: "100%", height: "48px" }}
+                      options={sphData}
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="SPH"
+                    />
+                  </Form.Item>
 
-        <div className="flex gap-2 w-full mt-6">
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="w-full text-base font-semibold"
-          >
-            {isCreate ? "Create" : "Update"}
-          </Button>
-        </div>
+                  <Form.Item
+                    name={"leftEyeCYL"}
+                    label={<p className="font-semibold text-xs sm:text-sm">CYL</p>}
+                    rules={[{ required: false, message: "Please select CYL" }]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={cylData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="CYL"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name={"leftEyeAxis"}
+                    label={<p className="font-semibold text-xs sm:text-sm">Axis</p>}
+                    rules={[{ required: false, message: "Please select Axis" }]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={axisData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="Axis"
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+
+              <div className="w-full flex flex-col gap-2">
+                <p className="text-primary text-xs sm:text-sm md:text-base font-semibold">
+                  Right Eye - OD
+                </p>
+                <div className="flex gap-2 w-full">
+                  <Form.Item
+                    name={"rightEyeSPH"}
+                    label={<p className="font-semibold text-xs sm:text-sm">SPH</p>}
+                    rules={[{ required: false, message: "Please select SPH" }]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={sphData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="SPH"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name={"rightEyeCYL"}
+                    label={<p className="font-semibold text-xs sm:text-sm">CYL</p>}
+                    rules={[{ required: false, message: "Please select CYL" }]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={cylData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="CYL"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name={"rightEyeAxis"}
+                    label={<p className="font-semibold text-xs sm:text-sm">Axis</p>}
+                    rules={[{ required: false, message: "Please select Axis" }]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={axisData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="Axis"
+                    />
+                  </Form.Item>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pb-4">
+                <p className="text-xs sm:text-sm md:text-base font-semibold">
+                  Pupillary Distance (PD)
+                </p>
+
+                <Checkbox onClick={handle2PdDistance} checked={is2DPd}>
+                  <p className="text-xs sm:text-sm md:text-sm font-semibold whitespace-nowrap flex items-center">
+                    2 PD <span className="hidden sm:block">&nbsp;Numbers</span>
+                  </p>
+                </Checkbox>
+              </div>
+
+              {is2DPd ? (
+                <div className="flex flex-col sm:flex-row gap-0 sm:gap-6 w-full">
+                  <Form.Item
+                    name={"leftPdDistance"}
+                    label={
+                      <p className="text-primary text-xs sm:text-sm font-semibold">
+                        Left PD
+                      </p>
+                    }
+                    rules={[
+                      {
+                        required: false,
+                        message: "Please select left PD Distance",
+                      },
+                    ]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={pdData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="Left PD Distance"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name={"rightPdDistance"}
+                    label={
+                      <p className="text-primary text-xs sm:text-sm font-semibold">
+                        Right PD
+                      </p>
+                    }
+                    rules={[
+                      {
+                        required: false,
+                        message: "Please select right PD Distance",
+                      },
+                    ]}
+                    className="w-full"
+                  >
+                    <Select
+                      suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                      style={{ width: "100%", height: "48px" }}
+                      options={pdData}
+                      optionRender={(option) => {
+                        // console.log({ selectedSize, option });
+                        return (
+                          <div className="flex flex-row items-center justify-start gap-2">
+                            <p className="font-normal">{option.data.label}</p>
+                            <p className="font-light text-red-500 text-sm">
+                              $ ({option.data.price})
+                            </p>
+                          </div>
+                        );
+                      }}
+                      placeholder="Right PD Distance"
+                    />
+                  </Form.Item>
+                </div>
+              ) : (
+                <Form.Item
+                  name={"pdDistance"}
+                  label={
+                    <p className="text-primary text-sm font-semibold">PD Distance</p>
+                  }
+                  rules={[{ required: false, message: "Please select PD Distance" }]}
+                >
+                  <Select
+                    suffixIcon={<IoIosArrowDown className="text-primary h-5 w-5" />}
+                    style={{ width: "100%", height: "48px" }}
+                    options={pdData}
+                    optionRender={(option) => {
+                      // console.log({ selectedSize, option });
+                      return (
+                        <div className="flex flex-row items-center justify-start gap-2">
+                          <p className="font-normal">{option.data.label}</p>
+                          <p className="font-light text-red-500 text-sm">
+                            $ ({option.data.price})
+                          </p>
+                        </div>
+                      );
+                    }}
+                    placeholder="PD Distance"
+                  />
+                </Form.Item>
+              )}
+
+              {/* Product lens Index info */}
+
+              <div className="flex flex-col gap-y-3">
+                <div className=" flex flex-col justify-between items-start gap-2 w-full">
+                  <Typography.BodyText className="text-sm font-medium">
+                    Lens Index <span className="text-red-500">*</span>
+                  </Typography.BodyText>
+
+                  <div className="flex items-center justify-start gap-2 flex-wrap cursor-pointer">
+                    {sizeList?.map((size, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className={`p-2 ${size?.value === selectedSize
+                            ? "text-blue-500 border-2 border-blue-400"
+                            : ""
+                            }`}
+                          onClick={() => {
+                            handleSizeChange(size);
+                          }}
+                        >
+                          <p>{size?.label}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-2 w-full mt-6">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="w-full text-base font-semibold"
+                >
+                  {isCreate ? "Create" : "Update"}
+                </Button>
+              </div>
             </form>
           </Form>
         </LoadingOverlay>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 import { BASEURL } from "@/common/config/constants/apiUrls";
 import { USER_TOKEN } from "@/common/config/constants/cookiesKeys";
@@ -42,14 +42,14 @@ axiosPrivate.interceptors.response.use(
   async (error) => {
     if (error.response && error.response.status === 401) {
       try {
-        // Make a request to refresh the token
-        // const refreshToken = getCookie("refreshToken");
-        // const refreshResponse = await axios.post("/refresh-token", {
-        //   refreshToken,
-        // });
 
-        // const { accessToken } = refreshResponse.data;
-        // setCookie("accessToken", accessToken); // Update the access token in cookies
+        const refreshToken = getCookie("refreshToken");
+        const refreshResponse = await axios.post("/refresh-token", {
+          refreshToken,
+        });
+
+        const { accessToken } = refreshResponse.data;
+        setCookie("accessToken", accessToken); 
 
         // Retry the failed request with the new token
         error.config.headers["Authorization"] = `Bearer ${accessToken}`;

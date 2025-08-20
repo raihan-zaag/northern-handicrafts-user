@@ -33,7 +33,7 @@ const useVerifyEmail = () => {
     setSuccess(null);
 
     // Determine the appropriate API URL based on the reset password flag
-    const url = Boolean(isResetPassword)
+    const url = isResetPassword
       ? VERIFY_OTP_FOR_RESET_PASSWORD
       : VERIFY_OTP_FOR_SIGNUP_USER;
 

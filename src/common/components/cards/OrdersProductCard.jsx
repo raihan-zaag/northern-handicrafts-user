@@ -19,10 +19,10 @@ import Image from "next/image";
 import { TiStarFullOutline } from "react-icons/ti";
 import ProductReviewForm from "./ProductReviewForm";
 import { useMakeOrderReview } from "@/app/(public)/products/hooks/useMakeProductReview";
-import { _checkIsPrescriptionEmpty } from "@/utils";
 import PrescriptionForm from "@/sections/productDetails/PrescriptionForm";
 import { IoCloseOutline } from "react-icons/io5";
 import { useUserContext } from "@/contextProviders/userContextProvider";
+import { _checkIsPrescriptionEmpty } from "@/common/lib/utils";
 
 const OrdersProductCard = ({ data, orderId, orderStatus, allOrderInfo }) => {
   const [isWriteReview, setIsWriteReview] = useState(false);

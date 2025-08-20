@@ -667,6 +667,7 @@ const PrescriptionForm = ({
                                                         handleSizeChange(size);
                                                         setLensPrice(size);
                                                         if (mode === "update") {
+                                                            console.log("Lens size updated:", size);
                                                         }
                                                     }}
                                                 >

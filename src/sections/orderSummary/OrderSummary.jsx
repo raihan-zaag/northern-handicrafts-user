@@ -1,11 +1,10 @@
 "use client";
 
 import { useCart } from "@/contextProviders/useCartContext";
-import { formatNumber } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { CHECKOUT_URL } from "@/common/config/constants/routes";
+import { formatNumber } from "@/common/lib/utils";
 
 const OrderSummary = ({
   total,

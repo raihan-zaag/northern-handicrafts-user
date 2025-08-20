@@ -1,26 +1,24 @@
 "use client";
-
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Container from "@/common/components/common/Container";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
-import CartDrawer from "@/sections/cart/Drawer";
-import { debounce } from "@/utils";
 import useGetCategories from "@/common/hooks/categories/useGetCategories";
 import { IMAGE_BASE_URL } from "@/common/config/constants/apiUrls";
 import Icons from "@/public/icons";
 import HeaderDrawer from "./Drawer";
 import { Input } from "@/common/components/ui/input";
-import { cn } from "@/lib/utils";
 import {
   PROFILE_MY_ACCOUNT_URL,
   LOGIN_URL
 } from "@/common/config/constants/routes";
 import { getHeaderMenuItems } from "@/common/config/constants/headerMenuItems";
 import { Menu, Search, ShoppingCart, UserRound } from "lucide-react";
+import { cn, debounce } from "@/common/lib/utils";
+import DrawerComponent from "@/sections/cart/Drawer";
 
 const HeaderComponent = () => {
   const router = useRouter();

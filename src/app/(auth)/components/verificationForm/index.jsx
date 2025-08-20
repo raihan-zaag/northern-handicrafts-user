@@ -7,7 +7,8 @@ import TimerDisplay from "./TimerDisplay";
 import { useRouter } from "next/navigation";
 import Button from "@/common/components/common/Button";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn } from "@/common/lib/utils";
+
 
 const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
   const [verificationCode, setVerificationCode] = useState("");
@@ -40,7 +41,7 @@ const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
         <p className="text-light-font2 text-sm font-normal leading-5 whitespace-normal md:whitespace-nowrap">
           We just sent a verification code to
           <span className="text-primary text-xs font-semibold">
-            &nbsp;"{verifyShortForm}"
+            &nbsp;{`"${verifyShortForm}"`}
           </span>
         </p>
       </div>

@@ -2,6 +2,7 @@ import * as React from "react"
 import { Star } from "lucide-react"
 import { cn } from "@/common/lib/utils"
 
+
 const StarRating = ({ 
   rating = 0, 
   totalStars = 5, 
@@ -9,15 +10,18 @@ const StarRating = ({
   readonly = true, 
   onRatingChange,
   className,
+  allowHalf,
   ref,
+  disabled,
+  
   ...props 
 }) => {
   const [hoverValue, setHoverValue] = React.useState(0)
-  const isInteractive = !disabled && onChange
+  const isInteractive = !disabled && onRatingChange
 
   const handleClick = (rating) => {
     if (isInteractive) {
-      onChange(rating)
+      onRatingChange(rating)
     }
   }
 
@@ -35,7 +39,7 @@ const StarRating = ({
 
   const getStarValue = (index) => {
     const starValue = index + 1
-    const currentValue = hoverValue || value
+    const currentValue = hoverValue || rating
     
     if (currentValue >= starValue) {
       return 'full'
@@ -52,7 +56,7 @@ const StarRating = ({
       className={cn("flex items-center gap-1", className)}
       {...props}
     >
-      {Array.from({ length: max }, (_, index) => {
+      {Array.from({ length: totalStars }, (_, index) => {
         const starState = getStarValue(index)
         const starValue = index + 1
         

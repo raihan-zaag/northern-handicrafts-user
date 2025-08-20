@@ -102,13 +102,13 @@ const LoginForm = () => {
     }
   };
 
-  const handleGoToCheckoutPage = () => {
-    if (cart?.length > 0) {
-      router.push(CHECKOUT_URL);
-    } else {
-      router.push(HOME_URL);
-    }
-  };
+  // const handleGoToCheckoutPage = () => {
+  //   if (cart?.length > 0) {
+  //     router.push(CHECKOUT_URL);
+  //   } else {
+  //     router.push(HOME_URL);
+  //   }
+  // };
 
   return (
     <div className="w-full bg-background max-w-600px p-8 px-4 sm:px-10 md:px-12 border border-border">
@@ -211,7 +211,7 @@ const LoginForm = () => {
 
         <div className="flex flex-col gap-4 mt-9 w-full">
           <p className="text-center text-sm text-light-font2">
-            Don't have an account?{" "}
+            {`Don't have an account?`}
             <Link
               href={SIGN_UP_URL}
               className="text-primary font-semibold hover:underline"

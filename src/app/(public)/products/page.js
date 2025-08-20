@@ -1,5 +1,6 @@
 import Container from "@/common/components/common/Container";
 import SliderComponent from "@/common/components/common/Slider";
+import { getProductData } from "@/data/dataUtils";
 import HomePageComponent from "@/sections/home";
 
 const Products = async ({ searchParams }) => {

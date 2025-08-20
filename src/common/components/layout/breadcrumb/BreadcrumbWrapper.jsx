@@ -4,7 +4,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import Container from "@/common/components/common/Container";
 import BreadcrumbComponent from "./index";
-import { cn } from "@/utils";
+import { cn } from "@/common/lib/utils";
 
 const BreadcrumbWrapper = ({
     hideOnHome = true,

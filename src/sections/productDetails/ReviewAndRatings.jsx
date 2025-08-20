@@ -102,11 +102,10 @@ const LeftSideContent = ({ ratings, data }) => {
         <div className="flex gap-x-2 md:gap-x-2.5">
           <button
             onClick={() => handleSelection("All")}
-            className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-3  rounded-sm text-sm duration-300 ${
-              selectedRating === "All"
-                ? "border-2 border-neutral-700 font-bold text-neutral-700"
-                : "border-2 border-neutral-30 text-gray font-medium"
-            }`}
+            className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-3  rounded-sm text-sm duration-300 ${selectedRating === "All"
+              ? "border-2 border-neutral-700 font-bold text-neutral-700"
+              : "border-2 border-neutral-30 text-gray font-medium"
+              }`}
           >
             All
           </button>
@@ -115,11 +114,10 @@ const LeftSideContent = ({ ratings, data }) => {
               <button
                 key={item.id}
                 onClick={() => handleSelection(item.rating)}
-                className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-4 rounded-sm ${
-                  selectedRating === item.rating
-                    ? "border-2 border-black font-bold text-neutral-700 rounded-sm"
-                    : "border-2 border-neutral-30 font-medium text-neutral-300"
-                }`}
+                className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-4 rounded-sm ${selectedRating === item.rating
+                  ? "border-2 border-black font-bold text-neutral-700 rounded-sm"
+                  : "border-2 border-neutral-30 font-medium text-neutral-300"
+                  }`}
               >
                 <div className="flex justify-center items-center gap-x-2">
                   <p className=" text-sm font-medium text-neutral-700 text-opacity-80">
@@ -154,8 +152,10 @@ const Comments = ({ data }) => {
   return (
     <div className="animate-fadeIn w-full ">
       {data?.length > 0 ? (
-        data?.map((item) => (
-          <div className="flex flex-col py-4 border-b">
+        data?.map((item, i) => (
+          <div className="flex flex-col py-4 border-b"
+            key={i}
+          >
             <div key={item.id} className="w-full flex gap-x-3 md:gap-x-4">
               <Image
                 alt={item.name}
@@ -190,7 +190,7 @@ const Comments = ({ data }) => {
                   </p>
                 </div>
 
-        <p className="text-gray-mid2 text-sm leading-4 md:leading-5">
+                <p className="text-gray-mid2 text-sm leading-4 md:leading-5">
                   {item.comment}
                 </p>
               </div>
@@ -200,7 +200,7 @@ const Comments = ({ data }) => {
       ) : (
         <NoCommentDataFound
           message="No Reviews Yet!"
-      className="w-full text-red-400 bg-red-100"
+          className="w-full text-red-400 bg-red-100"
         />
       )}
     </div>

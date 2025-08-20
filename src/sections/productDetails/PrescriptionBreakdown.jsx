@@ -1,5 +1,5 @@
+import { formatNumber } from "@/common/lib/utils";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
-import { formatNumber } from "@/utils";
 import React from "react";
 
 const PrescriptionBreakdown = ({ priceForValue, cartInfo = {}, mode }) => {

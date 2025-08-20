@@ -1,4 +1,4 @@
-import { formatAddress, formatText, formatTimestamp } from "@/utils";
+import { formatAddress, formatText, formatTimestamp } from "@/common/lib/utils";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRightLong } from "react-icons/fa6";

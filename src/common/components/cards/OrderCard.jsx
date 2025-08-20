@@ -1,4 +1,4 @@
-import { formatText, formatTimestamp } from "@/utils";
+
 import { ImCancelCircle } from "react-icons/im";
 import React from "react";
 import { IoEyeOutline } from "react-icons/io5";
@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import useUpdateOrderStatus from "@/app/(public)/orders/hooks/useMakeChangeOrderStatus";
 import { Spinner } from "@/common/components/ui/spinner";
 import { PROFILE_TRACK_ORDER_DYNAMIC_URL } from "@/common/config/constants/routes";
+import { formatText, formatTimestamp } from "@/common/lib/utils";
 
 const OrderCard = ({ order, ongoingOrders = [], setOngoingOrders }) => {
   const router = useRouter();

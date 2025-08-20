@@ -154,23 +154,22 @@ export const resendOTP = async (email) => {
   }
 };
 
-/**
- * Logout user (client-side cleanup)
- * @returns {Promise<Object>} Logout response
- */
+
 export const logout = async () => {
   try {
-    // Perform any server-side logout if needed
-    // For now, we'll just return success for client-side cleanup
+    console.log("Logging out");
     return {
       success: true,
-      message: "Logged out successfully"
+      message: "Logged out successfully",
     };
   } catch (error) {
-    throw {
+    const err = error instanceof Error ? error.message : String(error);
+    return {
       success: false,
       message: "Logout failed",
-      error: error.message
+      error: err,
     };
   }
 };
+
+

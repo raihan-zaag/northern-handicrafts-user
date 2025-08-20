@@ -10,13 +10,13 @@ import PriceBreakdown from "../Checkout/PriceBreakdown";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { MdOutlineEdit } from "react-icons/md";
-import { formatNumber } from "@/utils";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import Icons from "../../../public/icons";
 import PrescriptionModal from "../productDetails/PrescriptionModal";
+import { formatNumber } from "@/common/lib/utils";
 
 function SingleCartItemCard({
   cartInfo,

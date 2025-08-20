@@ -11,15 +11,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/common/components/ui/Breadcrumb";
-import { generateBreadcrumbPath } from "@/utils";
+import { generateBreadcrumbPath } from "@/common/lib/utils";
+
 
 const NextBreadcrumb = () => {
   const paths = usePathname();
-  const pathNames = paths.split("/").filter((path) => path);
+  // const pathNames = paths.split("/").filter((path) => path);
   const toPascalCase = (string) => (string ? string : "");
   const breadcrumbPath = () => {
     const removeQuestionMark = paths.replace(/\?/g, "/");
-    const removeEquals = removeQuestionMark.replace(/\=/g, "/");
+    // const removeEquals = removeQuestionMark.replace(/\=/g, "/");
     const pathToPascalCase = toPascalCase(removeQuestionMark);
 
     return pathToPascalCase.split("/").slice(1);

@@ -50,7 +50,7 @@ export const useManageSingleCartProduct = (productData) => {
 
     // Recalculate the total price with the new color price
     setTotalPrice(() => {
-      const basePrice = data?.priceAfterDiscount ?? data?.regularPrice;
+      const basePrice = productData?.priceAfterDiscount ?? productData?.regularPrice;
       //   const sizePrice =
       //     sizeList?.find((size) => size.value === selectedSize)?.price || 0;
       const colorPrice = item?.price || 0;
@@ -59,7 +59,7 @@ export const useManageSingleCartProduct = (productData) => {
     });
 
     setCalculatePriceForSingleProduct(() => {
-      const basePrice = data?.priceAfterDiscount ?? data?.regularPrice;
+      const basePrice = productData?.priceAfterDiscount ?? productData?.regularPrice;
       //   const sizePrice =
       //     sizeList?.find((size) => size.value === selectedSize)?.price || 0;
       const colorPrice = item?.price || 0;

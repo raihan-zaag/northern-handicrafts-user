@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
 import Button from "@/components/common/Button";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -10,13 +8,12 @@ import {
   SheetTitle,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { MdClose } from "react-icons/md";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useNotification from "@/hooks/useNotification";
-import { formatNumber } from "@/utils";
 import SingleCartItemCard from "./SingleCartItemCard";
+import { formatNumber } from "@/common/lib/utils";
 
 const DrawerComponent = () => {
   const router = useRouter();
@@ -71,7 +68,7 @@ const DrawerComponent = () => {
 
   return (
     <Sheet open={openCartDrawer} onOpenChange={setOpenCartDrawer}>
-  <SheetContent side="right" className="w-full max-w-500px flex flex-col">
+      <SheetContent side="right" className="w-full max-w-500px flex flex-col">
         <SheetHeader>
           <SheetTitle className="flex flex-row items-center justify-between">
             <h2>My Cart ({cart?.length})</h2>
