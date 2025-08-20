@@ -7,10 +7,10 @@ import TabButton from "@/common/components/common/TabButton";
 import PaginationComponent from "@/common/components/pagination";
 import useGetOnGoingOrder from "@/app/(public)/orders/hooks/useGetOnGoingOrder";
 import useGetOrderHistory from "@/app/(public)/orders/hooks/useGetOrderHistory ";
-import { debounce } from "@/utils";
 import { Input } from "@/common/components/ui/input";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { debounce } from "@/common/lib/utils";
 
 const MyOrders = () => {
   const [activeTab, setActiveTab] = React.useState(profileOrderTabList[0]);

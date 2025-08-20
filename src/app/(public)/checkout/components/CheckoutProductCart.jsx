@@ -18,7 +18,8 @@ import {
 } from "@/common/components/ui/popover";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import PriceBreakdown from "@/sections/Checkout/PriceBreakdown";
-import { formatNumber } from "@/utils";
+import { formatNumber } from "@/common/lib/utils";
+
 
 function CheckoutProductCard({ cartInfo, pageCard = false }) {
   const [isPrescriptionModalOpen, setIsPrescriptionModalOpen] = useState(false);
