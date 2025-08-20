@@ -7,7 +7,7 @@ import {
   paginateSampleProducts,
   getCategoriesData,
   getSizesData 
-} from '../data/dataUtils';
+} from '../../data/dataUtils';
 
 // Simulate network delay
 const delay = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms));
