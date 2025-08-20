@@ -4,6 +4,10 @@ import CategorySections from "@/sections/landing/CategorySections";
 import VideoPlaybackSection from "@/sections/landing/VideoPlaybackSection";
 import TextContentSection from "@/sections/landing/TextContentSection";
 import TopListedProductSections from "@/sections/landing/TopListedProductSections";
+import LandingHero from "@/sections/landing/LandingHero";
+import TestimonialsSection from "@/sections/landing/TestimonialsSection";
+import EmpoweringWomenSection from "@/sections/landing/EmpoweringWomenSection";
+import ServiceSections from "@/sections/landing/ServiceSections";
 
 const Home = async ({ searchParams }) => {
     // Fetch the filtered product list on the server-side
@@ -74,6 +78,56 @@ const Home = async ({ searchParams }) => {
     };
 
 
+    // Sample data for Empowering Women Section
+    const empoweringWomenData = {
+        title: (
+            <>
+                Empowering Women,{" "}
+                <span className="block">Preserving Tradition</span>
+            </>
+        ),
+        description: "At Local Women&apos;s Handicrafts, our mission is to provide fair wages, education, and empowerment to women artisans. Through our sustainable and ethical entrepreneurial model, we create job opportunities in some of the world&apos;s most underprivileged communities. Our vision is to build a textile industry rooted in dignity, human rights, and environmental responsibility — where every product tells a story of resilience and hope.",
+        images: [
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan working on handicrafts"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan crafting traditional items"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan at work"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan weaving"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan creating handicrafts"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan working with textiles"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan in traditional dress working"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan crafting traditional products"
+            },
+            {
+                src: "/images/image_placeholder.png",
+                alt: "Woman artisan working on handicrafts"
+            }
+        ]
+    };
+
+
     return (
         <div className="">
             {/* New SliderBanner Component */}
@@ -91,8 +145,13 @@ const Home = async ({ searchParams }) => {
                 categories={categories}
             />
 
+            <EmpoweringWomenSection data={empoweringWomenData} />
+
             <VideoPlaybackSection />
             <TopListedProductSections />
+            <LandingHero />
+            <TestimonialsSection/>
+            {/* <ServiceSections /> */}
         </div>
     );
 };
