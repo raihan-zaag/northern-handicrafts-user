@@ -111,7 +111,7 @@ const LoginForm = () => {
   // };
 
   return (
-    <div className="w-full bg-background max-w-600px p-8 px-4 sm:px-10 md:px-12 border border-border">
+    <div className="w-600px bg-background p-8 px-4 sm:px-10 md:px-12 border border-border">
       <div className="mb-5">
         <h2 className="text-2xl font-semibold text-left mb-2">Sign In</h2>
         <span className="text-gray-medium text-left mb-6 font-light">

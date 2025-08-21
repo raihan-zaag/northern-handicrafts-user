@@ -3,9 +3,9 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator"
 import { cn } from "@/common/lib/utils"
 
 const Separator = ({
-  className, 
-  orientation = "horizontal", 
-  decorative = true, 
+  className,
+  orientation = "horizontal",
+  decorative = true,
   ref,
   ...props
 }) => (
@@ -14,8 +14,8 @@ const Separator = ({
     decorative={decorative}
     orientation={orientation}
     className={cn(
-  "shrink-0 bg-border",
-  orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
+      "shrink-0 bg-border",
+      orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
       className
     )}
     {...props}

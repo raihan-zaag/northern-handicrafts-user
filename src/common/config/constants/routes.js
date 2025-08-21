@@ -41,6 +41,7 @@ export const PROFILE_MY_ORDERS_TRACK_ORDER_URL = "/profile/my-orders/track-order
 
 // Legal Routes
 export const TERMS_AND_CONDITION_URL = "/terms-and-condition";
+export const ABOUT_US_URL = "/about-us";
 export const PRIVACY_POLICY_URL = "/privacy-policy";
 export const SHIPPING_POLICY_URL = "/shipping-policy";
 export const REFUND_POLICY_URL = "/refund-policy";

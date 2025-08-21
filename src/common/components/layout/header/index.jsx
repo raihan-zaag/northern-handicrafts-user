@@ -159,7 +159,7 @@ const HeaderComponent = () => {
 
             <div className="relative cursor-pointer hover:text-primary transition-colors duration-300">
               {cart?.length ? (
-                <span className="absolute -top-1 -right-6 inline-flex items-center justify-center rounded-full text-xxs h-4 min-w-4 px-1 font-semibold">
+                <span className="absolute -top-1 -right-6 inline-flex items-center justify-center rounded-full text-xs h-4 min-w-4 px-1 font-semibold">
                   ( {cart.length} )
                 </span>
               ) : null}
