@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import CounterBtn from "@/components/common/CounterButton";
+
 import { useCart } from "@/contextProviders/useCartContext";
 import { IoAddOutline } from "react-icons/io5";
 import useNotification from "@/hooks/useNotification";
@@ -17,6 +17,7 @@ import { useUserContext } from "@/contextProviders/userContextProvider";
 import Icons from "../../../public/icons";
 import PrescriptionModal from "../productDetails/PrescriptionModal";
 import { formatNumber } from "@/common/lib/utils";
+import CounterBtn from "@/common/components/shared/CounterButton";
 
 function SingleCartItemCard({
   cartInfo,

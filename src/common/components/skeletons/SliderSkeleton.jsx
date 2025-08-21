@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import Container from "../common/container";
+import { Container } from "../common";
 
 const SliderSkeleton = () => {
     return (

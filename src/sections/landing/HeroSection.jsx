@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import Container from "@/common/components/common/Container";
 import Typography from "@/common/components/Typography";
 import { Button } from "@/common/components/ui/button";
+import Container from '@/common/components/shared/Container';
 
 const HeroSection = ({
   backgroundImage = "/images/hero-background.jpg",

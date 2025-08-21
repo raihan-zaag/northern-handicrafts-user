@@ -1,4 +1,4 @@
-import Container from '@/common/components/common/Container';
+import Container from '@/common/components/shared/Container';
 import Typography from '@/common/components/Typography';
 import Image from 'next/image';
 

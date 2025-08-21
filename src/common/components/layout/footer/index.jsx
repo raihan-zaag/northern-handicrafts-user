@@ -8,7 +8,7 @@ import useNotification from "@/common/hooks/useNotification";
 import useCreateNewsletter from "@/common/hooks/newsletter/useCreateNewsletter";
 import Link from "next/link";
 import useGetCategories from "@/common/hooks/categories/useGetCategories";
-import Container from "@/common/components/common/Container";
+
 import {
   HOME_URL,
   TRACK_ORDER_URL,
@@ -21,6 +21,7 @@ import {
   ACCESSIBILITY_STATEMENT_URL,
   CUSTOMER_SUPPORT_URL
 } from "@/common/config/constants/routes";
+import Container from "../../shared/Container";
 
 const Footer = () => {
   const [email, setEamil] = useState("");

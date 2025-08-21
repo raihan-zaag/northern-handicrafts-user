@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import Container from '@/common/components/common/Container';
 import Typography from '@/common/components/Typography';
 import SingleProduct from '@/sections/home/SingleProduct';
 import ProductCardSkeleton from '@/skeleton/ProductCardSkeleton';
@@ -9,6 +8,7 @@ import { sampleProductService } from '@/common/services/sampleProductService';
 import Link from 'next/link';
 import { Button } from '@/common/components/ui';
 import { cn } from '@/common/lib/utils';
+import Container from '@/common/components/shared/Container';
 
 const TopListedProductSections = ({
     title = "Jute Materials",

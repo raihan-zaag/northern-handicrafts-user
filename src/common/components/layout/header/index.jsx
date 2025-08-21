@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Container from "@/common/components/common/Container";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
 import useGetCategories from "@/common/hooks/categories/useGetCategories";
@@ -19,6 +18,7 @@ import { getHeaderMenuItems } from "@/common/config/constants/headerMenuItems";
 import { Menu, Search, ShoppingCart, UserRound } from "lucide-react";
 import { cn, debounce } from "@/common/lib/utils";
 import DrawerComponent from "@/sections/cart/Drawer";
+import Container from "../../shared/Container";
 
 const HeaderComponent = () => {
   const router = useRouter();

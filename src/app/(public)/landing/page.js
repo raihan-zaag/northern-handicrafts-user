@@ -151,7 +151,7 @@ const Home = async ({ searchParams }) => {
             <TopListedProductSections />
             <LandingHero />
             <TestimonialsSection/>
-            {/* <ServiceSections /> */}
+            <ServiceSections />
         </div>
     );
 };

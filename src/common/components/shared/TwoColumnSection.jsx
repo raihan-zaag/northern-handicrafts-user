@@ -1,7 +1,7 @@
-import Container from "@/common/components/common/Container";
 import Typography from "@/common/components/Typography";
 import Image from "next/image";
 import { cn } from "@/common/lib/utils";
+import Container from "./Container";
 
 const TwoColumnSection = ({ 
     title, 

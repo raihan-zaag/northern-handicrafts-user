@@ -1,4 +1,4 @@
-import TwoColumnSection from "@/common/components/common/TwoColumnSection";
+import TwoColumnSection from "@/common/components/shared/TwoColumnSection";
 
 const EmpoweringWomenSection = () => {
     // Default data if none provided

@@ -1,6 +1,8 @@
+'use client'
 
-import { Container } from '@/common/components';
-import Typography from '@/common/components/Typography';
+import Container from "@/common/components/shared/Container";
+import Typography from "@/common/components/Typography";
+
 
 const ServiceSections = () => {
     const services = [
