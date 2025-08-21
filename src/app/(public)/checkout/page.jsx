@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -18,9 +18,6 @@ import {
     FormMessage,
 } from "@/common/components/ui/form";
 import Link from "next/link";
-
-import Button from "@/common/components/common/Button";
-import Container from "@/common/components/common/Container";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import useGetDefaultSettings from "@/app/(public)/checkout/hooks/useGetSettingsInfo";
@@ -32,6 +29,8 @@ import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
 import GuestUserAddressForm from "@/sections/checkout/GuestUserAddressForm";
 import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
 import OrderSummary from "@/sections/orderSummary/OrderSummary";
+import Container from "@/common/components/shared/Container";
+import { Button } from "@/common/components";
 
 // Checkout form schema with dynamic validation
 const createCheckoutSchema = (isAuthenticated) => {

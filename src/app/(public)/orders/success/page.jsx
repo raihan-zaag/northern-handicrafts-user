@@ -1,11 +1,11 @@
 "use client";
 
-import Button from "@/common/components/common/Button";
-import Container from "@/common/components/common/Container";
 import Image from "next/image";
 import React from "react";
 import { redirect, useRouter } from "next/navigation";
 import { HOME_URL } from "@/common/config/constants/routes";
+import Container from "@/common/components/shared/Container";
+import { Button } from "@/common/components";
 
 function OrderSuccess() {
   const router = useRouter();

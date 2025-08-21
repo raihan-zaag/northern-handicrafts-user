@@ -1,6 +1,6 @@
 import BreadcrumbWrapper from "@/common/components/layout/breadcrumb/BreadcrumbWrapper";
-import TopHeading from "@/common/components/common/TopHeading";
 import Footer from "@/common/components/layout/footer";
+import TopHeading from "@/common/components/shared/TopHeading";
 export default function AuthLayout({ children }) {
     return (
         <div className="bg-secondary-bg">

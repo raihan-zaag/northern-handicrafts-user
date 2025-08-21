@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -15,10 +14,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/common/components/ui/form";
-import Button from "@/common/components/common/Button";
-import InputLabel from "@/common/components/common/InputLabel";
 import Typography from "@/common/components/Typography";
 import useCreateContactInfo from "@/common/hooks/contactus/useContactUs";
+import { Button } from "@/common/components";
+import InputLabel from "@/common/components/shared/InputLabel";
 
 // Contact form schema
 const contactSchema = z.object({

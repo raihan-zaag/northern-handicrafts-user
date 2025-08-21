@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@/components/Typography";
 import useGetCategories from "@/hooks/categories/useGetCategories";
-import { Checkbox, Collapse, Menu, Radio, Slider } from "antd";
+// import { Checkbox, Collapse, Menu, Radio, Slider } from "antd";
 import { Separator } from "@/components/ui/separator";
 import { useRouter, useSearchParams } from "next/navigation";
 import { HiPlus, HiMinus } from "react-icons/hi";
@@ -245,20 +245,18 @@ const Filter = ({
             key: "1",
             label: (
                 <p
-                    className={`font-semibold text-base text-gray-dark whitespace-nowrap ${
-                        isSmallScreen ? "pl-6" : "pl-0"
-                    }`}
+                    className={`font-semibold text-base text-gray-dark whitespace-nowrap ${isSmallScreen ? "pl-6" : "pl-0"
+                        }`}
                 >{`Categories (${checkedItems.length})`}</p>
             ),
             children: (
                 <>
-                    <Menu
+                    {/* <Menu
                         mode="inline"
                         style={{
                             border: "none",
-                            padding: `${
-                                isSmallScreen ? "0px 0px 0px 24px" : "0px"
-                            }`,
+                            padding: `${isSmallScreen ? "0px 0px 0px 24px" : "0px"
+                                }`,
                             margin: 0,
                         }}
                     >
@@ -329,7 +327,7 @@ const Filter = ({
                                 </Menu.Item>
                             ))
                         )}
-                    </Menu>
+                    </Menu> */}
                     {/* <Divider
             style={{ padding: "0px 0px 0px 0px", margin: "10px 0px 0px 0px" }}
           /> */}
@@ -341,16 +339,15 @@ const Filter = ({
             key: "2",
             label: (
                 <p
-                    className={`font-semibold text-base text-gray-dark ${
-                        isSmallScreen ? "ml-6" : ""
-                    }`}
+                    className={`font-semibold text-base text-gray-dark ${isSmallScreen ? "ml-6" : ""
+                        }`}
                 >
                     Sort By
                 </p>
             ),
             children: (
                 <div>
-                    <Menu
+                    {/* <Menu
                         mode="inline"
                         style={{
                             border: "none",
@@ -388,7 +385,7 @@ const Filter = ({
                                 </Menu.Item>
                             ))}
                         </Radio.Group>
-                    </Menu>
+                    </Menu> */}
                     {/* <Divider
             style={{
               padding: "0px 0px 0px 0px",
@@ -404,16 +401,15 @@ const Filter = ({
             key: "3",
             label: (
                 <p
-                    className={`font-semibold text-base text-gray-dark ${
-                        isSmallScreen ? "ml-6" : ""
-                    }`}
+                    className={`font-semibold text-base text-gray-dark ${isSmallScreen ? "ml-6" : ""
+                        }`}
                 >
                     Price
                 </p>
             ),
             children: (
                 <div>
-                    <Slider
+                    {/* <Slider
                         range
                         step={1}
                         // defaultValue={priceFilter}
@@ -424,7 +420,7 @@ const Filter = ({
                         min={0}
                         max={400}
                         arrow={false}
-                    />
+                    /> */}
 
                     <div className="flex items-center justify-between">
                         <p>Min</p>
@@ -446,7 +442,7 @@ const Filter = ({
             <Separator className="my-0" />
 
             <div className="">
-                <Collapse
+                {/* <Collapse
                     defaultActiveKey={["1", "2", "3"]}
                     className="border-none"
                     style={{
@@ -469,7 +465,7 @@ const Filter = ({
                             </>
                         );
                     }}
-                ></Collapse>
+                ></Collapse> */}
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -15,9 +15,9 @@ import {
   FormMessage,
 } from "@/common/components/ui/form";
 import { IMAGE_BASE_URL } from "@/common/config/constants/apiUrls";
-import Button from "../common/Button";
-import RatingBtn from "../common/RatingBtn";
 import Icons from "@/public/icons";
+import RatingBtn from "../shared/RatingBtn";
+import { Button } from "../ui";
 
 // Review form schema
 const reviewSchema = z.object({

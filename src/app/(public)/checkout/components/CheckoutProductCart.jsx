@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
-import PrescriptionForm from "@/sections/productDetails/PrescriptionForm";
 import { Separator } from "@/common/components/ui/separator";
 import {
   Sheet,
@@ -131,19 +130,6 @@ function CheckoutProductCard({ cartInfo, pageCard = false }) {
               </div>
               <Separator />
             </SheetHeader>
-            <div className="mt-4">
-              <PrescriptionForm
-                mode={"view"}
-                onSubmit={() => {}}
-                handleSkipAddPrescription={handleOpenClosePrescriptionModal}
-                prescriptionInfo={cartInfo?.prescription || {}}
-                onDelete={() => {}}
-                showPriceBreakDown={false}
-                showButtons={false}
-                readOnly={true}
-                cartInfo={cartInfo}
-              />
-            </div>
           </SheetContent>
         </Sheet>
       )}

@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import Button from "@/common/components/common/Button";
-import Container from "@/common/components/common/Container";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import useOrderById from "@/app/(public)/orders/hooks/useOrderById";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
 import { PROFILE_TRACK_ORDER_DYNAMIC_URL, TRACK_ORDER_URL } from "@/common/config/constants/routes";
+import Container from "@/common/components/shared/Container";
+import { Button } from "@/common/components";
 
 const OrderFailed = ({ params }) => {
     const router = useRouter();

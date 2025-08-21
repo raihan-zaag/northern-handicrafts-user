@@ -5,9 +5,9 @@ import { useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/common/components/ui/input-otp";
 import TimerDisplay from "./TimerDisplay";
 import { useRouter } from "next/navigation";
-import Button from "@/common/components/common/Button";
 import Image from "next/image";
 import { cn } from "@/common/lib/utils";
+import { Button } from "@/common/components";
 
 
 const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {

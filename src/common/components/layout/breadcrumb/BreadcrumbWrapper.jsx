@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
 import { usePathname } from "next/navigation";
-import Container from "@/common/components/common/Container";
 import BreadcrumbComponent from "./index";
 import { cn } from "@/common/lib/utils";
+import Container from "../../shared/Container";
 
 const BreadcrumbWrapper = ({
     hideOnHome = true,

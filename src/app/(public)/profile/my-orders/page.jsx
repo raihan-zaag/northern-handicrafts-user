@@ -1,9 +1,7 @@
 "use client";
 
 import OrderCard from "@/common/components/cards/OrderCard";
-import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
-import RowSkeleton from "@/common/components/common/RowSkeleton";
-import TabButton from "@/common/components/common/TabButton";
+
 import PaginationComponent from "@/common/components/pagination";
 import useGetOnGoingOrder from "@/app/(public)/orders/hooks/useGetOnGoingOrder";
 import useGetOrderHistory from "@/app/(public)/orders/hooks/useGetOrderHistory ";
@@ -11,6 +9,9 @@ import { Input } from "@/common/components/ui/input";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { debounce } from "@/common/lib/utils";
+import TabButton from "@/common/components/shared/TabButton";
+import RowSkeleton from "@/common/components/shared/RowSkeleton";
+import EmptyDataSkeleton from "@/common/components/shared/EmptyDataSkeleton";
 
 const MyOrders = () => {
   const [activeTab, setActiveTab] = React.useState(profileOrderTabList[0]);

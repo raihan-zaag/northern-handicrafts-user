@@ -1,14 +1,14 @@
 "use client";
 
-import Button from "@/common/components/common/Button";
-import Container from "@/common/components/common/Container";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import SingleCartItemCard from "@/sections/cart/SingleCartItemCard";
 import { Input } from "@/common/components/ui/input";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import OrderSummary from "@/sections/orderSummary/OrderSummary";
+import { Button } from "@/common/components";
+import Container from "@/common/components/shared/Container";
 
 const MyCart = () => {
   const { isAuthenticated } = useUserContext();
@@ -105,11 +105,11 @@ const MyCart = () => {
 
   return (
     <Container>
-  <h2 className="text-center font-semibold text-base md:text-base lg:text-2xl">
+      <h2 className="text-center font-semibold text-base md:text-base lg:text-2xl">
         Shopping Cart
       </h2>
 
-  <div className="grid grid-cols-3 gap-6 md:gap-24 mt-12">
+      <div className="grid grid-cols-3 gap-6 md:gap-24 mt-12">
         {/* Cart List */}
         <div className="col-span-3 md:col-span-3 lg:col-span-2">
           {cart?.length > 0 ? (
@@ -129,14 +129,14 @@ const MyCart = () => {
               })}
             </div>
           ) : (
-      <div className="bg-white h-400px flex flex-col items-center justify-center gap-6">
+            <div className="bg-white h-400px flex flex-col items-center justify-center gap-6">
               <h1 className="font-medium text-xl text-slate-500">
                 No items added
               </h1>
               <Link href={"/"}>
                 <Button
                   className={
-        " md:py-3 py-2 md:px-9 px-6 bg-primary rounded-sm text-dark md:text-base text-sm font-semibold"
+                    " md:py-3 py-2 md:px-9 px-6 bg-primary rounded-sm text-dark md:text-base text-sm font-semibold"
                   }
                 >
                   START SHOPPING
@@ -147,7 +147,7 @@ const MyCart = () => {
         </div>
 
         {/* Order Summary */}
-  <div className="col-span-3 md:col-span-3 lg:col-span-1">
+        <div className="col-span-3 md:col-span-3 lg:col-span-1">
           <OrderSummary
             total={
               cart?.length > 0 ? calculatedData?.totalProductPriceAfterPromo : 0
@@ -155,7 +155,7 @@ const MyCart = () => {
             subTotal={
               cart?.length > 0
                 ? calculatedData?.totalProductPrice +
-                  calculatedData?.totalExtraCharge
+                calculatedData?.totalExtraCharge
                 : 0
             }
             taxPercentage={calculatedData?.taxPercentage}

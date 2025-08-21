@@ -1,9 +1,9 @@
 "use client";
 
-import Container from "@/common/components/common/Container";
 import useFetchStaticContent from "@/common/hooks/staticPageContent/useStaticPageContent";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Spinner } from "@/common/components/ui/spinner";
+import Container from "@/common/components/shared/Container";
 
 const PrivacyPolicyPage = () => {
   const { fetchData, data, error, loading } = useFetchStaticContent();
@@ -14,7 +14,7 @@ const PrivacyPolicyPage = () => {
 
   if (loading) {
     return (
-  <div className="relative min-h-200px">
+      <div className="relative min-h-200px">
         <div className="fixed inset-0 grid place-items-center bg-background/60 z-50">
           <Spinner size="xl" className="text-primary" />
         </div>

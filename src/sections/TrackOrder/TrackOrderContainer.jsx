@@ -1,11 +1,10 @@
 "use client";
-import EmptyDataSkeleton from "@/components/common/EmptyDataSkeleton";
-import RowSkeleton from "@/components/common/RowSkeleton";
 import useOrderById from "@/hooks/order/useOrderById";
 import React from "react";
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
-import TextSkeleton from "@/components/common/TextSkeleton";
+import EmptyDataSkeleton from "@/common/components/shared/EmptyDataSkeleton";
+import TextSkeleton from "@/common/components/shared/TextSkeleton";
 
 const TrackOrderContainer = ({ orderId }) => {
   const [orderDetails, setOrderDetails] = React.useState(null);

@@ -1,5 +1,5 @@
-import Container from "@/common/components/common/Container";
-import SliderComponent from "@/common/components/common/Slider";
+import Container from "@/common/components/shared/Container";
+import SliderComponent from "@/common/components/shared/Slider";
 import { getProductData } from "@/data/dataUtils";
 import HomePageComponent from "@/sections/home";
 

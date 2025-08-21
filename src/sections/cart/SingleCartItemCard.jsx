@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { useCart } from "@/contextProviders/useCartContext";
@@ -15,7 +15,6 @@ import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductPro
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import Icons from "../../../public/icons";
-import PrescriptionModal from "../productDetails/PrescriptionModal";
 import { formatNumber } from "@/common/lib/utils";
 import CounterBtn from "@/common/components/shared/CounterButton";
 
@@ -103,7 +102,7 @@ function SingleCartItemCard({
       prescription: prescriptionInfo,
       productPrice: formatNumber(
         (cartInfo?.productBasePrice + prescriptionPrice + lense_index_price) *
-          quantity
+        quantity
       ),
     };
 
@@ -169,150 +168,165 @@ function SingleCartItemCard({
           height={1000}
           width={1000}
           quality={100}
-          className={`${
-            pageCard ? "w-100px h-112px" : "w-120px h-153px"
-          }  object-fit bg-bg-light-gray`}
+          className={`${pageCard ? "w-100px h-112px" : "w-120px h-153px"
+            }  object-fit bg-bg-light-gray`}
         />
 
-      {/* cart details */}
-      <div className="flex flex-col bg-red flex-1 gap-2">
-        {/* Title and Price */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-900 mb-0">
-            {cartInfo?.productName}
-          </h3>
-          <div className="flex flex-row items-center  gap-3">
-            <p className="text-base font-semibold text-gray-800">
-              ${formatNumber(productPrice)}
-            </p>
-            <Popover>
-              <PopoverTrigger asChild>
-                <p className="underline font-medium text-xxs sm:text-xs cursor-pointer block md:block">
-                  Price Breakdown
-                </p>
-              </PopoverTrigger>
-              <PopoverContent className="w-80">
-                <PriceBreakdown cartInfo={cartInfo} />
-              </PopoverContent>
-            </Popover>
-          </div>
-        </div>
-
-        {/* Attributes */}
-        <div className="flex items-center gap-2">
-          {cartInfo?.productColorId && (
-            <div className="bg-bg-light-gray px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
-              Color :
-              <span className={`font-medium `}>{cartInfo?.productColor}</span>
-            </div>
-          )}
-          <div className="bg-bg-light-gray px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
-            Lens Index :{" "}
-            <span className="font-medium">
-              {cartInfo?.prescription?.productSize}
-            </span>
-          </div>
-        </div>
-
-        {pageCard && showButton ? (
+        {/* cart details */}
+        <div className="flex flex-col bg-red flex-1 gap-2">
+          {/* Title and Price */}
           <div>
-            <div className="block md:hidden">
-              <CounterBtn
-                maxLimit={Number(cartInfo?.totalQuantity)}
-                handleCurrentCount={handleCurrentCount}
-                disabled={false}
-                current={quantity}
-                isCart={true}
-              />
-            </div>
-          </div>
-        ) : null}
-
-        {/* Quantity Control */}
-        {!pageCard && showButton ? (
-          <CounterBtn
-            maxLimit={cartInfo?.totalQuantity}
-            handleCurrentCount={handleCurrentCount}
-            disabled={false}
-            current={quantity}
-            isCart={true}
-          />
-        ) : null}
-
-        {isPrescriptionEmpty() ? (
-          <div className="">
-            <button
-              className="text-blue-500 text-sm font-medium flex items-center gap-1 "
-              onClick={handleOpenClosePrescriptionModal}
-            >
-              <span>
-                <IoAddOutline className="h-5 w-5 text-blue-500" />
-              </span>
-              Add Prescription
-            </button>
-
-            {pageCard && (
+            <h3 className="text-sm font-medium text-gray-900 mb-0">
+              {cartInfo?.productName}
+            </h3>
+            <div className="flex flex-row items-center  gap-3">
+              <p className="text-base font-semibold text-gray-800">
+                ${formatNumber(productPrice)}
+              </p>
               <Popover>
                 <PopoverTrigger asChild>
-                  <p className="underline font-medium text-xs cursor-pointer block md:hidden">
-                    See price Breakdown
+                  <p className="underline font-medium text-xxs sm:text-xs cursor-pointer block md:block">
+                    Price Breakdown
                   </p>
                 </PopoverTrigger>
                 <PopoverContent className="w-80">
                   <PriceBreakdown cartInfo={cartInfo} />
                 </PopoverContent>
               </Popover>
-            )}
-          </div>
-        ) : (
-          <div className="">
-            <button
-              className="text-blue-500 text-sm font-medium flex items-center gap-1 "
-              onClick={handleOpenClosePrescriptionModal}
-            >
-              <span>
-                <MdOutlineEdit className="h-5 w-5 text-blue-500" />
-              </span>
-              Edit Prescription
-            </button>
-
-            {pageCard && (
-              <Popover
-                title={null}
-                content={<PriceBreakdown cartInfo={cartInfo} />}
-                arrow={false}
-                placement={"bottom"}
-              >
-                <p className="underline font-medium text-xs cursor-pointer block md:hidden">
-                  See price Breakdown
-                </p>
-              </Popover>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Product Details */}
-
-      {/* delete and  quantity button */}
-      {showButton ? (
-        pageCard ? (
-          <div className="flex gap-12">
-            <div className="hidden md:block">
-              <CounterBtn
-                maxLimit={Number(cartInfo?.totalQuantity)}
-                handleCurrentCount={handleCurrentCount}
-                disabled={false}
-                current={quantity}
-                isCart={true}
-              />
             </div>
+          </div>
 
+          {/* Attributes */}
+          <div className="flex items-center gap-2">
+            {cartInfo?.productColorId && (
+              <div className="bg-bg-light-gray px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
+                Color :
+                <span className={`font-medium `}>{cartInfo?.productColor}</span>
+              </div>
+            )}
+            <div className="bg-bg-light-gray px-1 md:px-2 py-1 text-xs md:text-sm rounded border whitespace-nowrap">
+              Lens Index :{" "}
+              <span className="font-medium">
+                {cartInfo?.prescription?.productSize}
+              </span>
+            </div>
+          </div>
+
+          {pageCard && showButton ? (
+            <div>
+              <div className="block md:hidden">
+                <CounterBtn
+                  maxLimit={Number(cartInfo?.totalQuantity)}
+                  handleCurrentCount={handleCurrentCount}
+                  disabled={false}
+                  current={quantity}
+                  isCart={true}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {/* Quantity Control */}
+          {!pageCard && showButton ? (
+            <CounterBtn
+              maxLimit={cartInfo?.totalQuantity}
+              handleCurrentCount={handleCurrentCount}
+              disabled={false}
+              current={quantity}
+              isCart={true}
+            />
+          ) : null}
+
+          {isPrescriptionEmpty() ? (
+            <div className="">
+              <button
+                className="text-blue-500 text-sm font-medium flex items-center gap-1 "
+                onClick={handleOpenClosePrescriptionModal}
+              >
+                <span>
+                  <IoAddOutline className="h-5 w-5 text-blue-500" />
+                </span>
+                Add Prescription
+              </button>
+
+              {pageCard && (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <p className="underline font-medium text-xs cursor-pointer block md:hidden">
+                      See price Breakdown
+                    </p>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <PriceBreakdown cartInfo={cartInfo} />
+                  </PopoverContent>
+                </Popover>
+              )}
+            </div>
+          ) : (
+            <div className="">
+              <button
+                className="text-blue-500 text-sm font-medium flex items-center gap-1 "
+                onClick={handleOpenClosePrescriptionModal}
+              >
+                <span>
+                  <MdOutlineEdit className="h-5 w-5 text-blue-500" />
+                </span>
+                Edit Prescription
+              </button>
+
+              {pageCard && (
+                <Popover
+                  title={null}
+                  content={<PriceBreakdown cartInfo={cartInfo} />}
+                  arrow={false}
+                  placement={"bottom"}
+                >
+                  <p className="underline font-medium text-xs cursor-pointer block md:hidden">
+                    See price Breakdown
+                  </p>
+                </Popover>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Product Details */}
+
+        {/* delete and  quantity button */}
+        {showButton ? (
+          pageCard ? (
+            <div className="flex gap-12">
+              <div className="hidden md:block">
+                <CounterBtn
+                  maxLimit={Number(cartInfo?.totalQuantity)}
+                  handleCurrentCount={handleCurrentCount}
+                  disabled={false}
+                  current={quantity}
+                  isCart={true}
+                />
+              </div>
+
+              <button
+                className="flex-shrink-0 text-gray-500 hover:text-red-500"
+                onClick={() => {
+                  removeFromCart(cartInfo?.uid);
+                  getUpdateedCalculation();
+                }}
+              >
+                <Image
+                  src={Icons.deleteIcon}
+                  height={1000}
+                  width={1000}
+                  alt="Delete icon"
+                  className="h-4 w-15px text-gray-medium"
+                />
+              </button>
+            </div>
+          ) : (
             <button
               className="flex-shrink-0 text-gray-500 hover:text-red-500"
               onClick={() => {
                 removeFromCart(cartInfo?.uid);
-                getUpdateedCalculation();
               }}
             >
               <Image
@@ -323,37 +337,8 @@ function SingleCartItemCard({
                 className="h-4 w-15px text-gray-medium"
               />
             </button>
-          </div>
-        ) : (
-          <button
-            className="flex-shrink-0 text-gray-500 hover:text-red-500"
-            onClick={() => {
-              removeFromCart(cartInfo?.uid);
-            }}
-          >
-            <Image
-              src={Icons.deleteIcon}
-              height={1000}
-              width={1000}
-              alt="Delete icon"
-              className="h-4 w-15px text-gray-medium"
-            />
-          </button>
-        )
-      ) : null}
-
-      {isPrescriptionModalOpen && (
-        <PrescriptionModal
-          open={isPrescriptionModalOpen}
-          mode={isPrescriptionEmpty() ? "create" : "update"}
-          prescriptionInfo={isPrescriptionEmpty() ? {} : cartInfo?.prescription}
-          handleModalOpenClose={handleOpenClosePrescriptionModal}
-          handleSetPrescriptionInfo={handleUpdatePrescription}
-          handleSkipAddPrescription={handleClosePrescriptionModal}
-          handleDeletePrescription={handleDeletePrescription}
-          cartInfo={cartInfo}
-        />
-      )}
+          )
+        ) : null}
       </div>
     </LoadingOverlay>
   );

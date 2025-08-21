@@ -1,7 +1,5 @@
 "use client";
 
-import EmptyDataSkeleton from "@/common/components/common/EmptyDataSkeleton";
-import RowSkeleton from "@/common/components/common/RowSkeleton";
 import { useWishlist } from "@/contextProviders/useWishListProvider";
 import useRemoveWishlist from "@/app/(public)/profile/hooks/useDeleteWishlist";
 import useGetWishlist from "@/app/(public)/profile/hooks/useGetWishlist";
@@ -11,6 +9,8 @@ import React from "react";
 import { BsCart3 } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PRODUCT_DETAILS_DYNAMIC_URL } from "@/common/config/constants/routes";
+import RowSkeleton from "@/common/components/shared/RowSkeleton";
+import EmptyDataSkeleton from "@/common/components/shared/EmptyDataSkeleton";
 
 const MyWishlistPage = () => {
   const { getWishlists, loading } = useGetWishlist();

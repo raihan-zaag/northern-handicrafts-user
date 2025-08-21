@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Image from "next/image";
-
 import {
   Form,
   FormControl,
@@ -16,10 +15,8 @@ import {
 } from "@/common/components/ui/form";
 import { Input } from "@/common/components/ui/input";
 import { Button } from "@/common/components/ui/button";
-
 import { sendResetPasswordOTP } from "@/app/(auth)/services/authService";
 import useNotification from "@/common/hooks/useNotification";
-import Container from "@/common/components/common/Container";
 
 // Validation schema
 const forgotPasswordSchema = z.object({

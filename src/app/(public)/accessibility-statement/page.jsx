@@ -1,9 +1,9 @@
 "use client";
 
-import Container from "@/common/components/common/Container";
 import useFetchStaticContent from "@/common/hooks/staticPageContent/useStaticPageContent";
 import React, { useEffect } from "react";
 import { Spinner } from "@/common/components/ui/spinner";
+import Container from "@/common/components/shared/Container";
 
 const AccessibilityPage = () => {
   const { fetchData, data, error, loading } = useFetchStaticContent();

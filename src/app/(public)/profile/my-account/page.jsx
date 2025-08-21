@@ -4,9 +4,6 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Button from "@/common/components/common/Button";
-import ImageUploader from "@/common/components/common/ImageUploader";
-import ProfileSkeleton from "@/common/components/common/ProfileSkeleton";
 import { Input } from "@/common/components/ui/input";
 import {
   Form,
@@ -21,6 +18,9 @@ import useProfileUpdate from "@/app/(auth)/hooks/useProfileUpdate";
 import { USER_INFO } from "@/common/config/constants/cookiesKeys";
 import { setCookie } from "cookies-next";
 import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
+import { Button } from "@/common/components";
+import ImageUploader from "@/common/components/shared/ImageUploader";
+import ProfileSkeleton from "@/common/components/shared/ProfileSkeleton";
 
 // Profile form schema
 const profileSchema = z.object({

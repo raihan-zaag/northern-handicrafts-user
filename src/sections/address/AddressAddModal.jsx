@@ -1,302 +1,48 @@
-// "use client";
-
-// import React, { useEffect } from "react";
-// import { Modal, Form, Input, Select, InputNumber } from "antd";
-// import Button from "@/components/common/Button";
-// import { useRouter } from "next/navigation";
-// import { IoClose } from "react-icons/io5";
-// import useCreateAddress from "@/hooks/address/useCreateAddress";
-// import useGetAddress from "@/hooks/address/useGetUserAddress";
-// import useUpdateAddress from "@/hooks/address/useUpdateAddress";
-
-// const AddressModal = ({
-//     open,
-//     onClose,
-//     isCreate,
-//     selectedAddress,
-//     setSelectedAddress,
-//     onSubmit,
-// }) => {
-//     const [form] = Form.useForm();
-//     const router = useRouter();
-
-//     // const { createAddress } = useCreateAddress();
-//     // const { updateAddress } = useUpdateAddress();
-//     // const { fetchAddress } = useGetAddress();
-
-//     useEffect(() => {
-//         if (!isCreate && selectedAddress) {
-//             form.setFieldsValue({
-//                 title: selectedAddress?.title,
-//                 country: selectedAddress?.country,
-//                 state: selectedAddress?.state,
-//                 city: selectedAddress?.city,
-//                 zipCode: selectedAddress?.zipCode,
-//                 street: selectedAddress?.street,
-//             });
-//         }
-//     }, [isCreate, selectedAddress]);
-
-//     const handleFinish = async (values) => {
-//         // if (isCreate) {
-//         //   // create new address
-//         //   const res = await createAddress(values);
-//         //   if (res) {
-//         //     await fetchAddress();
-//         //   }
-//         // } else {
-//         //   // Update address
-//         //   updateAddress(selectedAddress?.id, values);
-//         // }
-
-//         onSubmit(values, isCreate, form);
-//         onClose();
-//         form.resetFields();
-//         // router.refresh();
-//     };
-
-//     const handleCloseModal = () => {
-//         form.resetFields();
-//         onClose();
-//         setSelectedAddress(null);
-//         form.setFieldsValue({
-//             title: "",
-//             country: "",
-//             state: "",
-//             city: "",
-//             zipCode: "",
-//             street: "",
-//         });
-//     };
-
-//     return (
-//         <Modal
-//             title={
-//                 <div className="flex items-center justify-between">
-//                     <p>Enter Address Details</p>
-//                     <IoClose
-//                         className="h-7 w-7 cursor-pointer"
-//                         onClick={handleCloseModal}
-//                     />
-//                 </div>
-//             }
-//             open={open}
-//             onCancel={handleCloseModal}
-//             footer={null}
-//             centered
-//             closable={false}
-//         >
-//             <Form
-//                 form={form}
-//                 layout="vertical"
-//                 onFinish={handleFinish}
-//                 className="space-y-2"
-//             >
-//                 <Form.Item
-//                     name="title"
-//                     label="Address Name"
-//                     rules={[
-//                         {
-//                             required: true,
-//                             message: "Please enter your address title",
-//                         },
-//                     ]}
-//                     className="w-full"
-//                 >
-//                     <Input
-//                         placeholder="Enter address title here like - work, home .etc"
-//                         style={{ height: "48px" }}
-//                     />
-//                 </Form.Item>
-
-//                 {/* Country */}
-//                 <div className="flex w-full gap-3">
-//                     {/* <Form.Item
-//                         name="country"
-//                         label="Country"
-//                         rules={[
-//                             {
-//                                 required: true,
-//                                 message: "Please select your country",
-//                             },
-//                         ]}
-//                         className="w-full"
-//                     >
-//                         <Input
-//                             placeholder="Enter your country name"
-//                             style={{ height: "48px" }}
-//                         />
-//                     </Form.Item> */}
-
-//                     {/* District/State */}
-//                     <Form.Item
-//                         name="state"
-//                         label="State"
-//                         rules={[
-//                             {
-//                                 required: true,
-//                                 message: "Please select your state",
-//                             },
-//                         ]}
-//                         className="w-full"
-//                     >
-//                         <Input
-//                             placeholder="Enter your state name"
-//                             style={{ height: "48px" }}
-//                         />
-//                     </Form.Item>
-//                 </div>
-
-//                 {/* City/Area */}
-//                 <div className="flex w-full gap-3">
-//                     <Form.Item
-//                         name="city"
-//                         label="City"
-//                         rules={[
-//                             {
-//                                 required: true,
-//                                 message: "Please select your city",
-//                             },
-//                         ]}
-//                         className="w-full"
-//                     >
-//                         <Input
-//                             placeholder="Enter your city name"
-//                             style={{ height: "48px" }}
-//                         />
-//                     </Form.Item>
-
-//                     {/* ZIP/Postal Code */}
-//                     <Form.Item
-//                         name="zipCode"
-//                         label="ZIP Code"
-//                         rules={[
-//                             {
-//                                 type: "number",
-//                                 required: true,
-//                                 message: "Please enter your valid zip code",
-//                             },
-//                         ]}
-//                         className="w-full"
-//                     >
-//                         <InputNumber
-//                             min={0}
-//                             placeholder="Enter zip code here"
-//                             // className="py-6 w-full"
-//                             style={{ padding: "8px 0", width: "100%" }}
-//                             controls={false}
-//                         />
-//                     </Form.Item>
-//                 </div>
-
-//                 <Form.Item
-//                     name="apartment"
-//                     label="Apartment/Suite/Unit Info (Optional)"
-//                     rules={[
-//                         {
-//                             required: false,
-//                             message:
-//                                 "Please enter your Apartment/Suite/Unit Info",
-//                         },
-//                     ]}
-//                     className="w-full"
-//                 >
-//                     <Input
-//                         placeholder="Enter Apartment/Suite/Unit Info here"
-//                         style={{ height: "48px", marginBottom: "20px" }}
-//                     />
-//                 </Form.Item>
-
-//                 {/* Street Address */}
-//                 <Form.Item
-//                     name="street"
-//                     label="Street Address"
-//                     rules={[
-//                         {
-//                             required: true,
-//                             message: "Please enter your street address",
-//                         },
-//                     ]}
-//                 >
-//                     <Input.TextArea
-//                         placeholder="e.g. Road no., Area, City, Zip code etc."
-//                         className="h-12"
-//                     />
-//                 </Form.Item>
-
-//                 {/* Submit Button */}
-//                 <div className="flex items-start gap-3 pt-6">
-//                     <Button
-//                         type="outline"
-//                         buttonType="button"
-//                         className="flex-grow"
-//                         onClick={handleCloseModal}
-//                     >
-//                         Cancel
-//                     </Button>
-//                     <Form.Item className="flex-grow">
-//                         <Button
-//                             type="primary"
-//                             htmlType="submit"
-//                             className="w-full"
-//                         >
-//                             Submit
-//                         </Button>
-//                     </Form.Item>
-//                 </div>
-//             </Form>
-//         </Modal>
-//     );
-// };
-
-// export default AddressModal;
-
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
-import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import { IoClose } from "react-icons/io5";
 import statesData from "../../../libs/states.json";
-import { IoIosArrowDown } from "react-icons/io";
+import { Button } from "@/common/components";
 
 // Address form schema
 const addressSchema = z.object({
-  title: z.string().min(1, "Please enter your address title"),
-  zipCode: z
-    .string()
-    .min(1, "Please enter a valid ZIP code")
-    .regex(/^\d+$/, "ZIP code must contain only numbers"),
-  state: z.string().min(1, "Please select your state"),
-  city: z.string().min(1, "Please select your city"),
-  apartment: z.string().optional(),
-  street: z.string().min(1, "Please enter your street address"),
+    title: z.string().min(1, "Please enter your address title"),
+    zipCode: z
+        .string()
+        .min(1, "Please enter a valid ZIP code")
+        .regex(/^\d+$/, "ZIP code must contain only numbers"),
+    state: z.string().min(1, "Please select your state"),
+    city: z.string().min(1, "Please select your city"),
+    apartment: z.string().optional(),
+    street: z.string().min(1, "Please enter your street address"),
 });
 
 const AddressModal = ({
@@ -309,7 +55,7 @@ const AddressModal = ({
     totalAddressCount,
 }) => {
     const router = useRouter();
-    
+
     // Local state for city dropdown options
     const [availableCities, setAvailableCities] = useState([]);
 
