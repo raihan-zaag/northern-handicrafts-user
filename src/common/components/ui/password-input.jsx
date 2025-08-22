@@ -8,24 +8,46 @@ const PasswordInput = ({ className, ref, ...props }) => {
   return (
     <div className="relative">
       <input
+        ref={ref}
         type={showPassword ? "text" : "password"}
         className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-background pl-3 pr-10 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          // Layout
+          "w-full h-12 rounded-xl px-3 pr-10 text-sm",
+
+          // Background & border
+          "border border-[var(--color-border)] bg-[var(--color-background)]",
+
+          // Text & placeholder
+          "text-[var(--color-text-primary)] placeholder-[var(--color-text-subtle)]",
+
+          // Focus state
+          "focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]",
+
+          // Disabled
+          "disabled:cursor-not-allowed disabled:opacity-60",
+
+          // Smooth transitions
+          "transition-colors duration-200",
+
           className
         )}
-        ref={ref}
         {...props}
       />
+
+      {/* Toggle Button */}
       <button
         type="button"
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
         onClick={() => setShowPassword(!showPassword)}
         tabIndex={-1}
+        className={cn(
+          "absolute right-3 top-1/2 -translate-y-1/2",
+          "text-[var(--color-text-subtle)] hover:text-[var(--color-text-primary)] transition-colors"
+        )}
       >
         {showPassword ? (
-          <EyeOffIcon className="h-4 w-4" />
+          <EyeOffIcon className="h-5 w-5" />
         ) : (
-          <EyeIcon className="h-4 w-4" />
+          <EyeIcon className="h-5 w-5" />
         )}
       </button>
     </div>

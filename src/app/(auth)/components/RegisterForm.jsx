@@ -1,12 +1,17 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { EMAIL_VERIFICATION_URL, CHECKOUT_URL, HOME_URL, LOGIN_URL } from "@/common/config/constants/routes";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import {
+  EMAIL_VERIFICATION_URL,
+  CHECKOUT_URL,
+  HOME_URL,
+  LOGIN_URL,
+} from '@/common/config/constants/routes';
 
 import {
   Form,
@@ -15,50 +20,56 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/common/components/ui/form";
-import { Input } from "@/common/components/ui/input";
-import { PasswordInput } from "@/common/components/ui/password-input";
-import { Button } from "@/common/components/ui/button";
+} from '@/common/components/ui/form';
+import { Input } from '@/common/components/ui/input';
+import { PasswordInput } from '@/common/components/ui/password-input';
+import { Button } from '@/common/components/ui/button';
 
-import { register } from "@/app/(auth)/services/authService";
-import useNotification from "@/common/hooks/useNotification";
-import { setCookie } from "cookies-next";
-import { IS_RESET_PASSWORD, VERIFY_EMAIL } from "@/common/config/constants/cookiesKeys";
-import SocialLoginForm from "./SocialLoginForm";
-import { useCart } from "@/contextProviders/useCartContext";
+import { register } from '@/app/(auth)/services/authService';
+import useNotification from '@/common/hooks/useNotification';
+import { setCookie } from 'cookies-next';
+import {
+  IS_RESET_PASSWORD,
+  VERIFY_EMAIL,
+} from '@/common/config/constants/cookiesKeys';
+import SocialLoginForm from './SocialLoginForm';
+import { useCart } from '@/contextProviders/useCartContext';
 
 // Validation schema
-const registerSchema = z.object({
-  fullName: z
-    .string()
-    .min(1, "Full name is required")
-    .min(2, "Full name must be at least 2 characters"),
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
-  mobileNumber: z
-    .string()
-    .optional()
-    .refine((val) => !val || /^[0-9]+$/.test(val), {
-      message: "Phone number must contain only digits",
-    })
-    .refine((val) => !val || val.length >= 10, {
-      message: "Phone number must be at least 10 digits",
-    }),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
-      message: "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-    }),
-  confirmPassword: z
-    .string()
-    .min(8, "Password must be at least 8 characters long"),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const registerSchema = z
+  .object({
+    fullName: z
+      .string()
+      .min(1, 'Full name is required')
+      .min(2, 'Full name must be at least 2 characters'),
+    email: z
+      .string()
+      .min(1, 'Email is required')
+      .email('Please enter a valid email address'),
+    mobileNumber: z
+      .string()
+      .optional()
+      .refine((val) => !val || /^[0-9]+$/.test(val), {
+        message: 'Phone number must contain only digits',
+      })
+      .refine((val) => !val || val.length >= 10, {
+        message: 'Phone number must be at least 10 digits',
+      }),
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters long')
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+        message:
+          'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      }),
+    confirmPassword: z
+      .string()
+      .min(8, 'Password must be at least 8 characters long'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -70,11 +81,11 @@ const RegisterForm = () => {
   const form = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      fullName: "",
-      email: "",
-      mobileNumber: "",
-      password: "",
-      confirmPassword: "",
+      fullName: '',
+      email: '',
+      mobileNumber: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -94,8 +105,9 @@ const RegisterForm = () => {
 
       if (response.success) {
         openSuccessNotification(
-          "Success",
-          response.message || "User successfully signed up. Now verify your email address."
+          'Success',
+          response.message ||
+            'User successfully signed up. Now verify your email address.'
         );
 
         setCookie(VERIFY_EMAIL, response.data?.email);
@@ -104,7 +116,7 @@ const RegisterForm = () => {
         router.push(EMAIL_VERIFICATION_URL);
       }
     } catch (error) {
-      openErrorNotification("Error", error.message);
+      openErrorNotification('Error', error.message);
     } finally {
       setIsLoading(false);
     }
@@ -119,7 +131,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="w-full max-w-600px bg-background p-8 px-4 sm:px-10 md:px-12 rounded border border-border pt-7">
+    <div className="w-full md:w-600px bg-background p-8 px-4 sm:px-10 md:px-12 rounded border border-border pt-7">
       <h2 className="text-2xl font-semibold text-left mb-2">Sign Up</h2>
       <p className="text-gray-medium text-left mb-6 font-light">
         Please fill up the form to sign up!
@@ -136,11 +148,7 @@ const RegisterForm = () => {
                   Full Name
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter your full name"
-                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <Input placeholder="Enter your full name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -156,11 +164,7 @@ const RegisterForm = () => {
                   Email Id
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter your email"
-                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <Input placeholder="Enter your email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -176,11 +180,7 @@ const RegisterForm = () => {
                   Phone Number (Optional)
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter phone number here"
-                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <Input placeholder="Enter phone number here" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -196,11 +196,7 @@ const RegisterForm = () => {
                   Password
                 </FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    placeholder="Min. 8 characters"
-                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <PasswordInput placeholder="Min. 8 characters" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -216,11 +212,7 @@ const RegisterForm = () => {
                   Confirm Password
                 </FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    placeholder="Min. 8 characters"
-                    className="h-52px bg-bg-lighter border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <PasswordInput placeholder="Min. 8 characters" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -230,9 +222,10 @@ const RegisterForm = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-primary text-white font-semibold h-52px rounded hover:bg-primary/90"
+            className="w-full"
+            loading={isLoading}
           >
-            {isLoading ? "Signing Up..." : "Sign Up"}
+            {isLoading ? 'Signing Up...' : 'Sign Up'}
           </Button>
         </form>
       </Form>
@@ -247,14 +240,14 @@ const RegisterForm = () => {
       <SocialLoginForm />
 
       <p className="text-center text-sm mt-9">
-        Already have an account?{" "}
+        Already have an account?{' '}
         <Link
           href={LOGIN_URL}
           className="text-primary font-semibold hover:underline"
         >
           Sign in
         </Link>
-      </p> 
+      </p>
     </div>
   );
 };

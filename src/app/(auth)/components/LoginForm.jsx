@@ -1,13 +1,17 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { setCookie } from "cookies-next";
-import { HOME_URL, CHECKOUT_URL, SIGN_UP_URL } from "@/common/config/constants/routes";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { setCookie } from 'cookies-next';
+import {
+  HOME_URL,
+  CHECKOUT_URL,
+  SIGN_UP_URL,
+} from '@/common/config/constants/routes';
 
 import {
   Form,
@@ -16,32 +20,30 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/common/components/ui/form";
-import { Input } from "@/common/components/ui/input";
-import { PasswordInput } from "@/common/components/ui/password-input";
-import { Button } from "@/common/components/ui/button";
-import { Checkbox } from "@/common/components/ui/checkbox";
+} from '@/common/components/ui/form';
+import { Input } from '@/common/components/ui/input';
+import { PasswordInput } from '@/common/components/ui/password-input';
+import { Button } from '@/common/components/ui/button';
+import { Checkbox } from '@/common/components/ui/checkbox';
 
-import { login } from "@/app/(auth)/services/authService";
-import { useUserContext } from "@/contextProviders/userContextProvider";
-import { useCart } from "@/contextProviders/useCartContext";
-import useNotification from "@/common/hooks/useNotification";
+import { login } from '@/app/(auth)/services/authService';
+import { useUserContext } from '@/contextProviders/userContextProvider';
+import { useCart } from '@/contextProviders/useCartContext';
+import useNotification from '@/common/hooks/useNotification';
 import {
   USER_INFO,
   USER_PERMISSION,
   USER_TOKEN,
-} from "@/common/config/constants/cookiesKeys";
-import SocialLoginForm from "./SocialLoginForm";
+} from '@/common/config/constants/cookiesKeys';
+import SocialLoginForm from './SocialLoginForm';
 
 // Validation schema
 const loginSchema = z.object({
   email: z
     .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long"),
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters long'),
   remember: z.boolean().optional(),
 });
 
@@ -49,14 +51,14 @@ const LoginForm = () => {
   const router = useRouter();
   const { setUser, setToken, setIsAuthenticated } = useUserContext();
   const { openErrorNotification, openSuccessNotification } = useNotification();
-  const [redirectUrl, setRedirectUrl] = useState("/");
+  const [redirectUrl, setRedirectUrl] = useState('/');
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       remember: false,
     },
   });
@@ -64,7 +66,7 @@ const LoginForm = () => {
   useEffect(() => {
     // Get the redirect URL from the query parameters if it exists
     const params = new URLSearchParams(window.location.search);
-    const redirect = params.get("redirect");
+    const redirect = params.get('redirect');
 
     if (redirect) {
       setRedirectUrl(redirect);
@@ -77,7 +79,7 @@ const LoginForm = () => {
     try {
       const response = await login(values);
       if (response.success) {
-        openSuccessNotification("Success", response.message);
+        openSuccessNotification('Success', response.message);
         // Set user context
         setUser(response.data.user);
         setToken(response.data.token?.access);
@@ -96,7 +98,7 @@ const LoginForm = () => {
         }
       }
     } catch (error) {
-      openErrorNotification("Error", error.message);
+      openErrorNotification('Error', error.message);
     } finally {
       setIsLoading(false);
     }
@@ -111,7 +113,7 @@ const LoginForm = () => {
   // };
 
   return (
-    <div className="w-600px bg-background p-8 px-4 sm:px-10 md:px-12 border border-border">
+    <div className="w-full md:w-600px bg-background p-8 px-4 sm:px-10 md:px-12 border border-border">
       <div className="mb-5">
         <h2 className="text-2xl font-semibold text-left mb-2">Sign In</h2>
         <span className="text-gray-medium text-left mb-6 font-light">
@@ -130,11 +132,7 @@ const LoginForm = () => {
                   Email Id
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter your email"
-                    className="h-52px bg-secondary border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <Input placeholder="Enter your email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -150,11 +148,7 @@ const LoginForm = () => {
                   Password
                 </FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    placeholder="Min. 8 characters"
-                    className="h-52px bg-secondary border-border-input rounded-none px-4 py-4 text-sm focus:border-primary focus:ring-0"
-                    {...field}
-                  />
+                  <PasswordInput placeholder="Min. 8 characters" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -189,12 +183,8 @@ const LoginForm = () => {
             </Link>
           </div>
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-primary text-white font-semibold h-52px rounded mt-5 hover:bg-primary/90"
-          >
-            {isLoading ? "Signing In..." : "Sign In"}
+          <Button type="submit" disabled={isLoading} className="w-full">
+            {isLoading ? 'Signing In...' : 'Sign In'}
           </Button>
         </form>
       </Form>
@@ -211,7 +201,7 @@ const LoginForm = () => {
 
         <div className="flex flex-col gap-4 mt-9 w-full">
           <p className="text-center text-sm text-light-font2">
-            {`Don't have an account?`}
+            {`Don't have an account?`}{' '}
             <Link
               href={SIGN_UP_URL}
               className="text-primary font-semibold hover:underline"
@@ -219,7 +209,6 @@ const LoginForm = () => {
               Sign Up
             </Link>
           </p>
-
         </div>
       </div>
     </div>

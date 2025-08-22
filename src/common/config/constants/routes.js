@@ -14,6 +14,7 @@ export const SIGN_UP_URL = "/sign-up";
 export const EMAIL_VERIFICATION_URL = "/email-verification";
 export const FORGOT_PASSWORD_URL = "/forgot-password";
 export const RESET_PASSWORD_URL = "/reset-password";
+export const RESET_PASSWORD_SUCCESS_URL = "/reset-successfully";
 
 // Public Routes
 export const HOME_URL = "/";

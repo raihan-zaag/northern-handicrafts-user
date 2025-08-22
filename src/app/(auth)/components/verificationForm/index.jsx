@@ -19,7 +19,7 @@ const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
   };
 
   return (
-    <div className="w-full max-w-330px sm:max-w-500px flex flex-col pt-6 px-4 pb-9 md:pt-4 md:px-12 md:pb-12 shadow-light-grey bg-background border border-border">
+    <div className="w-full md:w-500px bg-background p-8 rounded border border-border">
       <h1 className="flex w-full justify-center font-semibold text-xl text-neutral-700 py-3 border-b border-gray-blue/10">
         Verification Code
       </h1>
@@ -31,6 +31,7 @@ const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
           alt="verifyOTP"
           src={"/images/OTP-verification-image.svg"}
           quality={100}
+          className="w-40 h-40"
         />
       </div>
 
@@ -81,8 +82,8 @@ const VerificationForm = ({ title, verifyShortForm, handleUpdate }) => {
         type="primary"
         disabled={verificationCode.length < 6}
         className={cn(
-          "w-full flex justify-center items-center text-white h-12",
-          verificationCode.length < 6 ? "bg-neutral-50" : "bg-magenta-600"
+          "w-full ",
+          verificationCode.length < 6 ? "bg-primary/60" : "bg-primary"
         )}
       >
         Verify Email Address

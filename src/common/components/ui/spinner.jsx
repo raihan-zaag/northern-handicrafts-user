@@ -1,5 +1,4 @@
 import { cn } from "@/common/lib/utils";
-import React from "react";
 
 const Spinner = ({ size = "md", className, ...props }) => {
   const sizeClasses = {
@@ -12,7 +11,7 @@ const Spinner = ({ size = "md", className, ...props }) => {
   return (
     <div
       className={cn(
-        "animate-spin rounded-full border-2 border-current border-t-transparent",
+        "animate-spin rounded-full border-2 border-primary border-t-transparent",
         sizeClasses[size],
         className
       )}

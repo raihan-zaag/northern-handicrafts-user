@@ -9,7 +9,7 @@ import { Spinner } from "@/common/components/ui/spinner";
 import Container from "@/common/components/shared/Container";
 
 const EmailVerification = () => {
-  const varify_email = getCookie(VERIFY_EMAIL);
+  const verify_email = getCookie(VERIFY_EMAIL);
   const { loading, verifyEmail } = useVerifyEmail();
   const { loading: resendOtpLoading } = useResendOTP();
 
@@ -18,7 +18,7 @@ const EmailVerification = () => {
   };
 
   return (
-    <div className="relative bg-sky-900">
+    <div className="">
       {(loading || resendOtpLoading) && (
         <div className="fixed inset-0 grid place-items-center bg-background/60 z-50">
           <Spinner size="xl" className="text-primary" />
@@ -26,7 +26,7 @@ const EmailVerification = () => {
       )}
       <Container>
         <VerificationForm
-          verifyShortForm={varify_email}
+          verifyShortForm={verify_email}
           handleUpdate={handleUpdate}
         />
       </Container>

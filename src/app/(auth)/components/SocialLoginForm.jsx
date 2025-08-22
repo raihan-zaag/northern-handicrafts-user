@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useCart } from "@/contextProviders/useCartContext";
-import { useUserContext } from "@/contextProviders/userContextProvider";
-import useNotification from "@/common/hooks/useNotification";
-import { Spinner } from "@/common/components/ui/spinner";
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
-import Icons from "../../../../public/icons/index.js";
-import { HOME_URL } from "@/common/config/constants/routes.js";
+import { useCart } from '@/contextProviders/useCartContext';
+import { useUserContext } from '@/contextProviders/userContextProvider';
+import useNotification from '@/common/hooks/useNotification';
+import { Spinner } from '@/common/components/ui/spinner';
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
+import Icons from '../../../../public/icons/index.js';
+import { HOME_URL } from '@/common/config/constants/routes.js';
 
 const SocialLoginForm = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const SocialLoginForm = () => {
   const { handleUpdateCartInBackend, getCartListForAuthUser, cart } = useCart();
 
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  const redirect = searchParams.get('redirect');
   const { openSuccessNotification, openErrorNotification } = useNotification();
   const { googleSingIn, facebookSignIn } = useUserContext();
 
@@ -32,7 +32,7 @@ const SocialLoginForm = () => {
       const res = await signInFunction();
 
       setIsSocialLoading({ ...isSocialLoading, [platform]: false });
-      openSuccessNotification("success", "Login successfully");
+      openSuccessNotification('success', 'Login successfully');
 
       if (res?.status === 200) {
         if (cart?.length > 0) {
@@ -51,31 +51,31 @@ const SocialLoginForm = () => {
       setIsSocialLoading({ ...isSocialLoading, [platform]: false });
 
       if (
-        platform === "google" &&
-        e.message !== "Firebase: Error (auth/popup-closed-by-user)."
+        platform === 'google' &&
+        e.message !== 'Firebase: Error (auth/popup-closed-by-user).'
       ) {
-        openErrorNotification("error", e?.message);
+        openErrorNotification('error', e?.message);
       }
     }
   };
 
-  const handleGoogleSignIn = () => handleSocialSignIn(googleSingIn, "google");
+  const handleGoogleSignIn = () => handleSocialSignIn(googleSingIn, 'google');
   const handleFaceBookSignIn = () =>
-    handleSocialSignIn(facebookSignIn, "facebook");
+    handleSocialSignIn(facebookSignIn, 'facebook');
 
   const loginWithSocialMedia = [
     {
-      title: "google",
+      title: 'google',
       icon: Icons.googleIcon,
       isLoading: isSocialLoading.google,
-      showTitle: "Sign in with Google"
+      showTitle: 'Sign in with Google',
     },
     // { title: "apple", icon: Icons.apple },
     {
-      title: "facebook",
+      title: 'facebook',
       icon: Icons.facebookIcon,
       isLoading: isSocialLoading.facebook,
-      showTitle: "Sign in with Facebook"
+      showTitle: 'Sign in with Facebook',
     },
   ];
 
@@ -84,9 +84,9 @@ const SocialLoginForm = () => {
       <div className="space-y-4 w-full">
         {loginWithSocialMedia.map((ele, id) => {
           const handleSocialMediaLogin = () => {
-            if (ele.title === "google") {
+            if (ele.title === 'google') {
               handleGoogleSignIn();
-            } else if (ele.title === "facebook") {
+            } else if (ele.title === 'facebook') {
               handleFaceBookSignIn();
             }
           };
@@ -95,7 +95,7 @@ const SocialLoginForm = () => {
             <button
               key={id}
               disabled={ele.isLoading}
-              className="rounded-lg border border-border-light w-full h-48px flex items-center justify-center gap-3 bg-secondary-bg cursor-pointer disabled:opacity-50"
+              className="rounded-xl border border-border w-full py-3 flex items-center justify-center gap-3 bg-surface cursor-pointer disabled:opacity-50"
               onClick={handleSocialMediaLogin}
             >
               {ele.isLoading && <Spinner size="sm" />}
@@ -107,8 +107,7 @@ const SocialLoginForm = () => {
                 quality={100}
                 className="w-5 h-5"
               />
-
-              <p>{ele.showTitle}</p>
+              {ele.showTitle}
             </button>
           );
         })}
