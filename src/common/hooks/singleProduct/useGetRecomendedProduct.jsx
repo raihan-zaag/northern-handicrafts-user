@@ -1,6 +1,6 @@
+import { getProductFilterList } from "@/common/services/sampleProductService";
 import { useState, useCallback, useEffect } from "react";
 
-import { getProductFilterList } from "@/services/productService";
 
 const useGetRecomendedProduct = () => {
   const [recommendedProduct, setRecommendedProduct] = useState([]);

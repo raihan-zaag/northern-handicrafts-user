@@ -10,9 +10,6 @@ import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Typography from "@/components/Typography";
-import CounterBtn from "@/components/common/CounterButton";
-import Button from "@/components/common/Button";
-import PrescriptionModal from "./PrescriptionModal";
 import { useCart } from "@/contextProviders/useCartContext";
 import useNotification from "@/hooks/useNotification";
 import { useUserContext } from "@/contextProviders/userContextProvider";
@@ -24,6 +21,8 @@ import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import useGetAverageRating from "@/hooks/singleProduct/useGetAverateRatingInfo";
 import Icons from "../../../public/icons";
 import { formatNumber } from "@/common/lib/utils";
+import { Button } from "@/common/components";
+import CounterBtn from "@/common/components/shared/CounterButton";
 
 const ProductRightView = ({ forModal = false, data }) => {
     // console.log("data----------", data);
@@ -468,16 +467,6 @@ const ProductRightView = ({ forModal = false, data }) => {
                 </div>
             </div>
 
-            {openPrescriptionModal && (
-                <PrescriptionModal
-                    open={openPrescriptionModal}
-                    mode={"create"}
-                    prescriptionInfo={{}}
-                    handleSetPrescriptionInfo={handleGetPrescriptionInfo}
-                    handleModalOpenClose={handleClosePrescriptionModal}
-                    handleSkipAddPrescription={handleSkipAddPrescription}
-                />
-            )}
             </div>
         </LoadingOverlay>
     );

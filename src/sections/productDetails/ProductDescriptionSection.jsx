@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import ReviewAndRatings from "./reviewAndRatings";
+import ReviewAndRatings from "./ReviewAndRatings";
+
 
 const ProductDescriptionSection = ({ data }) => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -14,8 +15,8 @@ const ProductDescriptionSection = ({ data }) => {
         return (
           <ReviewAndRatings
             productId={data?.id}
-            // data={data?.review?.list || []}
-            // rating={data?.review?.summary}
+          // data={data?.review?.list || []}
+          // rating={data?.review?.summary}
           />
         );
       default:
@@ -41,11 +42,10 @@ const ProductDescriptionSection = ({ data }) => {
           <button
             key={index}
             onClick={() => setSelectedTab(index)}
-            className={`w-180px h-10 flex justify-center items-center gap-2 font-medium border-b-2 duration-300 whitespace-nowrap ${
-              selectedTab === index
-                ? "border-primary font-medium text-primary"
-                : "text-gray-light2 border-transparent"
-            }`}
+            className={`w-180px h-10 flex justify-center items-center gap-2 font-medium border-b-2 duration-300 whitespace-nowrap ${selectedTab === index
+              ? "border-primary font-medium text-primary"
+              : "text-gray-light2 border-transparent"
+              }`}
           >
             {item}
           </button>

@@ -1,7 +1,7 @@
 "use client";
 
 // import { GET_IMAGE_RENDER } from "@/helpers/apiURLS";
-import { Carousel } from "antd";
+// import { Carousel } from "antd";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import Icons from "../../../public/icons";
@@ -101,7 +101,7 @@ const ProductLeftView = ({ forModal = false, data }) => {
               : "w-360px md:w-280px md:h-300px lg:w-380px lg:h-400px xl:w-412px xl:h-513px 2xl:w-564px 2xl:h-664px"
           } relative`}
         >
-          <Carousel
+          {/* <Carousel
             dots={false}
             ref={carouselRef}
             afterChange={handleAfterChange}
@@ -138,7 +138,7 @@ const ProductLeftView = ({ forModal = false, data }) => {
                 />
               </div>
             ))}
-          </Carousel>
+          </Carousel> */}
 
           <button
             onClick={() => handleNextClick("prev")}

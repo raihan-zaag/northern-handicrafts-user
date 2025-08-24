@@ -1,6 +1,5 @@
 "use client";
 
-import { Carousel } from "antd";
 import { StarRating } from "@/components/ui/star-rating";
 import {
   Select,
@@ -23,18 +22,17 @@ import { useEffect, useRef, useState } from "react";
 
 import Icons from "../../../public/icons";
 import Typography from "@/components/Typography";
-import Button from "@/components/common/Button";
-import CounterBtn from "@/components/common/CounterButton";
 import { useWishlist } from "@/contextProviders/useWishListProvider";
 import { useUserContext } from "@/contextProviders/userContextProvider";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useSingleCartProduct } from "@/contextProviders/useSingleCartProductProvider";
 import { usePrescription } from "@/contextProviders/usePrescriptionProvider";
-import PrescriptionModal from "./PrescriptionModal";
 import useGetSize from "@/hooks/singleProduct/useGetSizes";
 import useNotification from "@/hooks/useNotification";
 import useGetAverageRating from "@/hooks/singleProduct/useGetAverateRatingInfo";
 import { formatNumber } from "@/common/lib/utils";
+import CounterBtn from "@/common/components/shared/CounterButton";
+import { Button } from "@/common/components";
 
 const ProductViewMobile = ({ data }) => {
   const router = useRouter();
@@ -262,7 +260,7 @@ const ProductViewMobile = ({ data }) => {
     <LoadingOverlay isLoading={sizeLoading || averageRatingLoading}>
       <div className="w-full py-1">
         <div className="relative w-full">
-          <Carousel dots={true} ref={carouselRef}>
+          {/* <Carousel dots={true} ref={carouselRef}>
             {[data.thumbnailImage, ...images].map((item, index) => (
               <div key={index} className="flex justify-center items-center">
                 <Image
@@ -274,7 +272,7 @@ const ProductViewMobile = ({ data }) => {
                 />
               </div>
             ))}
-          </Carousel>
+          </Carousel> */}
 
         <button
           onClick={() => handleNextClick("prev")}
@@ -508,16 +506,6 @@ const ProductViewMobile = ({ data }) => {
         </div>
       </div>
 
-      {openPrescriptionModal && (
-        <PrescriptionModal
-          open={openPrescriptionModal}
-          mode={"create"}
-          prescriptionInfo={{}}
-          handleSetPrescriptionInfo={handleGetPrescriptionInfo}
-          handleModalOpenClose={handleClosePrescriptionModal}
-          handleSkipAddPrescription={handleSkipAddPrescription}
-        />
-      )}
       </div>
     </LoadingOverlay>
   );

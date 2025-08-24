@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import useGetProductReviews from "@/hooks/singleProduct/useGetProductReviews";
-import { ratingData } from "@/utils/dummyData";
 import { StarRating } from "@/components/ui/star-rating";
 import { Separator } from "@/components/ui/separator";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";

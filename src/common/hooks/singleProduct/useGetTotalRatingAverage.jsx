@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useNotification from "../useNotification";
-import { axiosPublic } from "@/configs/axios.publicInstance";
-import { GET_REVIEW_COUNT } from "@/constants/apiUrls";
+import { axiosPublic } from "@/common/config";
+import { GET_REVIEW_COUNT } from "@/common/config/constants/apiUrls";
 
 // get data for bottom of the product details
 

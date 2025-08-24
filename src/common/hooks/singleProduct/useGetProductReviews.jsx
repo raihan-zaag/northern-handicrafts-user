@@ -1,6 +1,7 @@
+import { axiosPublic } from "@/common/config";
+import { GET_PRODUCT_REVIEWS } from "@/common/config/constants/apiUrls";
 import { useState, useEffect } from "react";
-import { axiosPublic } from "@/configs/axios.publicInstance";
-import { GET_PRODUCT_REVIEWS } from "@/constants/apiUrls";
+
 
 const useGetProductReviews = (productId) => {
   const [reviews, setReviews] = useState([]);

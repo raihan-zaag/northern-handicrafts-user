@@ -14,6 +14,7 @@ import {
   CarouselItem,
   CarouselDots,
 } from '@/common/components/ui/carousel';
+import { PRODUCT_DETAILS_DYNAMIC_URL } from '@/common/config/constants/routes';
 
 const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
   const { isAuthenticated } = useUserContext();
@@ -50,7 +51,10 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
           <CarouselContent>
             {productImages.map((image, index) => (
               <CarouselItem key={index}>
-                <Link href={`${PRODUCT_DETAILS_URL}/${product?.id}`}>
+                <Link
+                  href={PRODUCT_DETAILS_DYNAMIC_URL(product?.id)}
+                  aria-label={product?.name}
+                >
                   <Image
                     src={image}
                     alt={`${product?.name} - ${index + 1}`}

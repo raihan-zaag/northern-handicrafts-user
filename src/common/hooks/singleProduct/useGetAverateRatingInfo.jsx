@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useNotification from "../useNotification";
-import { axiosPublic } from "@/configs/axios.publicInstance";
-import { GET_AVERAGE_RATING_VALUE } from "@/constants/apiUrls";
+import { axiosPublic } from "@/common/config";
+import { GET_AVERAGE_RATING_VALUE } from "@/common/config/constants/apiUrls";
 
 // get data for top of the product details
 

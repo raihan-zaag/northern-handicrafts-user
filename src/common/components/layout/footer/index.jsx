@@ -18,10 +18,11 @@ import {
   SHIPPING_POLICY_URL,
   ACCESSIBILITY_STATEMENT_URL,
   CUSTOMER_SUPPORT_URL,
-  ABOUT_US_URL
+  ABOUT_US_URL,
+  PRODUCTS_URL
 } from "@/common/config/constants/routes";
 import { Separator } from "../../ui";
-import { PRODUCT_LIST } from "@/common/config";
+
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -64,7 +65,7 @@ const Footer = () => {
                   <li><Link href={HOME_URL} className="hover:text-primary hover:underline transition-colors duration-200">Home</Link></li>
                   {menCategory && <li><Link href={CATEGORY_URL(menCategory.id)} className="hover:text-primary hover:underline transition-colors duration-200">{menCategory.name}</Link></li>}
                   {womenCategory && <li><Link href={CATEGORY_URL(womenCategory.id)} className="hover:text-primary hover:underline transition-colors duration-200">{womenCategory.name}</Link></li>}
-                  <li><Link href={PRODUCT_LIST} className="hover:text-primary hover:underline transition-colors duration-200">All Products</Link></li>
+                  <li><Link href={PRODUCTS_URL} className="hover:text-primary hover:underline transition-colors duration-200">All Products</Link></li>
                   <li><Link href={ABOUT_US_URL} className="hover:text-primary hover:underline transition-colors duration-200">About Us</Link></li>
                   <li><Link href={CUSTOMER_SUPPORT_URL} className="hover:text-primary hover:underline transition-colors duration-200">Customer Support</Link></li>
                 </ul>
