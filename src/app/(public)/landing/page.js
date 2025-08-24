@@ -20,19 +20,19 @@ const Home = async ({ searchParams }) => {
     // Sample slides for the new SliderBanner
     const bannerSlides = [
         {
-            image: '/images/image_placeholder.png',
+            image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop&crop=center',
             title: 'Categories you might like',
             description: 'Explore trending categories packed with bestsellers and top-rated picks!',
             alt: 'Trending categories showcase',
         },
         {
-            image: '/images/image_placeholder.png',
+            image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&crop=center',
             title: 'Handcrafted with Love',
             description: 'Discover authentic handicrafts made by skilled artisans from Northern regions',
             alt: 'Handcrafted products',
         },
         {
-            image: '/images/image_placeholder.png',
+            image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&crop=center',
             title: 'Premium Quality',
             description: 'Each piece is carefully selected for quality and authenticity',
             alt: 'Quality products',

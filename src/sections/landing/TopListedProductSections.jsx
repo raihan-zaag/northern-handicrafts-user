@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Typography from '@/common/components/Typography';
-import SingleProduct from '@/sections/home/SingleProduct';
+import SingleProduct from '@/sections/products/SingleProduct';
 import ProductCardSkeleton from '@/skeleton/ProductCardSkeleton';
 import { sampleProductService } from '@/common/services/sampleProductService';
 import Link from 'next/link';

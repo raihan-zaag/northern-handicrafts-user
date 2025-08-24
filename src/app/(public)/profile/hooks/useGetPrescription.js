@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { axiosPrivate } from "@/common/config/axios.publicInstance";
-import { GET_PRESCRIPTION_LIST_URL } from "@/common/config/constants/apiUrls";
+import { dummyPrescriptions, simulateApiDelay } from "@/data/dummyProductData";
+// TODO: Uncomment when backend is ready
+// import { axiosPrivate } from "@/common/config/axios.publicInstance";
+// import { GET_PRESCRIPTION_LIST_URL } from "@/common/config/constants/apiUrls";
 
 const useGetPrescription = () => {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -11,8 +13,14 @@ const useGetPrescription = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axiosPrivate.get(GET_PRESCRIPTION_LIST_URL);
-      setPrescriptions(response.data?.data || []);
+      
+      // TODO: Uncomment when backend is ready
+      // const response = await axiosPrivate.get(GET_PRESCRIPTION_LIST_URL);
+      // setPrescriptions(response.data?.data || []);
+
+      // Using dummy data for now since backend is not ready
+      await simulateApiDelay(500);
+      setPrescriptions(dummyPrescriptions);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch prescriptions");
       console.error("Error fetching prescriptions:", err);

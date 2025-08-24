@@ -15,6 +15,8 @@ import {
   CarouselDescription,
   CarouselButton,
 } from '@/common/components/ui/carousel';
+import SliderSkeleton from '@/common/components/skeletons/SliderSkeleton';
+import { cn } from '@/common/lib/utils';
 
 const SliderBanner = ({
   slides = [],
@@ -22,6 +24,7 @@ const SliderBanner = ({
   autoPlayDelay = 3000,
   showNavigation = true,
   showDots = true,
+  loading = false,
   className,
   contentClassName,
   slideClassName,
@@ -39,6 +42,11 @@ const SliderBanner = ({
 
     return () => clearInterval(intervalId);
   }, [api, autoPlay, autoPlayDelay]);
+
+  // Show skeleton while loading
+  if (loading) {
+    return <SliderSkeleton />;
+  }
 
   if (!slides || slides.length === 0) {
     return (
@@ -58,10 +66,10 @@ const SliderBanner = ({
       className={className}
       {...props}
     >
-      <CarouselContent className={contentClassName}>
+      <CarouselContent >
         {slides.map((slide, index) => (
           <CarouselItem key={index} className={slideClassName}>
-            <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden">
+            <div className={cn("relative w-full h-64 md:h-80 lg:h-96 overflow-hidden", contentClassName)}>
               {/* Image */}
               <Image
                 src={slide.image || slide}
@@ -70,7 +78,7 @@ const SliderBanner = ({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-              
+
               {/* Overlay and Content */}
               {(slide.title || slide.description || slide.button) && (
                 <>
@@ -83,7 +91,7 @@ const SliderBanner = ({
                       <CarouselDescription>{slide.description}</CarouselDescription>
                     )}
                     {slide.button && (
-                      <CarouselButton 
+                      <CarouselButton
                         onClick={slide.button.onClick}
                         {...(slide.button.href && { as: 'a', href: slide.button.href })}
                       >

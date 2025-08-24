@@ -19,16 +19,17 @@ const RadioGroupItem = ({ className, ...props }) => {
   return (
     <RadioGroupPrimitive.Item
       className={cn(
-        "aspect-square h-4 w-4 rounded-full border border-[var(--color-border)] " +
-          "text-[var(--color-primary)] ring-offset-background focus:outline-none " +
-          "focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] " +
-          "focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200",
+        "cursor-pointer aspect-square size-4 rounded-full border-2 border-slate-500 " +
+        "text-primary ring-offset-background focus:outline-none " +
+        "focus-visible:ring-2 focus-visible:ring-primary " +
+        "focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200 " +
+        "data-[state=checked]:border-4 data-[state=checked]:border-primary",
         className
       )}
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <Circle className="h-2.5 w-2.5 fill-current text-[var(--color-primary)]" />
+        <Circle className="size-2 fill-current text-white" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   )

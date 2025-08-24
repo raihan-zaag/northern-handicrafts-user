@@ -12,19 +12,29 @@ const Slider = ({ className, ...props }) => (
   >
     {/* Track */}
     <SliderPrimitive.Track
-      className="relative h-2 w-full grow overflow-hidden rounded-full bg-[var(--color-secondary)]"
+      className="relative h-1 w-full grow overflow-hidden bg-secondary"
     >
-      <SliderPrimitive.Range className="absolute h-full bg-[var(--color-primary)]" />
+      <SliderPrimitive.Range className="absolute h-full bg-primary" />
     </SliderPrimitive.Track>
 
-    {/* Thumb */}
+    {/* First Thumb */}
     <SliderPrimitive.Thumb
       className={cn(
-        "block h-5 w-5 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-background)] " +
-          "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] " +
-          "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[var(--color-primary)]"
+        "block h-5 w-5 rounded-full border-2 border-primary bg-primary " +
+        "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary " +
+        "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary"
       )}
     />
+
+    {/* Second Thumb */}
+    <SliderPrimitive.Thumb
+      className={cn(
+        "block h-5 w-5 rounded-full border-2 border-primary bg-primary " +
+        "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary " +
+        "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary"
+      )}
+    />
+
   </SliderPrimitive.Root>
 )
 Slider.displayName = SliderPrimitive.Root.displayName

@@ -20,7 +20,7 @@ export const RESET_PASSWORD_SUCCESS_URL = "/reset-successfully";
 export const HOME_URL = "/";
 export const LANDING_URL = "/landing";
 export const PRODUCTS_URL = "/products";
-export const PRODUCT_DETAILS_URL = "/product-details";
+export const PRODUCT_DETAILS_URL = "/products";
 export const CART_URL = "/cart";
 export const CHECKOUT_URL = "/checkout";
 export const TRACK_ORDER_URL = "/track-order";
@@ -57,7 +57,7 @@ export const CUSTOMER_SUPPORT_URL = "/customer-support";
 // =============================================================================
 
 // Product Routes
-export const PRODUCT_DETAILS_DYNAMIC_URL = (id) => `/product-details/${id}`;
+export const PRODUCT_DETAILS_DYNAMIC_URL = (id) => `/products/${id}`;
 
 // Category Routes
 export const CATEGORY_URL = (categoryId) => `/?category=${categoryId}`;
