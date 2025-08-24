@@ -377,10 +377,10 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
             ref={productSectionRef}
         >
             {isFiltering && (
-                <div className="w-full absolute inset-0 grid place-items-center bg-background/80 backdrop-blur-sm z-50">
-                    <div className="flex items-center gap-3 text-sm text-foreground bg-background/90 p-4 rounded-lg ">
+                <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[9999]">
+                    <div className="bg-card text-card-foreground px-6 py-4 rounded-lg shadow-xl flex items-center gap-3">
                         <Spinner className="text-primary" />
-                        <span>Applying filter...</span>
+                        <span className="text-sm font-medium ">Applying filter...</span>
                     </div>
                 </div>
             )}
