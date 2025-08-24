@@ -23,6 +23,7 @@ const Filter = ({
     onColorChange,
     onAvailabilityChange,
     onPriceChange,
+    isMobileDrawer = false, // New prop to handle mobile drawer context
 }) => {
     const [filterHeight, setFilterHeight] = useState("auto");
     const filterRef = useRef(null);
@@ -44,13 +45,21 @@ const Filter = ({
                 const viewportHeight = window.innerHeight;
                 const headerHeight = 80; // Approximate header height
                 const padding = 40; // Top and bottom padding
-                const maxHeight = viewportHeight - headerHeight - padding;
-
-                // Only apply calculated height on large devices
-                if (window.innerWidth >= 1024) {
+                
+                if (isMobileDrawer) {
+                    // Mobile drawer: Use most of available height minus some padding for header
+                    const drawerHeaderHeight = 80; // Space for drawer header
+                    const drawerPadding = 32; // Additional padding in drawer
+                    const availableHeight = viewportHeight - drawerHeaderHeight - drawerPadding;
+                    setFilterHeight(`${availableHeight}px`);
+                } else if (window.innerWidth >= 1024) {
+                    // Desktop: Calculate max height and enable scrolling
+                    const maxHeight = viewportHeight - headerHeight - padding;
                     setFilterHeight(`${maxHeight}px`);
                 } else {
-                    setFilterHeight("auto");
+                    // Mobile but not in drawer: Set a reasonable max height
+                    const mobileMaxHeight = Math.min(viewportHeight * 0.7, 500); // 70% of viewport or 500px max
+                    setFilterHeight(`${mobileMaxHeight}px`);
                 }
             }
         };
@@ -59,7 +68,7 @@ const Filter = ({
         window.addEventListener('resize', calculateHeight);
 
         return () => window.removeEventListener('resize', calculateHeight);
-    }, []);
+    }, [isMobileDrawer]);
 
     useEffect(() => {
         if (categoryMap && categoryMap.length > 0) {
@@ -117,10 +126,17 @@ const Filter = ({
     return (
         <div
             ref={filterRef}
-            className="w-full bg-background lg:sticky lg:top-4 lg:pr-4"
+            className={cn(
+                "w-full bg-background scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent",
+                isMobileDrawer 
+                    ? "h-full" // In mobile drawer, take full height
+                    : "lg:sticky lg:top-4 lg:pr-4" // Desktop positioning
+            )}
             style={{
                 maxHeight: filterHeight,
-                overflowY: filterHeight !== "auto" ? "auto" : "visible"
+                overflowY: "auto", // Always enable vertical scrolling
+                overflowX: "hidden", // Prevent horizontal scroll
+                WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
             }}
         >
             {/* Filter Header */}
@@ -128,7 +144,10 @@ const Filter = ({
                 <h3 className="text-xl font-bold text-text-primary">Filter by</h3>
             </div>
 
-            <div className="pt-3 space-y-4 overflow-x-hidden">
+            <div className={cn(
+                "space-y-4 overflow-x-hidden",
+                isMobileDrawer ? "pt-4" : "pt-3" // More top padding in mobile drawer
+            )}>
                 {/* Availability Section */}
                 <Accordion
                     type="multiple"

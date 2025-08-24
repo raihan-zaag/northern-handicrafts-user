@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import LoadMoreProduct from "./LoadMoreProduct";
 import Filter from "./Filter";
@@ -27,7 +27,38 @@ const useDebounce = (value, delay) => {
     return debouncedValue;
 };
 
+// Custom hook for smooth scrolling to element
+const useScrollToElement = () => {
+    const scrollToElement = useCallback((element, offset = -20) => {
+        if (!element) return;
+
+        const scrollToTarget = () => {
+            const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
+
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
+        };
+
+        // Try multiple times for maximum reliability
+        const attempts = [0, 50, 150, 300]; // Different timing attempts
+
+        attempts.forEach((delay) => {
+            setTimeout(scrollToTarget, delay);
+        });
+    }, []);
+
+    return scrollToElement;
+};
+
 const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) => {
+    // Ref for the product listing section
+    const productSectionRef = useRef(null);
+
+    // Custom scroll hook
+    const scrollToElement = useScrollToElement();
+
     // Filter states
     const [categories, setCategories] = useState([]);
     const [priceFilter, setPriceFilter] = useState([0, 9999]);
@@ -46,6 +77,19 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
 
     const router = useRouter();
     const searchParams = useSearchParams();
+
+    // Disable browser scroll restoration for this page to prevent conflicts
+    useEffect(() => {
+        if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+
+        return () => {
+            if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'auto';
+            }
+        };
+    }, []);
 
     // Debounce price filter to avoid too many API calls
     const debouncedPriceFilter = useDebounce(priceFilter, 500);
@@ -70,6 +114,19 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
             setPriceFilter([Number(priceFrom), Number(priceTo)]);
         }
     }, [searchParams]);
+
+    // Handle scrolling when URL changes (for consistency)
+    useEffect(() => {
+        // Only scroll if there are filter parameters in the URL
+        const hasFilters = searchParams.toString().length > 0;
+
+        if (hasFilters && productSectionRef.current) {
+            // Small delay to ensure the component has rendered
+            setTimeout(() => {
+                scrollToElement(productSectionRef.current);
+            }, 100);
+        }
+    }, [searchParams, scrollToElement]);
 
     // Build filter parameters
     // TODO: Uncomment when backend is ready
@@ -139,7 +196,7 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
             }
 
             setTotalPages(paginatedData.totalPages);
-            
+
         } catch (error) {
             console.error("Error fetching products:", error);
         } finally {
@@ -206,8 +263,13 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
             searchParams.set("sortBy", newFilters.sortBy);
         }
 
+        // Push the URL change first
         router.push(`${PRODUCTS_URL}/?${searchParams.toString()}`, { shallow: true });
-    }, [router]);
+
+        // Use the reliable scroll function
+        scrollToElement(productSectionRef.current);
+
+    }, [router, scrollToElement]);
 
     // Filter change handlers
     const handleCategoryChange = useCallback((categoryIds) => {
@@ -311,7 +373,9 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
     }, []);
 
     return (
-        <div className="relative min-h-screen">
+        <div className="relative min-h-screen scroll-mt-5"
+            ref={productSectionRef}
+        >
             {isFiltering && (
                 <div className="w-full absolute inset-0 grid place-items-center bg-background/80 backdrop-blur-sm z-50">
                     <div className="flex items-center gap-3 text-sm text-foreground bg-background/90 p-4 rounded-lg ">
@@ -322,10 +386,10 @@ const ProductListed = ({ product: initialProduct, pageSize: initialPageSize }) =
             )}
 
             {/* Container with proper padding and max-width */}
-            <div className="container">
+            <div className="container" >
                 <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 w-full">
                     {/* Sidebar - Fixed on desktop, responsive on mobile */}
-                    <aside className="lg:w-[220px]">
+                    <aside className="hidden lg:block lg:w-[220px]">
                         <Filter
                             categoryList={handleSpreadCategory}
                             selectedCategories={selectedCategories}

@@ -6,7 +6,6 @@ import ProductList from "./ProductList";
 import ProductCardSkeleton from "@/skeleton/ProductCardSkeleton";
 import { MdFilterAlt } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-import { CgClose } from "react-icons/cg";
 import {
     Sheet,
     SheetContent,
@@ -293,16 +292,11 @@ const LoadMoreProduct = ({
 
             {/* Mobile Filter Drawer */}
             <Sheet open={openFilterDrawer} onOpenChange={setOpenFilterDrawer}>
-                <SheetContent side="left" className="w-full max-w-400px sm:max-w-540px">
-                    <SheetHeader>
-                        <div className="flex items-center justify-between">
-                            <SheetTitle className="text-primary">Product Filter</SheetTitle>
-                            <div onClick={() => setOpenFilterDrawer(false)}>
-                                <CgClose className="h-5 w-5 cursor-pointer" />
-                            </div>
-                        </div>
+                <SheetContent side="left" className="w-full max-w-[400px] sm:max-w-[540px] flex flex-col">
+                    <SheetHeader className="flex-shrink-0">
+                        <SheetTitle className="text-primary">Product Filter</SheetTitle>
                     </SheetHeader>
-                    <div className="mt-4">
+                    <div className="flex-1 overflow-hidden">
                         <Filter
                             categoryList={handleSpreadCategory}
                             selectedCategories={selectedCategories}
@@ -315,6 +309,7 @@ const LoadMoreProduct = ({
                             onColorChange={onColorChange}
                             onAvailabilityChange={onAvailabilityChange}
                             onPriceChange={onPriceChange}
+                            isMobileDrawer={true}
                         />
                     </div>
                 </SheetContent>

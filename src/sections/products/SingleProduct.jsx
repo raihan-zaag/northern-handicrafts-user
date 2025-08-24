@@ -67,8 +67,8 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
           <CarouselDots className="top-6" activeDotClassName="bg-primary" />
         </Carousel>
 
-        {/* Wishlist Button - shows on hover */}
-        <div className="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+        {/* Wishlist Button - visible on mobile, shows on hover on desktop */}
+        <div className="absolute right-4 top-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-400">
           {isProductInWishlist(product?.id) ? (
             <button
               onClick={(e) => {
@@ -92,8 +92,8 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
           )}
         </div>
 
-        {/* View Details Button - shows on hover */}
-        <div className="absolute bottom-3.75 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-400 px-3.75">
+        {/* Add To Cart Button - visible on mobile, shows on hover on desktop */}
+        <div className="absolute bottom-3.75 left-0 w-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-400 px-3.75">
           <Button variant="secondary" className="w-full">
             Add To Cart
           </Button>
@@ -106,11 +106,11 @@ const SingleProduct = ({ product, defaultSizePrice = 0 }) => {
         <div className="flex items-center gap-x-3">
           {product?.discount && (
             <Typography.Description className="font-medium line-through">
-              ${product?.regularPrice}
+              ${product?.regularPrice ?? 0}
             </Typography.Description>
           )}
           <Typography.Paragraph className="text-text-primary font-medium">
-            ${calculatedPrice}
+            ${calculatedPrice ?? 0}
           </Typography.Paragraph>
         </div>
       </div>
