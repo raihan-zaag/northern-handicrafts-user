@@ -1,293 +1,253 @@
 "use client";
 
-import React, { useState } from "react";
-import useGetProductReviews from "@/hooks/singleProduct/useGetProductReviews";
-import { StarRating } from "@/components/ui/star-rating";
-import { Separator } from "@/components/ui/separator";
-import { LoadingOverlay } from "@/components/ui/loading-overlay";
-import NoCommentDataFound from "./NoCommentDataFound";
+import { useState } from "react";
+import { Star } from "lucide-react";
+import { Button } from "@/common/components/ui/button";
+import PaginationWrapper from "@/common/components/pagination";
+import Typography from "@/common/components/Typography";
 import Image from "next/image";
-import useGetTotalRatingAverage from "@/hooks/singleProduct/useGetTotalRatingAverage";
-import Icons from "../../../public/icons";
 
-const ReviewAndRatings = ({ productId }) => {
-  const { reviews, loading } = useGetProductReviews(productId);
-  const { loading: ratingCountLoading, averageRatingValue } =
-    useGetTotalRatingAverage(productId);
+// Enhanced mock reviews data with more entries for pagination
+const mockReviews = [
+  {
+    id: 1,
+    customerName: "Courtney Henry",
+    date: "13 June, 2023",
+    rating: 4,
+    comment: "I ordered a set of jute bags and the quality exceeded my expectations. The craftsmanship is excellent, and I love that it's eco-friendly. Highly recommended!",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 2,
+    customerName: "Wade Warren",
+    date: "13 June, 2023",
+    rating: 4,
+    comment: "The combo offer was a great choice. I got different jute products at a very reasonable price. Delivery was on time and packaging was perfect.",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 3,
+    customerName: "Rafa Leo",
+    date: "13 June, 2023",
+    rating: 4,
+    comment: "I appreciate the effort behind these handmade products. Each piece feels unique and authentic. It's wonderful to support local women artisans through my purchase.",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 4,
+    customerName: "Sarah Johnson",
+    date: "10 June, 2023",
+    rating: 5,
+    comment: "Absolutely amazing quality! The attention to detail in these handcrafted items is outstanding. Will definitely order again.",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 5,
+    customerName: "Michael Chen",
+    date: "8 June, 2023",
+    rating: 3,
+    comment: "Good products but delivery took longer than expected. Quality is decent for the price point.",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 6,
+    customerName: "Emily Davis",
+    date: "5 June, 2023",
+    rating: 5,
+    comment: "Love supporting local artisans! The craftsmanship is exceptional and the materials feel premium.",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 7,
+    customerName: "David Wilson",
+    date: "3 June, 2023",
+    rating: 2,
+    comment: "Product was okay but not what I expected based on the description. Customer service was helpful though.",
+    profileImage: "/images/image_placeholder.png"
+  },
+  {
+    id: 8,
+    customerName: "Lisa Anderson",
+    date: "1 June, 2023",
+    rating: 4,
+    comment: "Beautiful handcrafted items. The packaging was excellent and everything arrived in perfect condition.",
+    profileImage: "/images/image_placeholder.png"
+  }
+];
 
-  const rating = reviews;
+const ReviewAndRatings = ({ productId: _productId }) => {
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 3;
 
-  // make rating object for all values like, 1 start, 2 start 3 start and so on....
-  const mergedRatings = Array.from(
-    new Map(
-      [
-        { rating: 1, count: 0 },
-        { rating: 2, count: 0 },
-        { rating: 3, count: 0 },
-        { rating: 4, count: 0 },
-        { rating: 5, count: 0 },
-        ...(averageRatingValue || []).map(({ rating, count }) => ({
-          rating,
-          count: parseInt(count, 10) || 0,
-        })),
-      ].map((obj) => [obj.rating, obj])
-    ).values()
-  );
+  // Check if there are any reviews available
+  const hasReviews = mockReviews && mockReviews.length > 0;
 
-  // Calculate the total number of reviewers
-  const totalReviewers = mergedRatings?.reduce(
-    (acc, curr) => acc + curr.count,
-    0
-  );
+  // If no reviews exist, show empty state
+  if (!hasReviews) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 text-center">
+        <Typography.Title3 className="text-lg font-medium text-text-primary mb-2">
+          No Reviews Yet
+        </Typography.Title3>
+        <Typography.Paragraph className="text-text-subtle">
+          Be the first to review this product and share your experience with others.
+        </Typography.Paragraph>
+      </div>
+    );
+  }
 
-  // Calculate the sum of (Rating * Number of Reviewers for that Rating)
-  const sumOfWeightedRatings = mergedRatings?.reduce(
-    (acc, curr) => acc + curr.rating * curr.count,
-    0
-  );
+  // Filter reviews based on selected rating
+  const filteredReviews = selectedFilter === "All"
+    ? mockReviews
+    : mockReviews.filter(review => review.rating === selectedFilter);
 
-  // Calculate the average rating value
-  const averageRating =
-    totalReviewers > 0
-      ? (sumOfWeightedRatings / totalReviewers).toFixed(1)
-      : "0.0"; // Default to "0.0" if no reviewers
+  // Calculate pagination
+  const totalFilteredReviews = filteredReviews.length;
+  const startIndex = (currentPage - 1) * reviewsPerPage;
+  const endIndex = startIndex + reviewsPerPage;
+  const currentReviews = filteredReviews.slice(startIndex, endIndex);
 
-  // Calculate the divWidth for each item in ratings
-  const ratingsWithDivWidth = mergedRatings?.map((item) => ({
-    ...item,
-    divWidth: rating ? (item.count / totalReviewers) * 100 : 0,
-  }));
+  const ratingFilters = [
+    { label: "All", value: "All" },
+    { label: "5", value: 5 },
+    { label: "4", value: 4 },
+    { label: "3", value: 3 },
+    { label: "2", value: 2 },
+    { label: "1", value: 1 }
+  ];
+
+  const handleFilterChange = (value) => {
+    setSelectedFilter(value);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  const handlePagination = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
-    <LoadingOverlay isLoading={loading || ratingCountLoading}>
-      <div className="flex flex-col lg:flex-row w-full justify-between gap-x-6">
-        <div className="order-2 lg:order-1">
-          <LeftSideContent ratings={mergedRatings} data={rating} />
+    <div className="flex flex-col gap-8">
+      {/* Filter Section */}
+      <div className="flex flex-col gap-2">
+        <Typography.Title3 className="text-base font-medium text-text-primary">
+          Filter
+        </Typography.Title3>
+
+        <div className="flex flex-wrap gap-3">
+          {ratingFilters.map((filter) => (
+            <Button
+              key={filter.value}
+              variant="outline"
+              size="sm"
+              className={`flex items-center gap-1 h-9 px-4 rounded ${selectedFilter === filter.value
+                ? "border-primary border-2"
+                : "border-2 border-border text-text-secondary hover:border-border-strong"
+                }`}
+              onClick={() => handleFilterChange(filter.value)}
+            >
+              <span className="text-base font-normal">{filter.label}</span>
+              {filter.value !== "All" && (
+                <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+              )}
+            </Button>
+          ))}
         </div>
-        <div className="order-1 lg:order-2">
-          <RightSidecontent
-            ratingsWithDivWidth={ratingsWithDivWidth}
-            rating={mergedRatings}
-            averageRating={averageRating || 0}
-            totalReviewers={totalReviewers}
+      </div>
+
+      {/* Reviews List */}
+      <div className="flex flex-col">
+        {currentReviews.length > 0 ? (
+          currentReviews.map((review, index) => (
+            <div key={review.id}>
+              <ReviewCard review={review} />
+              {index < currentReviews.length - 1 && (
+                <div className="border-b border-border my-4" />
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-12">
+            <Typography.Paragraph className="text-text-subtle">
+              No reviews found for the selected rating.
+            </Typography.Paragraph>
+          </div>
+        )}
+      </div>
+
+      {/* Pagination */}
+      {filteredReviews.length > reviewsPerPage && (
+        <div className="flex justify-center">
+          <PaginationWrapper
+            pageSize={totalFilteredReviews}
+            handlePagination={handlePagination}
+            current={currentPage}
           />
         </div>
-      </div>
-    </LoadingOverlay>
-  );
-};
-
-export default ReviewAndRatings;
-
-const LeftSideContent = ({ ratings, data }) => {
-  const [selectedRating, setSelectedRating] = useState("All");
-
-  const [filteredData, setFilteredData] = useState(data);
-
-  const handleSelection = (value) => {
-    setSelectedRating(value);
-    if (value === "All") {
-      setFilteredData(data);
-    } else {
-      const newArray = data.filter((item) => item.rating === value);
-      setFilteredData(newArray);
-    }
-  };
-
-  return (
-    <>
-      <div className="space-y-2 ml-0 sm:ml-8 md:ml-12">
-        <h1 className="text-primary text-sm font-semibold">Filter</h1>
-        <div className="flex gap-x-2 md:gap-x-2.5">
-          <button
-            onClick={() => handleSelection("All")}
-            className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-3  rounded-sm text-sm duration-300 ${selectedRating === "All"
-              ? "border-2 border-neutral-700 font-bold text-neutral-700"
-              : "border-2 border-neutral-30 text-gray font-medium"
-              }`}
-          >
-            All
-          </button>
-          <div className="flex gap-x-2 md:gap-x-2.5">
-            {ratings.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleSelection(item.rating)}
-                className={`w-46px md:w-49px h-28px md:h-30px flex justify-center items-center py-1.5 px-4 rounded-sm ${selectedRating === item.rating
-                  ? "border-2 border-black font-bold text-neutral-700 rounded-sm"
-                  : "border-2 border-neutral-30 font-medium text-neutral-300"
-                  }`}
-              >
-                <div className="flex justify-center items-center gap-x-2">
-                  <p className=" text-sm font-medium text-neutral-700 text-opacity-80">
-                    {item.rating}
-                  </p>
-
-                  <Image
-                    alt="star-icon"
-                    src={Icons.rating}
-                    className="w-3 h-3"
-                  />
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="pt-7 md:pt-6">
-          <Comments data={filteredData} />
-        </div>
-      </div>
-    </>
-  );
-};
-
-const Comments = ({ data }) => {
-  const formatDate = (timestamp) => {
-    const date = new Date(Number(timestamp));
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
-  };
-
-  return (
-    <div className="animate-fadeIn w-full ">
-      {data?.length > 0 ? (
-        data?.map((item, i) => (
-          <div className="flex flex-col py-4 border-b"
-            key={i}
-          >
-            <div key={item.id} className="w-full flex gap-x-3 md:gap-x-4">
-              <Image
-                alt={item.name}
-                width={1000}
-                height={1000}
-                src={
-                  item?.customer?.profilePicture
-                    ? `${item?.customer?.profilePicture}`
-                    : `/images/image_placeholder.png`
-                }
-                className="w-10 h-10 md:w-10 md:h-10 rounded-full"
-              />
-
-              <div className="w-full lg:w-500px xl:w-642px">
-                <div className="flex flex-col justify-between items-start">
-                  <h1 className="text-primary text-sm font-semibold">
-                    {item?.customer?.fullName}
-                  </h1>
-                  <p className="text-gray-mid2 text-xs2">
-                    {formatDate(item?.createdAt)}
-                  </p>
-                </div>
-
-                <div className="pt-1 flex items-center gap-x-2 md:gap-x-2.5">
-                  <StarRating
-                    value={item?.rating}
-                    disabled
-                    size="w-3 h-3"
-                  />
-                  <p className="text-primary text-sm font-medium">
-                    {item.rating}
-                  </p>
-                </div>
-
-                <p className="text-gray-mid2 text-sm leading-4 md:leading-5">
-                  {item.comment}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))
-      ) : (
-        <NoCommentDataFound
-          message="No Reviews Yet!"
-          className="w-full text-red-400 bg-red-100"
-        />
       )}
     </div>
   );
 };
 
-const RightSidecontent = ({
-  ratingsWithDivWidth,
-  rating,
-  averageRating,
-  totalReviewers,
-}) => {
+const ReviewCard = ({ review }) => {
   return (
-    <div className="animate-fadeIn flex flex-row justify-between md:justify-start items-center md:flex-col md:gap-y-4 md:mt-7">
-      <div className="flex flex-col gap-y-4 w-full">
-        <div className="mx-2 flex flex-col items-center w-full gap-0">
-          <div className="flex items-end">
-            <h1 className="text-black text-3xl font-medium">
-              {averageRating}
-            </h1>
-            <span className="text-font_color_one text-xl font-normal mb-1.5 ml-1">
-              /
-            </span>
-            <p className="text-font_color_one text-xl font-normal mb-1.5 ml-1">
-              5.0
-            </p>
+    <div className="flex gap-4.5 items-start">
+      {/* Profile Image */}
+      <div className="flex-shrink-0">
+        <div className="w-10 h-10 rounded-full overflow-hidden">
+          <Image
+            src={review.profileImage}
+            alt={review.customerName}
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Review Content */}
+      <div className="flex-1 space-y-1">
+        {/* Header - Name, Date, and Rating in one row */}
+        <div className="flex flex-col gap-1">
+          <div className="">
+            <Typography.BodyText className="font-medium text-text-primary text-sm">
+              {review.customerName}
+            </Typography.BodyText>
+            <Typography.SmallText className="text-text-secondary text-sm">
+              {review.date}
+            </Typography.SmallText>
           </div>
 
-          <div className="md:hidden">
-            <StarRating
-              value={rating?.average || 5}
-              disabled
-              allowHalf
-              size="w-3 h-3"
-            />
+          {/* Rating */}
+          <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
+                {[...Array(5)].map((_, index) => (
+                  <Star
+                    key={index}
+                    className={`w-3 h-3 ${index < review.rating
+                      ? "fill-orange-500 text-orange-500"
+                      : "fill-none text-orange-300"
+                      }`}
+                  />
+                ))}
+              </div>
+              <Typography.SmallText className="font-normal text-text-primary text-sm">
+                {review.rating}.0
+              </Typography.SmallText>
+            </div>
           </div>
-          <div className="hidden md:block">
-            <StarRating
-              value={rating?.average || 5.0}
-              disabled
-              allowHalf
-              size="w-3 h-3"
-            />
-          </div>
-          <p className="text-font_color_one text-base font-normal">
-            <span className="font-semibold text-primary">{totalReviewers}</span>{" "}
-            reviews
-          </p>
         </div>
 
-        <div className="flex flex-col gap-y-2 md:gap-y-2 pb-10">
-          {ratingsWithDivWidth?.map((item) => (
-            <div key={item.id} className="flex items-center px-5 gap-x-2">
-              <StarRating
-                value={1}
-                disabled
-                max={1}
-                size="w-3 h-3"
-              />
-              <p className="text-font_color_one text-sm font-semibold pl-2 ">
-                {item.rating}
-              </p>
-              <div className="w-full lg:w-300px h-1 bg-white rounded mx-3 md:mx-4">
-                {item?.divWidth > 0 ? (
-                  <div className="w-full bg-neutral-200 rounded">
-                    <div
-                      style={{
-                        width: `${item.divWidth}%`, // Set the width based on the divWidth field
-                      }}
-                      className={`h-1 bg-orange rounded`}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      width: `${100}%`, // Set the width based on the divWidth field
-                    }}
-                    className={`h-1 bg-neutral-200 w-full rounded`}
-                  />
-                )}
-              </div>
-              <p className="text-black-1000 text-sm font-semibold">
-                {item.count}
-              </p>
-            </div>
-          ))}
+        {/* Comment */}
+        <div className="pt-2">
+          <Typography.Description className="text-text-secondary text-sm leading-relaxed">
+            {review.comment}
+          </Typography.Description>
         </div>
       </div>
     </div>
   );
 };
+
+export default ReviewAndRatings;

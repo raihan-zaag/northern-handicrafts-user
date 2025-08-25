@@ -1,6 +1,19 @@
-import React from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationButton,
+  PaginationNextButton,
+  PaginationPreviousButton,
+} from "@/common/components/ui/pagination";
 
-const PaginationComponent = ({ pageSize, handlePagination, current = 1 }) => {
+const PaginationWrapper = ({ 
+  pageSize, 
+  handlePagination, 
+  current = 1, 
+  className
+}) => {
   const totalPages = Math.max(1, Math.ceil(pageSize / 10));
 
   const goTo = (page) => {
@@ -15,67 +28,74 @@ const PaginationComponent = ({ pageSize, handlePagination, current = 1 }) => {
   for (let i = start; i <= end; i++) pages.push(i);
 
   return (
-    <div className="flex items-center gap-1">
-      <button
-        type="button"
-        onClick={() => goTo(current - 1)}
-        disabled={current === 1}
-        className="px-3 py-1 rounded border border-input text-sm disabled:opacity-50"
-      >
-        Prev
-      </button>
-      {start > 1 && (
-        <>
-          <button
-            type="button"
-            onClick={() => goTo(1)}
-            className={`px-3 py-1 rounded border text-sm ${
-              current === 1 ? "bg-primary text-white border-primary" : "border-input"
-            }`}
-          >
-            1
-          </button>
-          {start > 2 && <span className="px-2">...</span>}
-        </>
-      )}
-      {pages.map((p) => (
-        <button
-          key={p}
-          type="button"
-          onClick={() => goTo(p)}
-          className={`px-3 py-1 rounded border text-sm ${
-            current === p ? "bg-primary text-white border-primary" : "border-input"
-          }`}
-        >
-          {p}
-        </button>
-      ))}
-      {end < totalPages && (
-        <>
-          {end < totalPages - 1 && <span className="px-2">...</span>}
-          <button
-            type="button"
-            onClick={() => goTo(totalPages)}
-            className={`px-3 py-1 rounded border text-sm ${
-              current === totalPages
-                ? "bg-primary text-white border-primary"
-                : "border-input"
-            }`}
-          >
-            {totalPages}
-          </button>
-        </>
-      )}
-      <button
-        type="button"
-        onClick={() => goTo(current + 1)}
-        disabled={current === totalPages}
-        className="px-3 py-1 rounded border border-input text-sm disabled:opacity-50"
-      >
-        Next
-      </button>
-    </div>
+    <Pagination className={className}>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPreviousButton
+            onClick={() => goTo(current - 1)}
+            disabled={current === 1}
+          />
+        </PaginationItem>
+
+        {start > 1 && (
+          <>
+            <PaginationItem>
+              <PaginationButton
+                onClick={() => goTo(1)}
+                isActive={current === 1}
+                aria-label="Go to page 1"
+              >
+                1
+              </PaginationButton>
+            </PaginationItem>
+            {start > 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+          </>
+        )}
+
+        {pages.map((page) => (
+          <PaginationItem key={page}>
+            <PaginationButton
+              onClick={() => goTo(page)}
+              isActive={current === page}
+              aria-label={`Go to page ${page}`}
+            >
+              {page}
+            </PaginationButton>
+          </PaginationItem>
+        ))}
+
+        {end < totalPages && (
+          <>
+            {end < totalPages - 1 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <PaginationButton
+                onClick={() => goTo(totalPages)}
+                isActive={current === totalPages}
+                aria-label={`Go to page ${totalPages}`}
+              >
+                {totalPages}
+              </PaginationButton>
+            </PaginationItem>
+          </>
+        )}
+
+        <PaginationItem>
+          <PaginationNextButton
+            onClick={() => goTo(current + 1)}
+            disabled={current === totalPages}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 };
 
-export default PaginationComponent;
+export default PaginationWrapper;

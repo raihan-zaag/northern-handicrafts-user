@@ -19,3 +19,4 @@ export * from './star-rating';
 export * from './input-otp';
 export * from './password-input';
 export * from './Breadcrumb';
+export * from './pagination';

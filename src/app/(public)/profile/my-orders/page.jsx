@@ -2,7 +2,7 @@
 
 import OrderCard from "@/common/components/cards/OrderCard";
 
-import PaginationComponent from "@/common/components/pagination";
+import PaginationWrapper from "@/common/components/pagination";
 import useGetOnGoingOrder from "@/app/(public)/orders/hooks/useGetOnGoingOrder";
 import useGetOrderHistory from "@/app/(public)/orders/hooks/useGetOrderHistory ";
 import { Input } from "@/common/components/ui/input";
@@ -167,7 +167,7 @@ const MyOrders = () => {
       </div>
 
       <div className="mt-5">
-        <PaginationComponent
+        <PaginationWrapper
           pageSize={
             activeTab?.id === 1 ? onGoingPageSize : orderHistoryPageSize
           }

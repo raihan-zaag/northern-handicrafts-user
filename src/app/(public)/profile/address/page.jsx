@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import PaginationComponent from "@/common/components/pagination";
+import PaginationWrapper from "@/common/components/pagination";
 import useDeleteAddress from "@/app/(public)/profile/hooks/useDeleteAddress";
 import useGetAddress from "@/app/(public)/profile/hooks/useGetUserAddress";
 import { LoadingOverlay } from "@/common/components/ui/loading-overlay";
@@ -112,7 +112,7 @@ const AddressPage = () => {
 
                 {address?.totalPages > 1 && (
                     <div className="mt-4">
-                        <PaginationComponent
+                        <PaginationWrapper
                             pageSize={address.totalElements}
                             handlePagination={handleGetPaginatedAddress}
                             current={currentPage}

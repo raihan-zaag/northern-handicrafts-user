@@ -168,7 +168,7 @@ const CarouselPrevious = ({ className, _variant = "outline", _size = "icon", ref
     <button
       ref={ref}
       className={cn(
-        "absolute h-10 w-10 rounded-full flex items-center justify-center z-10 transition-all duration-200",
+        "absolute size-15 rounded-full flex items-center justify-center z-10 transition-all duration-200",
         "bg-white/80 hover:bg-white border-none shadow-lg backdrop-blur-sm",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         orientation === "horizontal"
@@ -180,7 +180,7 @@ const CarouselPrevious = ({ className, _variant = "outline", _size = "icon", ref
       onClick={scrollPrev}
       {...props}
     >
-      <ChevronLeft className="h-5 w-5 text-gray-700" />
+      <ChevronLeft className="size-6 text-gray-700" />
       <span className="sr-only">Previous slide</span>
     </button>
   )
@@ -194,7 +194,7 @@ const CarouselNext = ({ className, _variant = "outline", _size = "icon", ref, ..
     <button
       ref={ref}
       className={cn(
-        "absolute h-10 w-10 rounded-full flex items-center justify-center z-10 transition-all duration-200",
+        "absolute size-15 rounded-full flex items-center justify-center z-10 transition-all duration-200",
         "bg-white/80 hover:bg-white border-none shadow-lg backdrop-blur-sm",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         orientation === "horizontal"
@@ -206,7 +206,7 @@ const CarouselNext = ({ className, _variant = "outline", _size = "icon", ref, ..
       onClick={scrollNext}
       {...props}
     >
-      <ChevronRight className="h-5 w-5 text-gray-700" />
+      <ChevronRight className="size-6 text-gray-700" />
       <span className="sr-only">Next slide</span>
     </button>
   )
