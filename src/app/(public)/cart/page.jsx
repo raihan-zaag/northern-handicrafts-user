@@ -1,14 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useCart } from "@/contextProviders/useCartContext";
 import { useUserContext } from "@/contextProviders/userContextProvider";
-import SingleCartItemCard from "@/sections/cart/SingleCartItemCard";
-import { Input } from "@/common/components/ui/input";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import OrderSummary from "@/sections/orderSummary/OrderSummary";
-import { Button } from "@/common/components";
 import Container from "@/common/components/shared/Container";
+import { 
+  CartItemCard, 
+  OrderSummaryCard, 
+  EmptyCartState 
+} from "./components";
 
 const MyCart = () => {
   const { isAuthenticated } = useUserContext();
@@ -18,24 +18,23 @@ const MyCart = () => {
     calculatedData,
     getCartListForAuthUser,
     handleUpdateCartInBackend,
+    removeFromCart,
   } = useCart();
 
-  const [promoCode, setPromoCode] = useState();
+  const [promoCode, setPromoCode] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       if (isAuthenticated) {
         const res = await getCartListForAuthUser();
-        // console.log({ res });
 
         if (res?.promo?.code) {
           setPromoCode(res?.promo?.code);
-          // console.log(res?.promo?.code);
         } else {
-          setPromoCode(null);
+          setPromoCode("");
         }
 
-        // Execute after a 10ms delay
+        // Execute calculation after a small delay
         setTimeout(() => {
           handleGetOrderCalculateData(
             "STANDARD",
@@ -45,130 +44,92 @@ const MyCart = () => {
       }
     };
     fetchData();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, getCartListForAuthUser, handleGetOrderCalculateData]);
 
-  const handleGetPromoCode = async () => {
-    if (promoCode) {
+  const handleUpdateCalculation = async () => {
+    const res = await handleGetOrderCalculateData("STANDARD", promoCode || null);
+    
+    if (res?.status === 201 && promoCode) {
+      handleUpdateCartInBackend(promoCode);
+    }
+  };
+
+  const handlePromoCodeChange = (newPromoCode) => {
+    setPromoCode(newPromoCode);
+    
+    if (!newPromoCode) {
+      handleGetOrderCalculateData("STANDARD");
+      handleUpdateCartInBackend();
+    }
+  };
+
+  const handleApplyPromoCode = async () => {
+    if (promoCode.trim()) {
       const res = await handleGetOrderCalculateData("STANDARD", promoCode);
 
       if (res?.status === 201) {
         handleUpdateCartInBackend(promoCode);
       }
-    } else {
-      const res = await handleGetOrderCalculateData("STANDARD");
-
-      // if (res?.status === 201) {
-      //   handleUpdateCartInBackend();
-      // }
     }
   };
 
-  const handleChangePromoCode = async (e) => {
-    e.preventDefault();
-    setPromoCode(e.target.value);
-
-    if (!e.target.value) {
-      const res = await handleGetOrderCalculateData("STANDARD");
-
-      if (res?.status === 201) {
-        handleUpdateCartInBackend();
-      }
-    }
-
-    if (cart?.length < 0) {
-      setPromoCode("");
-    }
+  const handleRemoveItem = (uid) => {
+    removeFromCart(uid);
+    handleUpdateCalculation();
   };
 
-  const promoCodeUI = (
-    <div className="flex flex-col items-start gap-1 mb-4">
-      <p>Discount code</p>
-      <div className="flex flex-col md:flex-row items-center w-full gap-4 md:gap-2">
-        <Input
-          className="h-14 w-full flex-1"
-          placeholder="Enter a promo code"
-          onChange={handleChangePromoCode}
-          value={cart?.length > 0 && promoCode ? promoCode : ""}
-        />
-
-        <Button
-          type="outline"
-          className={"w-full md:w-1/3"}
-          onClick={handleGetPromoCode}
-          disabled={!promoCode}
-        >
-          Apply
-        </Button>
-      </div>
-    </div>
-  );
+  const hasItems = cart?.length > 0;
 
   return (
     <Container>
-      <h2 className="text-center font-semibold text-base md:text-base lg:text-2xl">
-        Shopping Cart
-      </h2>
-
-      <div className="grid grid-cols-3 gap-6 md:gap-24 mt-12">
-        {/* Cart List */}
-        <div className="col-span-3 md:col-span-3 lg:col-span-2">
-          {cart?.length > 0 ? (
-            <div className="mt- ">
-              {cart?.map((singleCartItem, index) => {
-                return (
-                  <div key={index} className="py-5 border-b">
-                    <SingleCartItemCard
-                      cartInfo={singleCartItem}
-                      pageCard={true}
-                      showButton={true}
-                      // promoCode={promoCode}
-                      getUpdateedCalculation={handleGetPromoCode}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="bg-white h-400px flex flex-col items-center justify-center gap-6">
-              <h1 className="font-medium text-xl text-slate-500">
-                No items added
-              </h1>
-              <Link href={"/"}>
-                <Button
-                  className={
-                    " md:py-3 py-2 md:px-9 px-6 bg-primary rounded-sm text-dark md:text-base text-sm font-semibold"
-                  }
-                >
-                  START SHOPPING
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {/* Order Summary */}
-        <div className="col-span-3 md:col-span-3 lg:col-span-1">
-          <OrderSummary
-            total={
-              cart?.length > 0 ? calculatedData?.totalProductPriceAfterPromo : 0
-            }
-            subTotal={
-              cart?.length > 0
-                ? calculatedData?.totalProductPrice +
-                calculatedData?.totalExtraCharge
-                : 0
-            }
-            taxPercentage={calculatedData?.taxPercentage}
-            taxAmount={calculatedData?.taxAmount}
-            shippingCost={calculatedData?.shippingCost}
-            discount={
-              cart?.length > 0 ? calculatedData?.promoDiscountAmount : 0
-            }
-            fromCartPage={true}
-            promoCodeUi={promoCodeUI}
-          />
-        </div>
+      {/* Page Header */}
+      <div className="text-center mb-12">
+        <h1 className="text-2xl font-semibold text-gray-900">
+          Shopping Cart
+        </h1>
       </div>
+
+      {hasItems ? (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-24">
+          {/* Cart Items */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl border border-gray-100">
+              {cart.map((cartItem, index) => (
+                <CartItemCard
+                  key={cartItem.uid || index}
+                  cartInfo={cartItem}
+                  onQuantityChange={handleUpdateCalculation}
+                  onRemove={handleRemoveItem}
+                  className={index === cart.length - 1 ? "border-b-0" : ""}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <OrderSummaryCard
+              total={calculatedData?.totalProductPriceAfterPromo || 0}
+              subTotal={
+                (calculatedData?.totalProductPrice || 0) +
+                (calculatedData?.totalExtraCharge || 0)
+              }
+              taxPercentage={calculatedData?.taxPercentage}
+              taxAmount={calculatedData?.taxAmount}
+              shippingCost={calculatedData?.shippingCost}
+              discount={calculatedData?.promoDiscountAmount || 0}
+              promoCode={promoCode}
+              onPromoCodeChange={handlePromoCodeChange}
+              onApplyPromoCode={handleApplyPromoCode}
+              fromCartPage={true}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-2xl mx-auto">
+          <EmptyCartState />
+        </div>
+      )}
     </Container>
   );
 };

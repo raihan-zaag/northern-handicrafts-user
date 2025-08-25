@@ -28,9 +28,25 @@ import useNotification from "@/common/hooks/useNotification";
 import useUpdateCart from "@/app/(public)/cart/hooks/useCartUpdate";
 import GuestUserAddressForm from "@/sections/checkout/GuestUserAddressForm";
 import useGetUserProfile from "@/app/(auth)/hooks/useGetUserInfo";
-import OrderSummary from "@/sections/orderSummary/OrderSummary";
 import Container from "@/common/components/shared/Container";
 import { Button } from "@/common/components";
+import { formatNumber } from "@/common/lib/utils";
+
+// Section Header Component
+const SectionHeader = ({ title }) => (
+    <div className="bg-[var(--color-surface)] px-6 py-4 rounded-xl">
+        <h2 className="text-[var(--color-text-primary)] font-semibold text-[15px]">
+            {title}
+        </h2>
+    </div>
+);
+
+// Section Container Component  
+const SectionContainer = ({ children, className = "" }) => (
+    <div className={`bg-white rounded-b-xl border border-[var(--color-border)] ${className}`}>
+        {children}
+    </div>
+);
 
 // Checkout form schema with dynamic validation
 const createCheckoutSchema = (isAuthenticated) => {
@@ -90,9 +106,6 @@ const CheckoutPage = () => {
         },
     });
 
-    const [promoCode, setPromoCode] = useState();
-    const [note, setNote] = useState();
-
     const {
         cart,
         handleGetOrderCalculateData,
@@ -126,13 +139,13 @@ const CheckoutPage = () => {
 
                     // Conditionally set promo code if it exists
                     if (res?.promo?.code) {
-                        setPromoCode(res.promo.code);
+                        form.setValue("promoCode", res.promo.code);
                         handleGetOrderCalculateData(
                             deliveryMethod,
                             res?.promo?.code
                         );
                     } else {
-                        setPromoCode(null);
+                        form.setValue("promoCode", "");
                     }
                 } catch (error) {
                     console.error("Failed to fetch cart list:", error);
@@ -141,7 +154,7 @@ const CheckoutPage = () => {
 
             fetchData();
         }
-    }, [isAuthenticated]);
+    }, [isAuthenticated, deliveryMethod, getCartListForAuthUser, handleGetOrderCalculateData, form]);
 
     const deliveryMethods = [
         {
@@ -167,7 +180,7 @@ const CheckoutPage = () => {
         if (cart?.length > 0) {
             handleGetOrderCalculateData(deliveryMethod);
         }
-    }, [deliveryMethod]);
+    }, [deliveryMethod, cart?.length, handleGetOrderCalculateData]);
 
     // order for auth user
     const handleMakeOrder = async () => {
@@ -309,6 +322,37 @@ const CheckoutPage = () => {
         }
     };
 
+    const handleRemovePromoCode = async () => {
+        form.setValue("promoCode", "");
+        
+        // Recalculate order without promo code
+        const res = await handleGetOrderCalculateData(deliveryMethod);
+
+        if (res?.status === 201 && isAuthenticated) {
+            // Update cart in backend without promo code
+            const productMap = cart?.map((product) => ({
+                product: { id: product.product.id },
+                ...(product.productColorId && {
+                    productColorId: product.productColorId,
+                }),
+                sellQty: product.sellQty,
+                thumbnailImage: product.thumbnailImage,
+                prescription: product?.prescription,
+            }));
+
+            const cartData = {
+                customer: {
+                    id: user?.id,
+                    email: user?.email,
+                },
+                cartDetailsList: [...productMap],
+                // No promo code included
+            };
+
+            await updateCart(cartData);
+        }
+    };
+
     useEffect(() => {
         if (profile) {
             form.setValue("email", profile.email);
@@ -327,296 +371,396 @@ const CheckoutPage = () => {
             }
         >
             <Container>
-                <h2 className="text-center font-semibold text-base md:text-base lg:text-2xl">
-                    Checkout
-                </h2>
+                <div className="px-4 md:px-8 lg:px-24 xl:px-[120px] py-12">
+                    <h2 className="text-center font-semibold text-base md:text-lg lg:text-2xl mb-12">
+                        Checkout
+                    </h2>
 
-                <Form {...form}>
-                    <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-12 gap-6 md:gap-12 mt-12">
-                        <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-7 2xl:col-span-8">
-                            <div className="flex flex-col gap-6">
-                                {isAuthenticated && (
-                                    <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                                        <h2>Contact Information</h2>
-                                    </div>
-                                )}
-                                {isAuthenticated && (
-                                    <div className="w-full flex gap-5 px-4 py-6">
-                                        <FormField
-                                            control={form.control}
-                                            name="email"
-                                            render={({ field }) => (
-                                                <FormItem className="flex-1">
-                                                    <FormLabel>Email address</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="Enter your email address"
-                                                            className="h-14 text-base"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-
-                                        <FormField
-                                            control={form.control}
-                                            name="mobileNumber"
-                                            render={({ field }) => (
-                                                <FormItem className="flex-1">
-                                                    <FormLabel>Phone number</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="Enter your phone number"
-                                                            className="h-14 text-base"
-                                                            maxLength={15}
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-                                )}
-                                {/* Delivery address */}
-                                <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                                    <h2>Delivery Address</h2>
-                                </div>
-                                {isAuthenticated ? (
-                                    <AuthUserAddress
-                                        setDeliveryAddress={setDeliveryAddress}
-                                        deliveryAddress={deliveryAddress}
-                                    />
-                                ) : (
-                                    <GuestUserAddressForm />
-                                )}
-
-                                {/* Delivery Method */}
-                                <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                                    <h2>Delivery Method</h2>
-                                </div>
-
-                                <FormField
-                                    control={form.control}
-                                    name="deliveryMethod"
-                                    render={({ field }) => (
-                                        <FormItem className="w-full px-4">
-                                            <FormControl>
-                                                <RadioGroup
-                                                    onValueChange={(value) => {
-                                                        field.onChange(value);
-                                                        handledeliveryMethodChange({ target: { value } });
-                                                    }}
-                                                    value={field.value}
-                                                    className="flex flex-col gap-1 w-full"
-                                                >
-                                                    {deliveryMethods?.map((delivery, index) => (
-                                                        <div
-                                                            className="py-2 flex items-end gap-2 w-full"
-                                                            key={index}
-                                                        >
-                                                            <RadioGroupItem
-                                                                value={delivery.value}
-                                                                id={`delivery-${index}`}
-                                                                className="mt-1"
-                                                            />
-                                                            <div className="flex items-center justify-between w-full">
-                                                                <label
-                                                                    htmlFor={`delivery-${index}`}
-                                                                    className={`text-sm cursor-pointer ${field.value === delivery?.value
-                                                                        ? "font-semibold text-gray-dark"
-                                                                        : "font-normal text-gray-medium"
-                                                                        }`}
-                                                                >
-                                                                    {delivery.status}&nbsp;
-                                                                    <span className="font-normal text-gray text-sm">
-                                                                        {delivery?.info}
-                                                                    </span>
-                                                                </label>
-                                                                <h3
-                                                                    className={`text-lg ${field.value === delivery?.value
-                                                                        ? "font-semibold text-gray-dark"
-                                                                        : "font-normal text-gray-medium"
-                                                                        }`}
-                                                                >
-                                                                    $ {delivery.price}
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </RadioGroup>
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                {/* Payment Method */}
-                                <div className="bg-neutral-200 px-4 py-6 font-semibold">
-                                    <h2>Payment Method</h2>
-                                </div>
-
-                                <FormField
-                                    control={form.control}
-                                    name="paymentMethod"
-                                    render={({ field }) => (
-                                        <FormItem className="px-4">
-                                            <FormControl>
-                                                <RadioGroup
-                                                    onValueChange={field.onChange}
-                                                    value={field.value}
-                                                    className="flex flex-col gap-2"
-                                                >
-                                                    <div className="flex items-center space-x-2">
-                                                        <RadioGroupItem value="stripe" id="stripe" />
-                                                        <Label htmlFor="stripe">Stripe</Label>
-                                                    </div>
-                                                </RadioGroup>
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="col-span-3 md:col-span-3 lg:col-span-2 xl:col-span-5 2xl:col-span-4 bg-secondary p-3 sm:p-6 md:p-8">
-                            <div className="flex flex-col gap-6">
-                                {/* Heading */}
-                                <div className="flex items-center justify-between">
-                                    <h1 className="font-bold text-dark text-18px">
-                                        Order Summary
-                                    </h1>
-                                    {isAuthenticated ? (
-                                        <Link
-                                            href={"/my-cart"}
-                                            className="text-blue font-semibold text-sm"
-                                        >
-                                            Edit Order
-                                        </Link>
-                                    ) : null}
-                                </div>
-
-                                {/* Product list */}
-                                {cart?.map((cartItem, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <CheckoutProductCard
-                                                cartInfo={cartItem}
-                                                pageCard={false}
-                                                showButton={false}
-                                            />
-                                        </div>
-                                    );
-                                })}
-
-                                {/* Summary */}
-                                <OrderSummary
-                                    total={
-                                        cart?.length > 0
-                                            ? calculatedData?.totalProductPriceAfterPromo +
-                                            calculatedData?.taxAmount +
-                                            calculatedData?.shippingCost
-                                            : 0
-                                    }
-                                    subTotal={
-                                        cart?.length > 0
-                                            ? calculatedData?.totalProductPrice +
-                                            calculatedData?.totalExtraCharge
-                                            : 0
-                                    }
-                                    taxPercentage={
-                                        cart?.length > 0
-                                            ? calculatedData?.taxPercentage
-                                            : 0
-                                    }
-                                    taxAmount={
-                                        cart?.length > 0 ? calculatedData?.taxAmount : 0
-                                    }
-                                    shippingCost={
-                                        cart?.length > 0
-                                            ? calculatedData?.shippingCost
-                                            : 0
-                                    }
-                                    discount={
-                                        cart?.length > 0
-                                            ? calculatedData?.promoDiscountAmount
-                                            : 0
-                                    }
-                                    fromCartPage={false}
-                                />
-
-                                {/* Discount */}
-                                <div className="flex flex-col items-start gap-1">
-                                    <p>Discount code</p>
-                                    <div className="flex flex-col md:flex-row items-center w-full gap-4 md:gap-2">
-                                        <FormField
-                                            control={form.control}
-                                            name="promoCode"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full flex-1">
-                                                    <FormControl>
-                                                        <Input
-                                                            className="h-14 w-full text-base"
-                                                            placeholder="Enter a promo code"
-                                                            {...field}
-                                                            onChange={(e) => {
-                                                                field.onChange(e.target.value);
-                                                                handlePromoCodeChange(e.target.value);
-                                                            }}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <Button
-                                            type="outline"
-                                            className={"w-full md:w-1/3"}
-                                            onClick={handleGetPromoCode}
-                                            disabled={!form.watch("promoCode")}
-                                        >
-                                            Apply
-                                        </Button>
-                                    </div>
-                                </div>
-
-                                {/* Note */}
-                                <div className="flex flex-col items-start gap-1">
-                                    <p>Order Note</p>
-                                    <FormField
-                                        control={form.control}
-                                        name="orderNote"
-                                        render={({ field }) => (
-                                            <FormItem className="w-full">
-                                                <FormControl>
-                                                    <Textarea
-                                                        rows={4}
-                                                        className="w-full text-base"
-                                                        placeholder="Write your instruction here.."
-                                                        {...field}
+                    <Form {...form}>
+                        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+                            {/* Left Column - Forms */}
+                            <div className="flex-1 lg:max-w-[636px] space-y-6">
+                                {/* Delivery Information Section */}
+                                <div className="space-y-2">
+                                    <SectionHeader title="Delivery Information" />
+                                    <SectionContainer className="p-6">
+                                        <div className="space-y-5">
+                                            {/* Contact Information for Auth Users */}
+                                            {isAuthenticated && (
+                                                <div className="flex gap-5">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="fullName"
+                                                        render={({ field }) => (
+                                                            <FormItem className="flex-1">
+                                                                <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                                    Full Name
+                                                                </FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        placeholder="Mr Smith"
+                                                                        className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
                                                     />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                                </div>
+                                            )}
+
+                                            <div className="flex gap-5">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="email"
+                                                    render={({ field }) => (
+                                                        <FormItem className="flex-1">
+                                                            <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                                Email Address
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="mrsmith@mail.com"
+                                                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+
+                                                <FormField
+                                                    control={form.control}
+                                                    name="mobileNumber"
+                                                    render={({ field }) => (
+                                                        <FormItem className="flex-1">
+                                                            <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                                Phone Number
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="+116556156"
+                                                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
+                                                                    maxLength={15}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </div>
+
+                                            {/* Delivery Address */}
+                                            <div className="space-y-2">
+                                                <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                    Delivery Address
+                                                </FormLabel>
+                                                {isAuthenticated ? (
+                                                    <AuthUserAddress
+                                                        setDeliveryAddress={setDeliveryAddress}
+                                                        deliveryAddress={deliveryAddress}
+                                                    />
+                                                ) : (
+                                                    <GuestUserAddressForm />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </SectionContainer>
                                 </div>
 
-                                {/* Payment button */}
-                                <Button
-                                    type="primary"
-                                    className={"w-full"}
-                                    onClick={handleMakeOrder}
-                                >
-                                    Confirm Order
-                                </Button>
+                                {/* Delivery Method Section */}
+                                <div className="space-y-2">
+                                    <SectionHeader title="Delivery Method" />
+                                    <SectionContainer>
+                                        <FormField
+                                            control={form.control}
+                                            name="deliveryMethod"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <RadioGroup
+                                                            onValueChange={(value) => {
+                                                                field.onChange(value);
+                                                                handledeliveryMethodChange({ target: { value } });
+                                                            }}
+                                                            value={field.value}
+                                                            className="flex flex-col w-full"
+                                                        >
+                                                            {deliveryMethods?.map((delivery, index) => (
+                                                                <div
+                                                                    key={index}
+                                                                    className={`flex items-center justify-between p-4 border-b last:border-b-0 ${
+                                                                        field.value === delivery?.value
+                                                                            ? "bg-[#EBEDF0]"
+                                                                            : "bg-[#F5F7FA]"
+                                                                    }`}
+                                                                >
+                                                                    <div className="flex items-center gap-3">
+                                                                        <RadioGroupItem
+                                                                            value={delivery.value}
+                                                                            id={`delivery-${index}`}
+                                                                            className="w-5 h-5"
+                                                                        />
+                                                                        <div className="flex items-center gap-2">
+                                                                            <label
+                                                                                htmlFor={`delivery-${index}`}
+                                                                                className={`text-sm cursor-pointer ${
+                                                                                    field.value === delivery?.value
+                                                                                        ? "font-semibold text-[var(--color-text-primary)]"
+                                                                                        : "font-normal text-[var(--color-text-secondary)]"
+                                                                                }`}
+                                                                            >
+                                                                                {delivery.status}
+                                                                            </label>
+                                                                            <span className="text-sm text-[var(--color-text-subtle)]">
+                                                                                {delivery?.info}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <span
+                                                                        className={`text-sm ${
+                                                                            field.value === delivery?.value
+                                                                                ? "font-semibold text-[var(--color-text-primary)]"
+                                                                                : "font-normal text-[var(--color-text-secondary)]"
+                                                                        }`}
+                                                                    >
+                                                                        $ {delivery.price}
+                                                                    </span>
+                                                                </div>
+                                                            ))}
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </SectionContainer>
+                                </div>
+
+                                {/* Payment Method Section */}
+                                <div className="space-y-2">
+                                    <SectionHeader title="Payment Method" />
+                                    <SectionContainer>
+                                        <FormField
+                                            control={form.control}
+                                            name="paymentMethod"
+                                            render={({ field }) => (
+                                                <FormItem className="p-4">
+                                                    <FormControl>
+                                                        <RadioGroup
+                                                            onValueChange={field.onChange}
+                                                            value={field.value}
+                                                            className="flex flex-col gap-2"
+                                                        >
+                                                            <div className="flex items-center space-x-3">
+                                                                <RadioGroupItem value="stripe" id="stripe" className="w-5 h-5" />
+                                                                <Label 
+                                                                    htmlFor="stripe" 
+                                                                    className="text-sm font-medium text-[var(--color-text-secondary)] cursor-pointer"
+                                                                >
+                                                                    Stripe
+                                                                </Label>
+                                                            </div>
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </SectionContainer>
+                                </div>
+                            </div>
+
+                            {/* Right Column - Order Summary */}
+                            <div className="w-full lg:w-[400px] bg-[var(--color-background)] rounded-xl p-8 border border-[var(--color-border)] h-fit">
+                                <div className="space-y-6">
+                                    {/* Header */}
+                                    <div className="flex items-center justify-between">
+                                        <h1 className="font-bold text-[var(--color-text-primary)] text-xl">
+                                            Order Summary
+                                        </h1>
+                                        {isAuthenticated && (
+                                            <Link
+                                                href={"/my-cart"}
+                                                className="text-[var(--color-primary)] font-semibold text-sm"
+                                            >
+                                                Edit Order
+                                            </Link>
+                                        )}
+                                    </div>
+
+                                    {/* Product List */}
+                                    <div className="space-y-5">
+                                        {cart?.map((cartItem, index) => (
+                                            <div key={index} className="pb-5 border-b border-[var(--color-border)] last:border-b-0">
+                                                <CheckoutProductCard
+                                                    cartInfo={cartItem}
+                                                    pageCard={false}
+                                                    showButton={false}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Order Summary */}
+                                    <div className="space-y-3 py-4 border-y border-[var(--color-border)]">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                Sub total ({cart?.length} items)
+                                            </span>
+                                            <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                $ {formatNumber(
+                                                    cart?.length > 0
+                                                        ? calculatedData?.totalProductPrice + calculatedData?.totalExtraCharge
+                                                        : 0
+                                                )}
+                                            </span>
+                                        </div>
+                                        
+                                        {calculatedData?.promoDiscountAmount > 0 && (
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-sm text-[var(--color-text-secondary)]">Discount</span>
+                                                <span className="text-sm text-red-500 font-medium">
+                                                    - $ {formatNumber(calculatedData?.promoDiscountAmount)}
+                                                </span>
+                                            </div>
+                                        )}
+
+                                        <div className="flex justify-between items-center pt-3 border-t border-[var(--color-border)]">
+                                            <span className="text-sm font-medium text-[var(--color-text-primary)]">Total Price</span>
+                                            <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                $ {formatNumber(
+                                                    cart?.length > 0
+                                                        ? calculatedData?.totalProductPriceAfterPromo
+                                                        : 0
+                                                )}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-sm text-[var(--color-text-secondary)]">Tax ({calculatedData?.taxPercentage || 0}%)</span>
+                                            <span className="text-sm text-[var(--color-text-secondary)]">
+                                                $ {formatNumber(cart?.length > 0 ? calculatedData?.taxAmount : 0)}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-sm text-[var(--color-text-secondary)]">Shipping cost</span>
+                                            <span className="text-sm text-[var(--color-text-secondary)]">
+                                                $ {formatNumber(cart?.length > 0 ? calculatedData?.shippingCost : 0)}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Final Total */}
+                                    <div className="flex justify-between items-center py-2">
+                                        <span className="text-lg font-semibold text-[var(--color-text-primary)]">
+                                            Final Order Price
+                                        </span>
+                                        <span className="text-lg font-semibold text-[var(--color-primary)]">
+                                            $ {formatNumber(
+                                                cart?.length > 0
+                                                    ? calculatedData?.totalProductPriceAfterPromo +
+                                                      calculatedData?.taxAmount +
+                                                      calculatedData?.shippingCost
+                                                    : 0
+                                            )}
+                                        </span>
+                                    </div>
+
+                                    {/* Discount Code */}
+                                    <div className="space-y-2">
+                                        <p className="text-sm font-medium text-[var(--color-text-primary)]">Discount code</p>
+                                        {calculatedData?.promoDiscountAmount > 0 && form.watch("promoCode") ? (
+                                            // Applied Promo Code Display
+                                            <div className="flex items-center justify-between h-12 px-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl">
+                                                <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                                                    {form.watch("promoCode")}
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    onClick={handleRemovePromoCode}
+                                                    className="text-sm font-medium text-red-500 hover:text-red-600 transition-colors"
+                                                >
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            // Promo Code Input
+                                            <div className="flex gap-2">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="promoCode"
+                                                    render={({ field }) => (
+                                                        <FormItem className="flex-1">
+                                                            <FormControl>
+                                                                <Input
+                                                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
+                                                                    placeholder="Enter a promo code"
+                                                                    {...field}
+                                                                    onChange={(e) => {
+                                                                        field.onChange(e.target.value);
+                                                                        handlePromoCodeChange(e.target.value);
+                                                                    }}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    variant="outline"
+                                                    className="px-6 h-12 rounded-xl border-[var(--color-border)]"
+                                                    onClick={handleGetPromoCode}
+                                                    disabled={!form.watch("promoCode")}
+                                                >
+                                                    Apply
+                                                </Button>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Order Note */}
+                                    <div className="space-y-2">
+                                        <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                                            Order Note (Optional)
+                                        </p>
+                                        <FormField
+                                            control={form.control}
+                                            name="orderNote"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Textarea
+                                                            rows={4}
+                                                            className="text-sm bg-white border-[var(--color-border)] rounded-xl resize-none"
+                                                            placeholder="Write your instructions here.."
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    {/* Confirm Order Button */}
+                                    <Button
+                                        type="button"
+                                        className="w-full h-12 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary)]/90"
+                                        onClick={handleMakeOrder}
+                                    >
+                                        Confirm Order
+                                    </Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Form>
+                    </Form>
+                </div>
             </Container>
         </LoadingOverlay>
     );

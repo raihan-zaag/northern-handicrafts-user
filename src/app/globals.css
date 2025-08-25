@@ -76,8 +76,10 @@
    --container-sm: 640px;
    --container-md: 768px;
    --container-lg: 1024px;
-   --container-xl: 1280px;
-   --container-2xl: 1536px;
+   --container-xl: 1200px;
+   /* 1200px */
+   --container-2xl: 1400px;
+   /* 1536px */
 
    /* Font Family */
    --font-sans: "Inter", "system-ui", sans-serif;
@@ -278,6 +280,7 @@ body {
       opacity: 0;
       transform: translateY(10px);
    }
+
    to {
       opacity: 1;
       transform: translateY(0);
@@ -289,6 +292,7 @@ body {
       opacity: 0;
       transform: translateY(20px);
    }
+
    to {
       opacity: 1;
       transform: translateY(0);
@@ -300,6 +304,7 @@ body {
       opacity: 0;
       transform: scale(0.95);
    }
+
    to {
       opacity: 1;
       transform: scale(1);
@@ -327,4 +332,40 @@ select:-webkit-autofill:focus {
    ======================= */
 .search-field {
    width: 400px !important;
+}
+
+
+/* Simplified version */
+.container {
+   width: 100%;
+}
+
+@media (min-width: 640px) {
+   .container {
+      max-width: var(--container-sm);
+   }
+}
+
+@media (min-width: 768px) {
+   .container {
+      max-width: var(--container-md);
+   }
+}
+
+@media (min-width: 1024px) {
+   .container {
+      max-width: var(--container-lg);
+   }
+}
+
+@media (min-width: 1280px) {
+   .container {
+      max-width: var(--container-xl);
+   }
+}
+
+@media (min-width: 1536px) {
+   .container {
+      max-width: var(--container-2xl);
+   }
 }

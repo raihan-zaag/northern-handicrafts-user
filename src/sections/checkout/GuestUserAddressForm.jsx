@@ -1,35 +1,34 @@
 "use client";
 
-import React from "react";
 import { useFormContext } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Input } from "@/common/components/ui/input";
+import { Textarea } from "@/common/components/ui/textarea";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/common/components/ui/form";
 
 const GuestUserAddressForm = () => {
     const form = useFormContext();
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             {/* Full Name */}
             <FormField
                 control={form.control}
                 name="fullName"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Full Name*</FormLabel>
+                        <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                            Full Name
+                        </FormLabel>
                         <FormControl>
                             <Input
-                                placeholder="Enter your fullname."
-                                className="h-14 text-base"
+                                placeholder="Mr Smith"
+                                className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                 {...field}
                             />
                         </FormControl>
@@ -44,12 +43,14 @@ const GuestUserAddressForm = () => {
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Email address*</FormLabel>
+                        <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                            Email Address
+                        </FormLabel>
                         <FormControl>
                             <Input
                                 type="email"
-                                placeholder="Enter your email address."
-                                className="h-14 text-base"
+                                placeholder="mrsmith@mail.com"
+                                className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                 {...field}
                             />
                         </FormControl>
@@ -64,11 +65,13 @@ const GuestUserAddressForm = () => {
                 name="mobileNumber"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Phone number</FormLabel>
+                        <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                            Phone Number
+                        </FormLabel>
                         <FormControl>
                             <Input
-                                placeholder="Enter your phone number."
-                                className="h-14 text-base"
+                                placeholder="+116556156"
+                                className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                 maxLength={15}
                                 {...field}
                             />
@@ -79,17 +82,19 @@ const GuestUserAddressForm = () => {
             />
 
             {/* Country and State Row */}
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-5">
                 <FormField
                     control={form.control}
                     name="country"
                     render={({ field }) => (
-                        <FormItem className="w-full">
-                            <FormLabel>Country*</FormLabel>
+                        <FormItem className="flex-1">
+                            <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                Country
+                            </FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Enter your country name"
-                                    className="h-12 text-base"
+                                    placeholder="United States"
+                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                     {...field}
                                 />
                             </FormControl>
@@ -102,12 +107,14 @@ const GuestUserAddressForm = () => {
                     control={form.control}
                     name="state"
                     render={({ field }) => (
-                        <FormItem className="w-full">
-                            <FormLabel>District/State*</FormLabel>
+                        <FormItem className="flex-1">
+                            <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                District/State
+                            </FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Enter your district/state name"
-                                    className="h-12 text-base"
+                                    placeholder="California"
+                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                     {...field}
                                 />
                             </FormControl>
@@ -118,17 +125,19 @@ const GuestUserAddressForm = () => {
             </div>
 
             {/* City and ZIP Row */}
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-5">
                 <FormField
                     control={form.control}
                     name="city"
                     render={({ field }) => (
-                        <FormItem className="w-full">
-                            <FormLabel>City/Area*</FormLabel>
+                        <FormItem className="flex-1">
+                            <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                City/Area
+                            </FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Enter your city/area name"
-                                    className="h-12 text-base"
+                                    placeholder="Los Angeles"
+                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                     {...field}
                                 />
                             </FormControl>
@@ -141,13 +150,14 @@ const GuestUserAddressForm = () => {
                     control={form.control}
                     name="zipCode"
                     render={({ field }) => (
-                        <FormItem className="w-full">
-                            <FormLabel>ZIP/Postal Code*</FormLabel>
+                        <FormItem className="flex-1">
+                            <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                                ZIP/Postal Code
+                            </FormLabel>
                             <FormControl>
                                 <Input
-                                    type="number"
-                                    placeholder="Enter zip/postal code here"
-                                    className="h-12 text-base"
+                                    placeholder="90017"
+                                    className="h-12 text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl"
                                     {...field}
                                 />
                             </FormControl>
@@ -163,11 +173,13 @@ const GuestUserAddressForm = () => {
                 name="street"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Street Address*</FormLabel>
+                        <FormLabel className="text-sm font-medium text-[var(--color-text-primary)]">
+                            Street Address
+                        </FormLabel>
                         <FormControl>
                             <Textarea
-                                placeholder="e.g. Road no., Area, City, Zip code etc."
-                                className="min-h-120px text-base"
+                                placeholder="4135 Parkway Street"
+                                className="min-h-[80px] text-sm bg-[var(--color-surface)] border-[var(--color-border)] rounded-xl resize-none"
                                 {...field}
                             />
                         </FormControl>
